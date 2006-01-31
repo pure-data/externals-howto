@@ -673,6 +673,7 @@ mit \verb+A_GIMME+, werden dem Konstruktor folgende Argumente
     f1=atom_getfloat(argv);
     break;
   case 0:
+    break;
   }
   if (argc<2)f2=f1;
   x->i_down = (f1<f2)?f1:f2;
@@ -860,6 +861,7 @@ void *counter_new(t_symbol *s, int argc, t_atom *argv)
     f1=atom_getfloat(argv);
     break;
   case 0:
+    break;
   }
   if (argc<2)f2=f1;
 
