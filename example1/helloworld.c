@@ -6,7 +6,7 @@
  * it creates an object that prints "Hello world!" whenever it 
  * gets banged.
  *
- * this file is released under Pd's license (BSD-like)
+ * for legal issues please see the file LICENSE.txt
  */
 
 

@@ -6,7 +6,7 @@
  * it creates an object that increments and outputs a counter
  * whenever it gets banged.
  *
- * this file is released under Pd's license (BSD-like)
+ * for legal issues please see the file LICENSE.txt
  */
 
 
