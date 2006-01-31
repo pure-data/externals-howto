@@ -45,6 +45,7 @@ void helloworld_bang(t_helloworld *x)
    * the string (which can be formatted like with printf()) will be
    * output to wherever Pd thinks it has too (pd's console, the stderr...)
    * it automatically adds a newline at the end of the string
+   */
   post("Hello world !!");
 }
 

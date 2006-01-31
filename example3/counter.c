@@ -126,6 +126,7 @@ void *counter_new(t_symbol *s, int argc, t_atom *argv)
     f1=atom_getfloat(argv);
     break;
   case 0:
+    break;
   }
   if (argc<2)f2=f1;
 
