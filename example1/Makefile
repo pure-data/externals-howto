@@ -62,7 +62,7 @@ TARGETS=$(SOURCES:.c=.$(EXTENSION))
 
 pd_linux: $(TARGETS)
 
-LINUXCFLAGS = -DPD -O2 -funroll-loops -fomit-frame-pointer \
+LINUXCFLAGS = -DPD -O2 -funroll-loops -fomit-frame-pointer -fPIC \
     -Wall -W -Wshadow -Wstrict-prototypes -Werror \
     -Wno-unused -Wno-parentheses -Wno-switch
 
