@@ -3,7 +3,7 @@
 \documentclass[12pt, a4paper,austrian, titlepage]{article}
 
 
-%% HOWTO write an external for pd
+%% HOWTO write an external for Pd
 %% Copyright (c) 2001-2006 by IOhannes m zmölnig
 %%
 %%  Permission is granted to copy, distribute and/or modify this document
@@ -49,7 +49,7 @@
 \title{
 HOWTO \\
 write an External \\
-for {\em puredata}
+for {\em Pure data}
 }
 
 \author{
@@ -71,17 +71,17 @@ johannes m zmölnig \\
 \hyphenation{Echt-zeit-Computer-musik-pro-gramm}
 
 \begin{abstract}
-pd ist ein graphisches Computermusiksystem in der Tradition von IRCAMs {\em ISPW-max}.
+Pd ist ein graphisches Computermusiksystem in der Tradition von IRCAMs {\em ISPW-max}.
 
-Obwohl eine Fülle von Funktionen von pd selbst zur Verfügung gestellt 
+Obwohl eine Fülle von Funktionen von Pd selbst zur Verfügung gestellt 
 werden, stößt man doch manchmal an die Grenzen dessen,
 das mit diesen Primitiven und ihren Kombinationen möglich ist.
 
-Deswegen bietet pd die Möglichkeit, eigene Primitive (``objects'', Objekte) in komplexen
+Deswegen bietet Pd die Möglichkeit, eigene Primitive (``objects'', Objekte) in komplexen
 Programmiersprachen wie {\tt C/C++} zu erstellen.
 
 In diesem Dokument soll beschrieben werden, wie man solche Primitive mit Hilfe der 
-Sprache {\tt C}, in der auch pd selbst realisiert wurde, schreibt.
+Sprache {\tt C}, in der auch Pd selbst realisiert wurde, schreibt.
 \end{abstract}
 
 
@@ -95,21 +95,21 @@ Sprache {\tt C}, in der auch pd selbst realisiert wurde, schreibt.
 
 \section{Voraussetzungen und Begriffsbestimmungen}
 
-pd bezieht sich auf das graphische Echtzeit-Computermusikprogramm von
+Pd bezieht sich auf das graphische Echtzeit-Computermusikprogramm von
 Miller~S.~Puckette.
-{\em puredata}.
+{\em Pure data}.
 
-Zum Verständnis dieses Dokumentes wird der Umgang mit pd sowie
+Zum Verständnis dieses Dokumentes wird der Umgang mit Pd sowie
 Verständnis von Programmiertechniken, insbesondere {\tt C} vorausgesetzt.
 
 Zum Schreiben von eigenen Primitiven wird weiters ein {\tt C}-Compiler,
 der dem {\tt ANSI-C}-Standard genügt, notwendig sein.
 Solche Compiler sind beispielsweise der {\em Gnu C-Compiler} (gcc) auf linux-Systemen oder
-{\em Visual-C++ 6.0} (vc6) auf Windows-Systemen.
+{\em Visual-C++} auf Windows-Systemen.
 
 \subsection{Klassen, Instanzen und Objekte}
-pd ist in der Programmiersprache {\tt C} geschrieben.
-Allerdings ist pd auf Grund seiner graphischen Natur ein {\em objektorientiertes} System.
+Pd ist in der Programmiersprache {\tt C} geschrieben.
+Allerdings ist Pd auf Grund seiner graphischen Natur ein {\em objektorientiertes} System.
 Da {\tt C} die Verwendung von Klassen nicht sehr gut unterstützt, ist der resultierende
 Quellcode nicht so elegant wie er zum Beispiel unter {\tt C++} wäre.
 
@@ -123,13 +123,13 @@ Um Begriffsverwirrungen von vorneherein auszuschließen, seien hier kurz die Ausd
 {\em Internal}, {\em External} und {\em Library} erklärt.
 
 \paragraph{Internal}
-Ein {\em Internal} ist eine Klasse, die in pd eingebaut ist.
+Ein {\em Internal} ist eine Klasse, die in Pd eingebaut ist.
 Viele Primitive wie ``+'', ``pack'' oder ``sig\~\/`` sind {\em Internals}
 
 \paragraph{External}
-Ein {\em External} ist eine Klasse, die nicht in pd eingebaut ist und erst zur Laufzeit
+Ein {\em External} ist eine Klasse, die nicht in Pd eingebaut ist und erst zur Laufzeit
 nachgeladen wird.
-Sind sie einmal im Speicher von pd, so sind {\em Externals} nicht mehr von {\em Internals} zu
+Sind sie einmal im Speicher von Pd, so sind {\em Externals} nicht mehr von {\em Internals} zu
 unterscheiden.
 
 \paragraph{Library}
@@ -149,18 +149,18 @@ Die einfachste Form einer {\em Library} beinhaltet genau ein {\em External},
 das den selben Name trägt, wie auch die {\em Library}
 
 Im Gegensatz zu Externals können {\em Libraries} mit bestimmten Befehlen
-von pd importiert werden.
+von Pd importiert werden.
 Ist eine {\em Library} importiert worden,
 so sind alle {\em Externals}, die sie beinhaltet,
 in den Speicher geladen und stehen als Objekte zur Verfügung.
 
-pd stellt zwei Methoden zur Verfügung, um {\em Libraries} zu laden:
+Pd stellt zwei Methoden zur Verfügung, um {\em Libraries} zu laden:
 \begin{itemize}
 \item mit der commandline-Option ``{\tt -lib my\_lib}''
 \item durch Kreieren eines Objektes ``{\tt my\_lib}''
 \end{itemize}
 
-Die erste Methode lädt die {\em Library} sofort beim Starten von pd.
+Die erste Methode lädt die {\em Library} sofort beim Starten von Pd.
 Dies ist die zu bevorzugende Methode für {\em Libraries},
 die mehrere {\em Externals} beinhalten.
 
@@ -194,8 +194,8 @@ Ein Objekt soll geschaffen werden, dass jedesmal, wenn es
 mit ``bang'' getriggert wird, die Zeile ``Hello world!!'' auf
 die Standardausgabe schreibt.
 
-\subsection{die Schnittstelle zu pd}
-Um ein pd-External zu schreiben, braucht man eine wohldefinierte Schnittstelle.
+\subsection{die Schnittstelle zu Pd}
+Um ein Pd-External zu schreiben, braucht man eine wohldefinierte Schnittstelle.
 Diese wird in der Datei ``m\_pd.h'' zur Verfügung gestellt.
 
 \begin{verbatim}
@@ -234,7 +234,7 @@ Manipulatoren (Methoden) mit denen diese Daten manipuliert werden können.
 
 Wird eine Message an eine Instanz unserer Klasse geschickt,
 so wird eine Methoden aufgerufen.
-Diese Mehtoden, die die Schnittstelle zum Messagesystem von pd bilden, 
+Diese Mehtoden, die die Schnittstelle zum Messagesystem von Pd bilden, 
 haben grundsätzlich kein Rückgabeargument, sind also vom Typ \verb+void+.
 
 \begin{verbatim}
@@ -258,11 +258,11 @@ Ansonsten funktioniert \verb+post()+ gleich wie der {\tt C}-Befehl \verb+printf(
 \subsection{Generierung einer neuen Klasse}
 Um eine neue Klasse zu generieren, müssen Angaben über
 den Datenraum und den Methodenraum dieser Klasse 
-beim Laden einer Library an pd übergeben werden.
+beim Laden einer Library an Pd übergeben werden.
 
 Wird eine neue Library ``my\_lib'' geladen,
-so versucht pd eine Funktion ``my\_lib\_setup()'' aufzurufen.
-Diese Funktion (oder von ihr aufgerufene Funktionen) teilt pd mit,
+so versucht Pd eine Funktion ``my\_lib\_setup()'' aufzurufen.
+Diese Funktion (oder von ihr aufgerufene Funktionen) teilt Pd mit,
 welche Eigenschaften die neuen Klassen haben.
 Sie wird nur einmal, beim Laden der Library aufgerufen.
 
@@ -286,16 +286,16 @@ Prototyp zurück.
 Das erste Argument ist der symbolische Name der Klasse.
 
 Die nächsten beiden Argumente definieren Konstruktor und Destruktor der Klasse.
-Wenn in einen pd-Patch ein Objekt kreiert wird, 
+Wenn in einen Pd-Patch ein Objekt kreiert wird, 
 instanziiert der Konstruktor \verb+(t_newmethod)helloworld_new+ diesses Objekt
 und initialisiert den Datenraum.
-Wird ein pd-Patch geschlossen oder ein Objekt daraus entfernt,
+Wird ein Pd-Patch geschlossen oder ein Objekt daraus entfernt,
 so gibt der Destruktor, wenn notwendig, dynamisch reservierten Speicher wieder frei.
-Der Speicherplatz für den Datenraum selbst wird von pd automatisch freigegeben.
+Der Speicherplatz für den Datenraum selbst wird von Pd automatisch freigegeben.
 Deshalb kann in diesem Beispiel auf einen Destruktor verzichtet werden,
 folglich wird dieses Argument auf ``0'' gesetzt.
 
-Damit pd genug Speicher für den Datenraum allozieren und wieder freigeben kann,
+Damit Pd genug Speicher für den Datenraum allozieren und wieder freigeben kann,
 wird die Größe dieser Datenstruktur als viertes Argument übergeben.
 
 Das fünfte Argument bestimmt, wie Klasseninstanzen graphisch dargestellt werden und 
@@ -325,7 +325,7 @@ Diese Methode ist das zweite Argument.
 
 
 \subsection{Konstruktor: Instanziierung eines Objektes}
-Jedesmal, wenn in einem pd-Patch ein Objekt einer Klasse kreiert wird,
+Jedesmal, wenn in einem Pd-Patch ein Objekt einer Klasse kreiert wird,
 schafft der mit \verb+class_new+ angegebene Konstruktor eine neue Instanz der Klasse.
 
 Der Konstruktor ist immer vom Typ \verb+void *+
@@ -636,7 +636,7 @@ wird ebenfalls eine Methode zur Klasse hinzugefügt.
   class_sethelpsymbol(counter_class, gensym("help-counter"));
 \end{verbatim}
 
-Clickt man mit der rechten Maustaste auf ein pd-Objekt,
+Clickt man mit der rechten Maustaste auf ein Pd-Objekt,
 so kann man sich einen Hilfe-Patch für die zugehörige Objektklasse anzeigen lasse.
 Standardmäßig wird ist dies ein Patch mit dem symbolischen Klassennamen
 im Verzeichnis ``{\em doc/5.reference/}'' gesucht.
@@ -955,7 +955,7 @@ void pan_tilde_setup(void) {
 \end{verbatim}
 
 Jeder Signalklasse muss eine Methode für die Signalverarbeitung zugeordnet werden.
-Wenn die Audioengine von pd gestartet wird, wird allen Objekten eine
+Wenn die Audioengine von Pd gestartet wird, wird allen Objekten eine
 Message mit dem Selector ``\verb+dsp+'' geschickt.
 Alle Klassen, die eine Methode für die ``dsp''-Message haben, sind Signalklassen.
 
@@ -999,7 +999,7 @@ Selector ``signal'' versehen ist.
 
 
 \subsection{DSP-Methode}
-Wenn die Audio-Engine von pd eingeschalten wird,
+Wenn die Audio-Engine von Pd eingeschalten wird,
 so teilen ihr alle Signal-Objekte mit,
 welche Methode von ihrer Klasse zur digitalen Signalverarbeitung herangezogen werden soll.
 
@@ -1206,18 +1206,18 @@ Zum Beispiel sind also die Messages ``\verb+12.429+'' und ``\verb+float 12.429+'
 Ebenfalls ident sind auch die Listen-Messages
 ``\verb+list 1 kleines Haus+'' und ``\verb+1 kleines Haus+''.
 
-\section{pd-Typen}
-Da pd auf mehreren Plattformen benutzt wird,
+\section{Pd-Typen}
+Da Pd auf mehreren Plattformen benutzt wird,
 werden viele gewöhnliche Variablentypen, wie \verb|int|, neu definiert.
-Um portablen Code zu schreiben ist es daher angebracht, die von pd bereitgestellten
+Um portablen Code zu schreiben ist es daher angebracht, die von Pd bereitgestellten
 Typen zu verwenden.
 
 Weiters gibt es viele vordefinierte Typen,
 die das Leben des Programmierers vereinfachen sollten.
-pd-Typen beginnen im Allgemeinen mit \verb|t_|.
+Pd-Typen beginnen im Allgemeinen mit \verb|t_|.
 
 \begin{tabular}{c|l}
-pd-Type & Beschreibung \\
+Pd-Type & Beschreibung \\
 \hline\hline
 \verb+t_atom+& Atom \\
 \verb+t_float+ & Gleitkomma-Zahl \\
@@ -1231,7 +1231,7 @@ pd-Type & Beschreibung \\
 \verb+t_inlet+ & Inlet eines Objekts \\
 \verb+t_object+ & Objekt-Interna \\
 \hline
-\verb+t_class+ & eine pd-Klasse \\
+\verb+t_class+ & eine Pd-Klasse \\
 \verb+t_method+ & Zeiger auf Klassenmethode \\
 \verb+t_newmethod+ & Zeiger auf Klasseninstanziierungsmethode (new-Routine) \\
 \end{tabular}
@@ -1503,7 +1503,7 @@ Die ``0''-terminierte Typenliste entspricht der von \verb+class_new+.
 void class_sethelpsymbol(t_class *c, t_symbol *s);
 \end{verbatim}
 
-Clickt man mit der rechten Maustaste auf ein pd-Objekt,
+Clickt man mit der rechten Maustaste auf ein Pd-Objekt,
 so kann man sich einen Hilfe-Patch für die zugehörige Objektklasse anzeigen lasse.
 Standardmäßig wird ist dies ein Patch mit dem symbolischen Klassennamen
 im Verzeichnis ``{\em doc/5.reference/}'' gesucht.
@@ -1798,7 +1798,7 @@ void error(char *fmt, ...);
 
 Schreibt einen {\tt C}-String als Fehlermeldung auf den Standarderror (Shell).
 Das Objekt, das die Fehlermeldung ausgegeben hat, wird markiert und
-ist über das pd-Menü {\em Find->Find last error} identifizierbar.
+ist über das Pd-Menü {\em Find->Find last error} identifizierbar.
 
 \end{appendix}
 
