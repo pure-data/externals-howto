@@ -4,7 +4,7 @@
 
 
 %% HOWTO write an external for Pd
-%% Copyright (c) 2001-2006 by IOhannes m zmölnig
+%% Copyright (c) 2001-2006 by IOhannes m zmÃ¶lnig
 %%
 %%  Permission is granted to copy, distribute and/or modify this document
 %%  under the terms of the GNU Free Documentation License, Version 1.2
@@ -13,7 +13,7 @@
 %%  Texts.  A copy of the license is included in the LICENSE.txt file.
 
 %sprache
-\usepackage[latin1]{inputenc}
+\usepackage[utf-8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
 
@@ -25,7 +25,7 @@
 
 
 %\begin{latexonly}
-% pdf kompatibilität
+% pdf kompatibilitÃ¤t
 \newif\ifpdf
 \ifx\pdfoutput\undefined
   \pdffalse     % we are not running PDFLatex
@@ -53,11 +53,11 @@ for {\em Pure data}
 }
 
 \author{
-johannes m zmölnig \\
+johannes m zmÃ¶lnig \\
 \\
 {\em
-\latexhtml{institut für elektronische musik und akustik}
-{\htmladdnormalink{institut für elektronische musik und akustik}{http://iem.at}}
+\latexhtml{institut fÃ¼r elektronische musik und akustik}
+{\htmladdnormalink{institut fÃ¼r elektronische musik und akustik}{http://iem.at}}
 }
 }
 
@@ -73,11 +73,11 @@ johannes m zmölnig \\
 \begin{abstract}
 Pd ist ein graphisches Computermusiksystem in der Tradition von IRCAMs {\em ISPW-max}.
 
-Obwohl eine Fülle von Funktionen von Pd selbst zur Verfügung gestellt 
-werden, stößt man doch manchmal an die Grenzen dessen,
-das mit diesen Primitiven und ihren Kombinationen möglich ist.
+Obwohl eine FÃ¼lle von Funktionen von Pd selbst zur VerfÃ¼gung gestellt 
+werden, stÃ¶ÃŸt man doch manchmal an die Grenzen dessen,
+das mit diesen Primitiven und ihren Kombinationen mÃ¶glich ist.
 
-Deswegen bietet Pd die Möglichkeit, eigene Primitive (``objects'', Objekte) in komplexen
+Deswegen bietet Pd die MÃ¶glichkeit, eigene Primitive (``objects'', Objekte) in komplexen
 Programmiersprachen wie {\tt C/C++} zu erstellen.
 
 In diesem Dokument soll beschrieben werden, wie man solche Primitive mit Hilfe der 
@@ -99,19 +99,19 @@ Pd bezieht sich auf das graphische Echtzeit-Computermusikprogramm von
 Miller~S.~Puckette.
 {\em Pure data}.
 
-Zum Verständnis dieses Dokumentes wird der Umgang mit Pd sowie
-Verständnis von Programmiertechniken, insbesondere {\tt C} vorausgesetzt.
+Zum VerstÃ¤ndnis dieses Dokumentes wird der Umgang mit Pd sowie
+VerstÃ¤ndnis von Programmiertechniken, insbesondere {\tt C} vorausgesetzt.
 
 Zum Schreiben von eigenen Primitiven wird weiters ein {\tt C}-Compiler,
-der dem {\tt ANSI-C}-Standard genügt, notwendig sein.
+der dem {\tt ANSI-C}-Standard genÃ¼gt, notwendig sein.
 Solche Compiler sind beispielsweise der {\em Gnu C-Compiler} (gcc) auf linux-Systemen oder
 {\em Visual-C++} auf Windows-Systemen.
 
 \subsection{Klassen, Instanzen und Objekte}
 Pd ist in der Programmiersprache {\tt C} geschrieben.
 Allerdings ist Pd auf Grund seiner graphischen Natur ein {\em objektorientiertes} System.
-Da {\tt C} die Verwendung von Klassen nicht sehr gut unterstützt, ist der resultierende
-Quellcode nicht so elegant wie er zum Beispiel unter {\tt C++} wäre.
+Da {\tt C} die Verwendung von Klassen nicht sehr gut unterstÃ¼tzt, ist der resultierende
+Quellcode nicht so elegant wie er zum Beispiel unter {\tt C++} wÃ¤re.
 
 Der Ausdruck {\em Klasse} bezieht sich in diesem Dokument auf die Realisierung eines
 Konzeptes, bei dem Daten und Manipulatoren eine Einheit bilden.
@@ -119,8 +119,8 @@ Konzeptes, bei dem Daten und Manipulatoren eine Einheit bilden.
 Konkrete {\em Instanzen einer Klasse} sind {\em Objekte}.
 
 \subsection{Internals, Externals und Libraries}
-Um Begriffsverwirrungen von vorneherein auszuschließen, seien hier kurz die Ausdrücke
-{\em Internal}, {\em External} und {\em Library} erklärt.
+Um Begriffsverwirrungen von vorneherein auszuschlieÃŸen, seien hier kurz die AusdrÃ¼cke
+{\em Internal}, {\em External} und {\em Library} erklÃ¤rt.
 
 \paragraph{Internal}
 Ein {\em Internal} ist eine Klasse, die in Pd eingebaut ist.
@@ -134,9 +134,9 @@ unterscheiden.
 
 \paragraph{Library}
 Eine {\em Library} bezeichnet eine Sammlung von {\em Externals},
-die gemeinsam in eine Binärdatei kompiliert werden.
+die gemeinsam in eine BinÃ¤rdatei kompiliert werden.
 
-{\em Library}-Dateien müssen eine betriebssystemabhängige Namenskonvention einhalten:
+{\em Library}-Dateien mÃ¼ssen eine betriebssystemabhÃ¤ngige Namenskonvention einhalten:
 
 \begin{tabular}{c||c|c|c}
 Bibliothek&linux&irix&Win32 \\
@@ -146,27 +146,27 @@ Bibliothek&linux&irix&Win32 \\
 \end{tabular}
 
 Die einfachste Form einer {\em Library} beinhaltet genau ein {\em External},
-das den selben Name trägt, wie auch die {\em Library}
+das den selben Name trÃ¤gt, wie auch die {\em Library}
 
-Im Gegensatz zu Externals können {\em Libraries} mit bestimmten Befehlen
+Im Gegensatz zu Externals kÃ¶nnen {\em Libraries} mit bestimmten Befehlen
 von Pd importiert werden.
 Ist eine {\em Library} importiert worden,
 so sind alle {\em Externals}, die sie beinhaltet,
-in den Speicher geladen und stehen als Objekte zur Verfügung.
+in den Speicher geladen und stehen als Objekte zur VerfÃ¼gung.
 
-Pd stellt zwei Methoden zur Verfügung, um {\em Libraries} zu laden:
+Pd stellt zwei Methoden zur VerfÃ¼gung, um {\em Libraries} zu laden:
 \begin{itemize}
 \item mit der commandline-Option ``{\tt -lib my\_lib}''
 \item durch Kreieren eines Objektes ``{\tt my\_lib}''
 \end{itemize}
 
-Die erste Methode lädt die {\em Library} sofort beim Starten von Pd.
-Dies ist die zu bevorzugende Methode für {\em Libraries},
+Die erste Methode lÃ¤dt die {\em Library} sofort beim Starten von Pd.
+Dies ist die zu bevorzugende Methode fÃ¼r {\em Libraries},
 die mehrere {\em Externals} beinhalten.
 
-Die zweite Methode ist für {\em Libraries} zu bevorzugen, die genau
+Die zweite Methode ist fÃ¼r {\em Libraries} zu bevorzugen, die genau
 ein {\em External} mit dem selben Namen beinhalten.
-Bei der zweiten Methode wird zuerst geprüft, ob eine Klasse namens ``my\_lib'' bereits
+Bei der zweiten Methode wird zuerst geprÃ¼ft, ob eine Klasse namens ``my\_lib'' bereits
 in den Speicher geladen ist.
 Ist dies nicht der Fall\footnote
 {Ist eine solche Klasse bereits im Speicher, wird ein
@@ -176,7 +176,7 @@ Man kann daher keine {\em Libraries} mit bereits verwendeten Klassennamen,
 wie zum Beispiel ``abs'', laden.}
 so werden alle Pfade untersucht,
 ob darin eine Datei namens ``{\tt my\_lib.pd\_linux}''\footnote{
-oder einer anderen betriebssystemabhängigen Dateinamenerweiterung (s.o.)}
+oder einer anderen betriebssystemabhÃ¤ngigen Dateinamenerweiterung (s.o.)}
 existiert.
 Wird eine solche Datei gefunden, so werden alle in ihr enthaltenen {\em Externals}
 in den Speicher geladen.
@@ -187,7 +187,7 @@ Ansonsten wird eine Fehlermeldung ausgegeben, die Instanziierung ist gescheitert
 
 
 \section{mein erstes External: {\tt helloworld}}
-Wie das beim Erlernen von Programmiersprachen so üblich ist,
+Wie das beim Erlernen von Programmiersprachen so Ã¼blich ist,
 beginnen wir mit ``Hello world''.
 
 Ein Objekt soll geschaffen werden, dass jedesmal, wenn es
@@ -196,7 +196,7 @@ die Standardausgabe schreibt.
 
 \subsection{die Schnittstelle zu Pd}
 Um ein Pd-External zu schreiben, braucht man eine wohldefinierte Schnittstelle.
-Diese wird in der Datei ``m\_pd.h'' zur Verfügung gestellt.
+Diese wird in der Datei ``m\_pd.h'' zur VerfÃ¼gung gestellt.
 
 \begin{verbatim}
 #include "m_pd.h"
@@ -204,8 +204,8 @@ Diese wird in der Datei ``m\_pd.h'' zur Verfügung gestellt.
 
 
 \subsection{eine Klasse und ihr Datenraum}
-Als nächstes muß eine neue Klasse vorbereitet und der
-Datenraum für diese Klasse definiert werden.
+Als nÃ¤chstes muÃŸ eine neue Klasse vorbereitet und der
+Datenraum fÃ¼r diese Klasse definiert werden.
 
 \begin{verbatim}
 static t_class *helloworld_class;
@@ -221,21 +221,21 @@ Die Struktur \verb+t_helloworld+ (vom Typ \verb+_helloworld+)
 stellt den Datenraum der Klasse dar.
 Ein unverzichtbares Element ist dabei eine Variable des Type \verb+t_object+.
 In ihr werden interne Objekteigenschaften abgelegt, wie zum Beispiel
-die Größe der Objekt-Box bei der graphischen Darstellung, aber auch
-Daten über Inlets und Outlets.
+die GrÃ¶ÃŸe der Objekt-Box bei der graphischen Darstellung, aber auch
+Daten Ã¼ber Inlets und Outlets.
 \verb+t_object+ muss der erste Eintrag in die Struktur sein !
 
 Da bei einer einfachen ``Hello world''-Anwendung keine Variablen gebraucht werden,
 ist die Struktur ansonsten leer.
 
 \subsection{Methodenraum}
-Zu einer Klasse gehören neben einem Datenraum auch ein Satz von
-Manipulatoren (Methoden) mit denen diese Daten manipuliert werden können.
+Zu einer Klasse gehÃ¶ren neben einem Datenraum auch ein Satz von
+Manipulatoren (Methoden) mit denen diese Daten manipuliert werden kÃ¶nnen.
 
 Wird eine Message an eine Instanz unserer Klasse geschickt,
 so wird eine Methoden aufgerufen.
 Diese Mehtoden, die die Schnittstelle zum Messagesystem von Pd bilden, 
-haben grundsätzlich kein Rückgabeargument, sind also vom Typ \verb+void+.
+haben grundsÃ¤tzlich kein RÃ¼ckgabeargument, sind also vom Typ \verb+void+.
 
 \begin{verbatim}
 void helloworld_bang(t_helloworld *x)
@@ -244,21 +244,21 @@ void helloworld_bang(t_helloworld *x)
 }
 \end{verbatim}
 
-Diese Methode hat ein Übergabeargument vom Typ \verb+t_helloworld+,
-sodass wir also unseren Datenraum manipulieren könnten.
+Diese Methode hat ein Ãœbergabeargument vom Typ \verb+t_helloworld+,
+sodass wir also unseren Datenraum manipulieren kÃ¶nnten.
 
 Da wir nur ``Hello world!'' ausgeben wollen (und ausserdem unser Datenraum
-recht spärlich ist), verzichten wir auf eine Manipulation.
+recht spÃ¤rlich ist), verzichten wir auf eine Manipulation.
 
 Mit dem Befehl \verb+post(char *c,...)+ wird eine Meldung an die Standardausgabe
 geschickt.
-Ein Zeilenumbruch wird automatisch angehängt.
+Ein Zeilenumbruch wird automatisch angehÃ¤ngt.
 Ansonsten funktioniert \verb+post()+ gleich wie der {\tt C}-Befehl \verb+printf()+.
 
 \subsection{Generierung einer neuen Klasse}
-Um eine neue Klasse zu generieren, müssen Angaben über
+Um eine neue Klasse zu generieren, mÃ¼ssen Angaben Ã¼ber
 den Datenraum und den Methodenraum dieser Klasse 
-beim Laden einer Library an Pd übergeben werden.
+beim Laden einer Library an Pd Ã¼bergeben werden.
 
 Wird eine neue Library ``my\_lib'' geladen,
 so versucht Pd eine Funktion ``my\_lib\_setup()'' aufzurufen.
@@ -281,45 +281,45 @@ void helloworld_setup(void)
 \paragraph{class\_new}
 
 Der Befehl \verb+class_new+ kreiert eine neue Klasse und gibt einen Zeiger auf diesen
-Prototyp zurück.
+Prototyp zurÃ¼ck.
 
 Das erste Argument ist der symbolische Name der Klasse.
 
-Die nächsten beiden Argumente definieren Konstruktor und Destruktor der Klasse.
+Die nÃ¤chsten beiden Argumente definieren Konstruktor und Destruktor der Klasse.
 Wenn in einen Pd-Patch ein Objekt kreiert wird, 
 instanziiert der Konstruktor \verb+(t_newmethod)helloworld_new+ diesses Objekt
 und initialisiert den Datenraum.
 Wird ein Pd-Patch geschlossen oder ein Objekt daraus entfernt,
 so gibt der Destruktor, wenn notwendig, dynamisch reservierten Speicher wieder frei.
-Der Speicherplatz für den Datenraum selbst wird von Pd automatisch freigegeben.
+Der Speicherplatz fÃ¼r den Datenraum selbst wird von Pd automatisch freigegeben.
 Deshalb kann in diesem Beispiel auf einen Destruktor verzichtet werden,
 folglich wird dieses Argument auf ``0'' gesetzt.
 
-Damit Pd genug Speicher für den Datenraum allozieren und wieder freigeben kann,
-wird die Größe dieser Datenstruktur als viertes Argument übergeben.
+Damit Pd genug Speicher fÃ¼r den Datenraum allozieren und wieder freigeben kann,
+wird die GrÃ¶ÃŸe dieser Datenstruktur als viertes Argument Ã¼bergeben.
 
-Das fünfte Argument bestimmt, wie Klasseninstanzen graphisch dargestellt werden und 
-ob sie mit anderen Objekten verknüpfbar sind.
+Das fÃ¼nfte Argument bestimmt, wie Klasseninstanzen graphisch dargestellt werden und 
+ob sie mit anderen Objekten verknÃ¼pfbar sind.
 Der Standardwert \verb+CLASS_DEFAULT+ (oder einfacher: ``0'') bezieht sich auf
 ein Objekt mit mindestens einem Inlet.
-Würde man keinen Eingang wollen (wie zum Beispiel beim Internal ``receive''),
+WÃ¼rde man keinen Eingang wollen (wie zum Beispiel beim Internal ``receive''),
 so kann man diesen Wert auf \verb+CLASS_NOINLET+ setzen.
 
-Die restlichen Argumente definieren die Übergabeargumente eines Objektes und deren Typ.
+Die restlichen Argumente definieren die Ãœbergabeargumente eines Objektes und deren Typ.
 
-Bis zu sechs numerische und symbolische Objektargumente können in beliebiger Reihenfolge
+Bis zu sechs numerische und symbolische Objektargumente kÃ¶nnen in beliebiger Reihenfolge
 mit \verb+A_DEFFLOAT+ und \verb+A_DEFSYMBOL+ angegeben werden.
-Sollen mehr Argumente übergeben werden oder die Atomtyp-Reihenfolge flexibler sein,
-so bietet \verb+A_GIMME+ die Übergabe einer beliebigen Liste von Atomen.
+Sollen mehr Argumente Ã¼bergeben werden oder die Atomtyp-Reihenfolge flexibler sein,
+so bietet \verb+A_GIMME+ die Ãœbergabe einer beliebigen Liste von Atomen.
 
 Die Objektargumentliste wird mit ``0'' terminiert.
-In unserem Beispiel sind also keine Übergabeargumente für die Klasse vorgesehen.
+In unserem Beispiel sind also keine Ãœbergabeargumente fÃ¼r die Klasse vorgesehen.
 
 \paragraph{class\_addbang}
-Jetzt muss zur Klasse noch ein Methodenraum hinzugefügt werden.
+Jetzt muss zur Klasse noch ein Methodenraum hinzugefÃ¼gt werden.
 
 Mit \verb+class_addbang+ wird der durch das erste Argument definierten Klasse
-eine Methode für eine ``bang''-Message hinzuzugefügt.
+eine Methode fÃ¼r eine ``bang''-Message hinzuzugefÃ¼gt.
 Diese Methode ist das zweite Argument.
 
 
@@ -339,7 +339,7 @@ void *helloworld_new(void)
 }
 \end{verbatim}
 
-Die Übergabeargumente der Konstruktorfunktion hängen von den mit
+Die Ãœbergabeargumente der Konstruktorfunktion hÃ¤ngen von den mit
 \verb+class_new+ angegebenen Objektargumenten ab.
 
 \begin{tabular}{l|l}
@@ -353,15 +353,15 @@ Die Übergabeargumente der Konstruktorfunktion hängen von den mit
 Da in diesem Beispiel keine Objektargumente existieren, hat auch
 der Konstruktor keine.
 
-Die Funktion \verb+pd_new+ reserviert Speicher für den Datenraum, initialisiert
-die objektinternen Variablen und gibt einen Zeiger auf den Datenraum zurück.
+Die Funktion \verb+pd_new+ reserviert Speicher fÃ¼r den Datenraum, initialisiert
+die objektinternen Variablen und gibt einen Zeiger auf den Datenraum zurÃ¼ck.
 
 Der Typ-Cast auf den Datenraum ist notwendig.
 
-Normalerweise würden im Konstruktor auch die Objektvariablen initialisiert werden.
+Normalerweise wÃ¼rden im Konstruktor auch die Objektvariablen initialisiert werden.
 In diesem Beispiel ist dies aber nicht notwendig.
 
-Der Konstruktor muss einen Zeiger auf den instanziierten Datenraum zurückgeben.
+Der Konstruktor muss einen Zeiger auf den instanziierten Datenraum zurÃ¼ckgeben.
 
 \subsection{der Code: \tt helloworld}
 
@@ -398,20 +398,20 @@ void helloworld_setup(void) {
 
 \section{ein komplexes External: {\tt counter}}
 
-Als nächstes soll ein einfacher Zähler als External geschrieben werden.
-Ein ``bang''-Trigger soll den aktuellen Zählerstand am Outlet ausgeben
-und anschließend um 1 erhöhen.
+Als nÃ¤chstes soll ein einfacher ZÃ¤hler als External geschrieben werden.
+Ein ``bang''-Trigger soll den aktuellen ZÃ¤hlerstand am Outlet ausgeben
+und anschlieÃŸend um 1 erhÃ¶hen.
 
 Diese Klasse unterscheidet sich nicht sonderlich von der vorherigen, 
-ausser dass nun eine interne Variable ``Zählerstand'' benötigt
+ausser dass nun eine interne Variable ``ZÃ¤hlerstand'' benÃ¶tigt
 wird und das Ergebnis nicht mehr auf die Standardausgabe geschrieben sondern
 als Message zu einem Outlet geschickt wird.
 
 \subsection{Variablen eines Objektes}
-Ein Zähler braucht natürlich eine Zustandsvariable,
-in der der aktueller Zählerstand gespeichert ist.
+Ein ZÃ¤hler braucht natÃ¼rlich eine Zustandsvariable,
+in der der aktueller ZÃ¤hlerstand gespeichert ist.
 
-Solche zum Objekt gehörigen Zustandsvariablen werden im Datenraum abgelegt.
+Solche zum Objekt gehÃ¶rigen Zustandsvariablen werden im Datenraum abgelegt.
 
 \begin{verbatim}
 typedef struct _counter {
@@ -420,13 +420,13 @@ typedef struct _counter {
 } t_counter;
 \end{verbatim}
 
-Die Ganzzahlvariable \verb+i_count+ beschreibt den Zählerstand.
-Natürlich könnte man sie auch als Gleitkommawert realisieren,
-doch traditionell werden Zähler ganzzahlig ausgeführt.
+Die Ganzzahlvariable \verb+i_count+ beschreibt den ZÃ¤hlerstand.
+NatÃ¼rlich kÃ¶nnte man sie auch als Gleitkommawert realisieren,
+doch traditionell werden ZÃ¤hler ganzzahlig ausgefÃ¼hrt.
 
-\subsection{Übergabeargumente}
-Für einen Zähler ist es durchaus sinnvoll, wenn man den Startwert festlegen kann.
-Hier soll der Startwert dem Objekt bei der Kreation übergeben werden.
+\subsection{Ãœbergabeargumente}
+FÃ¼r einen ZÃ¤hler ist es durchaus sinnvoll, wenn man den Startwert festlegen kann.
+Hier soll der Startwert dem Objekt bei der Kreation Ã¼bergeben werden.
 
 \begin{verbatim}
 void counter_setup(void) {
@@ -442,7 +442,7 @@ void counter_setup(void) {
 
 Es ist also ein Argument zur Funktion \verb+class_new+ hinzugekommen:
 
-\verb+A_DEFFLOAT+ teilt mit, dass das Objekt ein Übergabeargument
+\verb+A_DEFFLOAT+ teilt mit, dass das Objekt ein Ãœbergabeargument
 vom Typ \verb+t_floatarg+ hat.
 
 
@@ -450,7 +450,7 @@ vom Typ \verb+t_floatarg+ hat.
 \subsection{Konstruktor}
 Dem Konstruktor kommen nun mehrere neue Aufgaben zu.
 Zum ersten muss eine Variable initialisiert werden,
-zum anderen muss auch ein Outlet für das Objekt geschaffen werden.
+zum anderen muss auch ein Outlet fÃ¼r das Objekt geschaffen werden.
 \begin{verbatim}
 void *counter_new(t_floatarg f)
 {
@@ -465,25 +465,25 @@ void *counter_new(t_floatarg f)
 
 Die Konstruktorfunktion hat jetzt ein Argument fom Typ \verb+t_floatarg+, wie es in
 der Setup-Routine \verb+class_new+ deklariert worden ist.
-Dieses Argument initialisiert den Zähler.
+Dieses Argument initialisiert den ZÃ¤hler.
 
 Einer neuer Outlet wird mit der Funktion \verb+outlet_new+ geschaffen.
 Das erste Argument ist ein Zeiger auf die Objektinterna,
 in denen der neue Ausgang geschaffen wird.
 
 Das zweite Argument ist eine symbolische Typbeschreibung des Ausgangs.
-Da der Zähler numerische Werte ausgeben soll, ist er vom Typ ``float''.
-Sollte der Ausgang für Messages mit verschiedenen Selectoren verwendet werden,
+Da der ZÃ¤hler numerische Werte ausgeben soll, ist er vom Typ ``float''.
+Sollte der Ausgang fÃ¼r Messages mit verschiedenen Selectoren verwendet werden,
 so ist dieser Wert ``0''.
 
-\verb+outlet_new+ gibt einen Zeiger auf den neuen Outlet zurück und speichert diesen
+\verb+outlet_new+ gibt einen Zeiger auf den neuen Outlet zurÃ¼ck und speichert diesen
 Zeiger in der \verb+t_object+-Variablen \verb+x_obj.ob_outlet+.
 Wird nur ein Outlet verwendet, muss daher der Zeiger nicht extra im Datenraum gespeichert
 werden.
-Werden mehrere Outlets verwendet, so müssen diese Zeiger im Datenraum gespeichert werden.
+Werden mehrere Outlets verwendet, so mÃ¼ssen diese Zeiger im Datenraum gespeichert werden.
 
-\subsection{die Zählermethode}
-Bei einem Triggerevent soll der alte Zählerstand ausgegeben und um eins inkrementiert werden.
+\subsection{die ZÃ¤hlermethode}
+Bei einem Triggerevent soll der alte ZÃ¤hlerstand ausgegeben und um eins inkrementiert werden.
 
 \begin{verbatim}
 void counter_bang(t_counter *x)
@@ -497,23 +497,23 @@ void counter_bang(t_counter *x)
 Die Funktion \verb+outlet_float+ gibt an dem Outlet, auf den das erste Argument verweist,
 eine Gleitkommazahl (zweites Argument) aus.
 
-Hier wird zuerst der Zählerstand in eine Gleitkomma-Buffervariable gespeichert.
+Hier wird zuerst der ZÃ¤hlerstand in eine Gleitkomma-Buffervariable gespeichert.
 Danach wird er inkrementiert und dann wird erst die Buffervariable ausgegeben.
 
-Was auf den ersten Blick unnötig erscheint, macht bei näherer Betrachtung Sinn:
+Was auf den ersten Blick unnÃ¶tig erscheint, macht bei nÃ¤herer Betrachtung Sinn:
 Die Buffervariable wurde gleich als \verb+t_float+ realisiert,
 da sich \verb+outlet_float+ sowieso einen Gleitkommawert erwartet
 und ein Cast unvermeidlich ist.
 
-Würde der Zählerstand zuerst an den Outlet geschickt werden und
-danach erst inkrementiert werden, würde dies unter Umständen zu einem etwas seltsamen
-Verhalten führen.
-Wenn nämlich der Zählerausgang wieder an den Inlet zurückgeführt würde, der
-Zähler sich also selbst triggerte, so würde die Zählermethode erneut
-aufgerufen, ohne dass der Zählerstand inkrementiert worden wäre.
-Dies ist im Allgemeinen aber unerwünscht.
+WÃ¼rde der ZÃ¤hlerstand zuerst an den Outlet geschickt werden und
+danach erst inkrementiert werden, wÃ¼rde dies unter UmstÃ¤nden zu einem etwas seltsamen
+Verhalten fÃ¼hren.
+Wenn nÃ¤mlich der ZÃ¤hlerausgang wieder an den Inlet zurÃ¼ckgefÃ¼hrt wÃ¼rde, der
+ZÃ¤hler sich also selbst triggerte, so wÃ¼rde die ZÃ¤hlermethode erneut
+aufgerufen, ohne dass der ZÃ¤hlerstand inkrementiert worden wÃ¤re.
+Dies ist im Allgemeinen aber unerwÃ¼nscht.
 
-Man kann übrigens das gleiche Ergebnis wie hier mit nur einer einzigen Zeile erreichen, 
+Man kann Ã¼brigens das gleiche Ergebnis wie hier mit nur einer einzigen Zeile erreichen, 
 doch sieht man das {\em Reentrant}-Problem dann nicht sehr gut.
 
 \subsection{der Code: \tt counter}
@@ -559,13 +559,13 @@ void counter_setup(void) {
 
 \section{ein komplexeres External: \tt counter}
 
-Man kann natürlich auch einen einfache Zähler ein bißchen komplexer gestalten.
-Es wäre zum Beispiel sinnvoll,
-wenn der Zählerstand auf einen Startwert zurückgesetzt werden könnte,
-wenn man Start- und Endwert bestimmen könnte und auch die Schrittweite variabel wäre.
+Man kann natÃ¼rlich auch einen einfache ZÃ¤hler ein biÃŸchen komplexer gestalten.
+Es wÃ¤re zum Beispiel sinnvoll,
+wenn der ZÃ¤hlerstand auf einen Startwert zurÃ¼ckgesetzt werden kÃ¶nnte,
+wenn man Start- und Endwert bestimmen kÃ¶nnte und auch die Schrittweite variabel wÃ¤re.
 
-Bei jedem Zählerüberlauf soll ein zweiter Outlet eine ``bang''-Message schicken und der
-Zähler auf den Startwert zurückgesetzt werden.
+Bei jedem ZÃ¤hlerÃ¼berlauf soll ein zweiter Outlet eine ``bang''-Message schicken und der
+ZÃ¤hler auf den Startwert zurÃ¼ckgesetzt werden.
 
 \subsection{erweiterter Datenraum}
 
@@ -579,12 +579,12 @@ typedef struct _counter {
 } t_counter;
 \end{verbatim}
 
-Der Datenraum wurde also erweitert um Variablen für Schrittweite und Start- bzw. Stopwert.
-Weiters werden Zeiger auf zwei Outlets zur Verfügung gestellt.
+Der Datenraum wurde also erweitert um Variablen fÃ¼r Schrittweite und Start- bzw. Stopwert.
+Weiters werden Zeiger auf zwei Outlets zur VerfÃ¼gung gestellt.
 
 \subsection{Erweiterung der Klasse}
 Da nun die Klassenobjekte verschiedene Messages, wie ``set'' und ``reset'',
-verstehen können sollen, mussen der Methodenraum entsprechend erweitert werden.
+verstehen kÃ¶nnen sollen, mussen der Methodenraum entsprechend erweitert werden.
 
 \begin{verbatim}
   counter_class = class_new(gensym("counter"),
@@ -594,7 +594,7 @@ verstehen können sollen, mussen der Methodenraum entsprechend erweitert werden.
         A_GIMME, 0);
 \end{verbatim}
 
-Der Klassengenerator \verb+class_new+ ist um das Objektübergabeargument
+Der Klassengenerator \verb+class_new+ ist um das ObjektÃ¼bergabeargument
 \verb+A_GIMME+ erweitert.
 Damit kann eine dynamische Anzahl von Argumenten bei der Objektinstanziierung
 verwaltet werden.
@@ -605,11 +605,11 @@ verwaltet werden.
         gensym("reset"), 0);
 \end{verbatim}
 
-\verb+class_addmethod+ fügt einer Klasse eine Methode mit für einen
+\verb+class_addmethod+ fÃ¼gt einer Klasse eine Methode mit fÃ¼r einen
 beliebigen Selector hinzu.
 
 Das erste Argument ist die Klasse,
-zu der die Methode (zweites Argument) hinzugefügt wird.
+zu der die Methode (zweites Argument) hinzugefÃ¼gt wird.
 
 Das dritte Argument ist der symbolische Selector,
 der mit der Methode assoziiert wird.
@@ -626,25 +626,25 @@ beschreiben die Atomliste, die dem Selector folgt.
         A_DEFFLOAT, A_DEFFLOAT, 0);
 \end{verbatim}
 
-Eine Methode für den Selector ``set'', gefolgt von einem numerischen Wert,
-wird hinzugefügt.
+Eine Methode fÃ¼r den Selector ``set'', gefolgt von einem numerischen Wert,
+wird hinzugefÃ¼gt.
 
-Für den Selector ``bound'', gefolgt von zwei numerischen Werten,
-wird ebenfalls eine Methode zur Klasse hinzugefügt.
+FÃ¼r den Selector ``bound'', gefolgt von zwei numerischen Werten,
+wird ebenfalls eine Methode zur Klasse hinzugefÃ¼gt.
 
 \begin{verbatim}
   class_sethelpsymbol(counter_class, gensym("help-counter"));
 \end{verbatim}
 
 Clickt man mit der rechten Maustaste auf ein Pd-Objekt,
-so kann man sich einen Hilfe-Patch für die zugehörige Objektklasse anzeigen lasse.
-Standardmäßig wird ist dies ein Patch mit dem symbolischen Klassennamen
+so kann man sich einen Hilfe-Patch fÃ¼r die zugehÃ¶rige Objektklasse anzeigen lasse.
+StandardmÃ¤ÃŸig wird ist dies ein Patch mit dem symbolischen Klassennamen
 im Verzeichnis ``{\em doc/5.reference/}'' gesucht.
 Mit dem Befehl \verb+class_sethelpsymbol+ kann ein alternativer Patch angegeben werden.
 
 \subsection{Konstruktion von In- und Outlets}
 
-Bei der Objektkreation sollten dem Objekt verschiedene Argumente übergeben
+Bei der Objektkreation sollten dem Objekt verschiedene Argumente Ã¼bergeben
 werden.
 
 \begin{verbatim}
@@ -652,12 +652,12 @@ void *counter_new(t_symbol *s, int argc, t_atom *argv)
 \end{verbatim}
 Durch die Argumentendeklaration in der \verb+class_new+-Funktion
 mit \verb+A_GIMME+, werden dem Konstruktor folgende Argumente
-übergeben:
+Ã¼bergeben:
 
 \begin{tabular}{c|l}
 \verb+t_symbol *s+ & der symbolische Namen,\\
 & mit dem das Objekt kreiert wurde \\
-\verb+int argc+ & die Anzahl, der dem Objekt übergebenen Argumente\\
+\verb+int argc+ & die Anzahl, der dem Objekt Ã¼bergebenen Argumente\\
 \verb+t_atom *argv+ & ein Zeiger auf eine Liste von {\tt argc} Atomen
 \end{tabular}
 
@@ -684,19 +684,19 @@ mit \verb+A_GIMME+, werden dem Konstruktor folgende Argumente
   x->i_count=x->i_down;
 \end{verbatim}
 
-Werden drei Argumente übergeben, so sollten dies {\em untere Zählergrenze},
-{\em obere Zählergrenze} und {\em Schrittgröße} sein.
-Werden nur zwei Argumente übergeben,
-so wird die Schrittgröße standardmäßig auf ``1'' gesetzt.
-Bei nur einem Argument, sei dies der {\em Startwert} des Zählers,
-die {\em Schrittgröße} sei ``1''.
+Werden drei Argumente Ã¼bergeben, so sollten dies {\em untere ZÃ¤hlergrenze},
+{\em obere ZÃ¤hlergrenze} und {\em SchrittgrÃ¶ÃŸe} sein.
+Werden nur zwei Argumente Ã¼bergeben,
+so wird die SchrittgrÃ¶ÃŸe standardmÃ¤ÃŸig auf ``1'' gesetzt.
+Bei nur einem Argument, sei dies der {\em Startwert} des ZÃ¤hlers,
+die {\em SchrittgrÃ¶ÃŸe} sei ``1''.
 
 \begin{verbatim}
   inlet_new(&x->x_obj, &x->x_obj.ob_pd,
         gensym("list"), gensym("bound"));
 \end{verbatim}
 Die Funktion \verb+inlet_new+ erzeugt einen neuen ``aktiven'' Inlet.
-``Aktiv'' heißt, dass eine Klassenmethode ausgeführt wird,
+``Aktiv'' heiÃŸt, dass eine Klassenmethode ausgefÃ¼hrt wird,
 wenn eine Message in den einen ``aktiven'' Inlet geschickt wird.
 
 Von der Software-Architektur her ist der erste Inlet immer ``aktiv''.
@@ -705,7 +705,7 @@ Die ersten beiden Argumente der \verb+inlet_new+-Funktion
 sind Zeiger auf die Objektinterna und die graphische Darstellung des Objektes.
 
 Der symbolische Selector, der durch das dritte Argument spezifiziert wird,
-wird für diesen Inlet durch einen anderen symbolischen Selector (viertes Argument)
+wird fÃ¼r diesen Inlet durch einen anderen symbolischen Selector (viertes Argument)
 substituiert.
 
 Durch die Substitution von Selectoren kann eine Message
@@ -717,22 +717,22 @@ Dies bedeutet
 \item Der substituierende Selector muss mit \verb+class_addmethod+ angegeben werden.
 \item Man kann einen bestimmten rechten Eingang simulieren,
 indem man dem ersten Eingang eine Message mit dem Selector dieses Eingangs schickt.
-\item Es ist nicht möglich, einem rechten Eingang Methoden für mehr als einen Selector
-zuzuweisen. Insbesondere ist es nicht möglich, ihm eine allgemeine Methode
-für einen beliebigen Selector zuzuweisen.
+\item Es ist nicht mÃ¶glich, einem rechten Eingang Methoden fÃ¼r mehr als einen Selector
+zuzuweisen. Insbesondere ist es nicht mÃ¶glich, ihm eine allgemeine Methode
+fÃ¼r einen beliebigen Selector zuzuweisen.
 \end{itemize}
 
 \begin{verbatim}
   floatinlet_new(&x->x_obj, &x->step);
 \end{verbatim}
-\verb+floatinlet_new+ generiert einen ``passiven'' Inlet für numerische Werte.
-``Passive'' Eingänge erlauben, dass ein Speicherplatz bestimmten Typs im
-Variablenraum des Objektes von außen direkt beschrieben werden kann.
-Dadurch ist zum Beispiel eine Abfrage nach illegalen Eingaben nicht möglich.
+\verb+floatinlet_new+ generiert einen ``passiven'' Inlet fÃ¼r numerische Werte.
+``Passive'' EingÃ¤nge erlauben, dass ein Speicherplatz bestimmten Typs im
+Variablenraum des Objektes von auÃŸen direkt beschrieben werden kann.
+Dadurch ist zum Beispiel eine Abfrage nach illegalen Eingaben nicht mÃ¶glich.
 Das erste Argument ist dabei ein Zeiger auf die interne Objektinfrastruktur.
 Das zweite Argument ist ein Zeiger auf den Speicherplatz, auf den geschrieben wird.
 
-Es können ``passive'' Eingänge für numerische (Gleitkomma\footnote{
+Es kÃ¶nnen ``passive'' EingÃ¤nge fÃ¼r numerische (Gleitkomma\footnote{
 Deswegen ist der {\tt step}-Wert des Klassendatenraums als {\tt t\_float} realisiert.})
 -Werte, symbolische Werte und Pointer geschaffen werden.
 
@@ -741,18 +741,18 @@ Deswegen ist der {\tt step}-Wert des Klassendatenraums als {\tt t\_float} realis
   x->b_out = outlet_new(&x->x_obj, &s_bang);
 \end{verbatim}
 
-Die von \verb+outlet_new+ zurückgegebenen Zeiger auf die geschaffenen Outlets,
-müssen im Klassendatenraum gespeichert werden,
-damit sie später von den Ausgaberoutinen angesprochen werden.
+Die von \verb+outlet_new+ zurÃ¼ckgegebenen Zeiger auf die geschaffenen Outlets,
+mÃ¼ssen im Klassendatenraum gespeichert werden,
+damit sie spÃ¤ter von den Ausgaberoutinen angesprochen werden.
 
 Die Reihenfolge der Generierung von In- und Outlets ist wichtig,
-da sie der Reihenfolge der Ein- und Ausgänge der graphischen Repräsentation
+da sie der Reihenfolge der Ein- und AusgÃ¤nge der graphischen ReprÃ¤sentation
 des Objektes entsprechen.
 
 \subsection{erweiterter Methodenraum}
 
-Der Methode für die ``bang''-Message muss natürlich der komplexeren Zählerstruktur
-genüge tun.
+Der Methode fÃ¼r die ``bang''-Message muss natÃ¼rlich der komplexeren ZÃ¤hlerstruktur
+genÃ¼ge tun.
 
 
 \begin{verbatim}
@@ -774,10 +774,10 @@ void counter_bang(t_counter *x)
 }
 \end{verbatim}
 
-Die einzelnen Outlets werden von den \verb+outlet_...+-Funktionen über
-die Zeiger auf diese Ausgänge identifiziert.
+Die einzelnen Outlets werden von den \verb+outlet_...+-Funktionen Ã¼ber
+die Zeiger auf diese AusgÃ¤nge identifiziert.
 
-Die übrigen Methoden müssen noch implementiert werden:
+Die Ã¼brigen Methoden mÃ¼ssen noch implementiert werden:
 
 \begin{verbatim}
 void counter_reset(t_counter *x)
@@ -905,8 +905,8 @@ void counter_setup(void) {
 
 
 \section{ein Signal-External: {\tt pan\~\/}}
-Signalklassen sind normale Klassen, die zusätzlich Methoden
-für Signale bereitstellen.
+Signalklassen sind normale Klassen, die zusÃ¤tzlich Methoden
+fÃ¼r Signale bereitstellen.
 
 Alle Methoden und Konzepte die mit normalen Objektklassen realisierbar sind,
 sind also auch mit Signalklassen zuverwirklichen.
@@ -914,14 +914,14 @@ sind also auch mit Signalklassen zuverwirklichen.
 Per Konvention enden die symbolischen Namen mit einer Tilde \~\/.
 
 Anhand einer Klasse ``pan\~\/`` soll demonstriert werden wie Signalklassen geschrieben
-werden können.
+werden kÃ¶nnen.
 
 Ein Signal am linken Inlet wird mit einem Signal am zweiten Inlet gemischt.
 Der Mischungsgrad wird als \verb+t_float+-Message an einen dritten Eingang festgelegt.
 
 \subsection{Variablen einer Signalklasse}
 Da eine Signalklasse nur eine erweiterte normale Klasse ist,
-gibt es keine prinzipielle Unterschiede zwischen den Datenräumen.
+gibt es keine prinzipielle Unterschiede zwischen den DatenrÃ¤umen.
 
 \begin{verbatim}
 typedef struct _pan_tilde {
@@ -932,7 +932,7 @@ typedef struct _pan_tilde {
 } t_pan_tilde;
 \end{verbatim}
 
-Es wird nur eine Variable für den {\em Mischfaktor} der Panningfunktion benötigt.
+Es wird nur eine Variable fÃ¼r den {\em Mischfaktor} der Panningfunktion benÃ¶tigt.
 
 Die Variable \verb+f+ wird gebraucht, falls kein Signal am Signalinlet liegt.
 Wird dann an diesen Signalinlet ein numerischer Wert als Message geschickt,
@@ -954,22 +954,22 @@ void pan_tilde_setup(void) {
 }
 \end{verbatim}
 
-Jeder Signalklasse muss eine Methode für die Signalverarbeitung zugeordnet werden.
+Jeder Signalklasse muss eine Methode fÃ¼r die Signalverarbeitung zugeordnet werden.
 Wenn die Audioengine von Pd gestartet wird, wird allen Objekten eine
 Message mit dem Selector ``\verb+dsp+'' geschickt.
-Alle Klassen, die eine Methode für die ``dsp''-Message haben, sind Signalklassen.
+Alle Klassen, die eine Methode fÃ¼r die ``dsp''-Message haben, sind Signalklassen.
 
-Signalklassen, die Signal-Inlets zur Verfügung stellen wollen,
-müssen dies mit dem \verb+CLASS_MAINSIGNALIN+-Makro anmelden.
+Signalklassen, die Signal-Inlets zur VerfÃ¼gung stellen wollen,
+mÃ¼ssen dies mit dem \verb+CLASS_MAINSIGNALIN+-Makro anmelden.
 Dadurch ist der erste Inlet als Signalinlet deklariert.
-\verb+t_float+-Messages können nicht mehr an einen solchen Eingang
+\verb+t_float+-Messages kÃ¶nnen nicht mehr an einen solchen Eingang
 gesendet werden.
 
 Das erste Argument des Makros ist ein Zeiger auf die Signalklasse.
 Das zweite Argument ist der Typ des Datenraums der Klasse.
 Das dritte Argument ist eine Dummy-Variable aus dem Datenraum, die gebraucht wird,
 um bei nicht vorhandenen Signalen am Signalinlet diese durch \verb+t_float+-Messages
-einfach ersetzen zu können.
+einfach ersetzen zu kÃ¶nnen.
 
 \subsection{Konstruktion von Signal-In- und Outlets}
 
@@ -989,8 +989,8 @@ void *pan_tilde_new(t_floatarg f)
 }
 \end{verbatim}
 
-Zusätzliche Signal-Eingänge werden normal mit der Routine \verb+inlet_new+
-hinzugefügt.
+ZusÃ¤tzliche Signal-EingÃ¤nge werden normal mit der Routine \verb+inlet_new+
+hinzugefÃ¼gt.
 Die letzen beiden Argumente sind dann jeweils ein Verweis auf den symbolischen Selector
 ``signal'' in der lookup-Tabelle.
 
@@ -1021,29 +1021,29 @@ void pan_tilde_dsp(t_pan_tilde *x, t_signal **sp)
 }
 \end{verbatim}
 
-\verb+dsp_add+ fügt eine ``Perform''-Routine (erstes Argument) zum DSP-Baum hinzu.
+\verb+dsp_add+ fÃ¼gt eine ``Perform''-Routine (erstes Argument) zum DSP-Baum hinzu.
 Das zweite Argument ist die Anzahl der nachfolgenden Zeiger auf diverse Variablen.
-Welche Zeiger auf welche Variablen übergeben werden, unterliegt keiner Beschränkung.
+Welche Zeiger auf welche Variablen Ã¼bergeben werden, unterliegt keiner BeschrÃ¤nkung.
 
 sp[0] bezeichnet hier das erste Eingangssignal, sp[1] das zweite Eingangssignal,
 sp[3] das Ausgangssignal.
 
-Die Struktur \verb+t_signal+ enthält einen Zeiger auf den
-zugehörigen Signalvektor \verb+.s_vec+ (ein Array von Samples \verb+t_sample+),
-sowie die Länge dieses Signalvektors \verb+.s_n+.
-Da innerhalb eines Patches alle Signalvektoren die gleiche Länge haben,
-genügt es, die Länge eines dieser Vektoren abzufragen.
+Die Struktur \verb+t_signal+ enthÃ¤lt einen Zeiger auf den
+zugehÃ¶rigen Signalvektor \verb+.s_vec+ (ein Array von Samples \verb+t_sample+),
+sowie die LÃ¤nge dieses Signalvektors \verb+.s_n+.
+Da innerhalb eines Patches alle Signalvektoren die gleiche LÃ¤nge haben,
+genÃ¼gt es, die LÃ¤nge eines dieser Vektoren abzufragen.
 
 \subsection{perform-Routine}
-Die perform-Routine ist das eigentliche DSP-Herzstück einer Signalklasse.
+Die perform-Routine ist das eigentliche DSP-HerzstÃ¼ck einer Signalklasse.
 
-Ihr wird ein Zeiger auf ein Integer-Array übergeben.
-In diesem Array sind die Zeiger gespeichert, die mit \verb+dsp_add+ übergeben wurden.
-Sie müssen auf ihren ursprünglichen Typ zurückgecastet werden.
+Ihr wird ein Zeiger auf ein Integer-Array Ã¼bergeben.
+In diesem Array sind die Zeiger gespeichert, die mit \verb+dsp_add+ Ã¼bergeben wurden.
+Sie mÃ¼ssen auf ihren ursprÃ¼nglichen Typ zurÃ¼ckgecastet werden.
 
-Die perform-Routine muß einen Zeiger auf Integer zurückgeben, der hinter den
+Die perform-Routine muÃŸ einen Zeiger auf Integer zurÃ¼ckgeben, der hinter den
 Speicherplatz zeigt, in dem die eigenen Zeiger gespeichert sind.
-Dies bedeutet, dass das Rückgabeargument gleich dem Übergabeargument plus der
+Dies bedeutet, dass das RÃ¼ckgabeargument gleich dem Ãœbergabeargument plus der
 Anzahl der eigenen Zeigervariablen (wie sie als zweites Argument in
 \verb+dsp_add+ angegeben wurde) plus eins.
 
@@ -1068,7 +1068,7 @@ In der \verb+while+-Schleife wird jedes Sample der Signalvektoren einzeln
 abgearbeitet.
 
 Eine Optimierungsroutine bei der Erstellung des DSP-Baumes wird darauf geachtet,
-keine unnötigen Kopieroperationen durchzuführen.
+keine unnÃ¶tigen Kopieroperationen durchzufÃ¼hren.
 Es kann daher geschehen, dass ein Eingangs- und ein Ausgangssignal an der
 gleichen Stelle im Speicher stehen.
 Es ist daher in solchem Falle darauf zu achten,
@@ -1142,7 +1142,7 @@ void pan_tilde_setup(void) {
 \begin{appendix}
 
 \section{das Message-System von \em pd}
-Nicht-Audio-Daten werden über ein Message-System verteilt.
+Nicht-Audio-Daten werden Ã¼ber ein Message-System verteilt.
 Jede Message besteht aus einem ``Selector'' und einer Liste von Atomen.
 
 \subsection{Atome}
@@ -1157,31 +1157,31 @@ Es gibt drei Arten von Atomen:
 Numerische Werte werden immer als Floating-Point-Werte (\verb+double+) dargestellt,
 auch wenn es sich um Ganzzahlwerte handelt.
 
-Jedes Symbol wird aus Performancegründen in einer lookup-Tabelle abgelegt.
-Der Befehl \verb+gensym+ speichert, wenn nötig,
-einen String in dieser Symboltabelle und gibt seine Addresse in der Tabelle zurück.
+Jedes Symbol wird aus PerformancegrÃ¼nden in einer lookup-Tabelle abgelegt.
+Der Befehl \verb+gensym+ speichert, wenn nÃ¶tig,
+einen String in dieser Symboltabelle und gibt seine Addresse in der Tabelle zurÃ¼ck.
 
 Atome vom Typ {\em A\_POINTER} haben in der Praxis
-(für einfache Externals) eher untergeordnete Bedeutung.
+(fÃ¼r einfache Externals) eher untergeordnete Bedeutung.
 
 Der Typ eines Atoms \verb+a+ wird im Strukturelement \verb+a.a_type+ gespeichert.
 
 \subsection{Selectoren}
 
 Der Selector ist ein Symbol und bestimmt, welchen Typ eine Message hat.
-Es gibt fünf vordefinierte Selectoren:
+Es gibt fÃ¼nf vordefinierte Selectoren:
 \begin{itemize}
 \item ``{\tt bang}'' bezeichnet ein Triggerevent.
-Die Message besteht nur aus dem Selector und enthält keine Liste von Atomen.
-\item ``{\tt float}'' bezeichnet einen numerischen Wert. Die Liste enthält nur ein Atom.
-\item ``{\tt symbol}'' bezeichnet einen symbolischen Wert. Die Liste enthält nur ein Atom.
-\item ``{\tt pointer}'' bezeichnet einen Zeiger. Die Liste enthält nur ein Atom.
+Die Message besteht nur aus dem Selector und enthÃ¤lt keine Liste von Atomen.
+\item ``{\tt float}'' bezeichnet einen numerischen Wert. Die Liste enthÃ¤lt nur ein Atom.
+\item ``{\tt symbol}'' bezeichnet einen symbolischen Wert. Die Liste enthÃ¤lt nur ein Atom.
+\item ``{\tt pointer}'' bezeichnet einen Zeiger. Die Liste enthÃ¤lt nur ein Atom.
 \item ``{\tt list}'' bezeichnet eine Liste von mehreren Atomen.
 \end{itemize}
 
-Da die Symbole für diese Selectoren relativ häufig verwendet werden,
+Da die Symbole fÃ¼r diese Selectoren relativ hÃ¤ufig verwendet werden,
 kann man deren Symboltabellen-Adresse auch direkt,
-ohne den Umweg über \verb+gensym+ abfragen:
+ohne den Umweg Ã¼ber \verb+gensym+ abfragen:
 
 \begin{tabular}{l||l|l}
 Selector&lookup-Routine&lookup-Addresse\\
@@ -1194,10 +1194,10 @@ Selector&lookup-Routine&lookup-Addresse\\
 --- (Signal) &\verb+gensym("signal")+&\verb+&s_symbol+
 \end{tabular}
 
-Es können auch andere Selectoren verwendet werden,
-doch muss dann die Empfängerklasse entweder selbst eine Methode
-für diesen Selector zur verfügung stellen,
-oder eine Methode für ``anything'', also jeden beliebigen Selector, anbieten.
+Es kÃ¶nnen auch andere Selectoren verwendet werden,
+doch muss dann die EmpfÃ¤ngerklasse entweder selbst eine Methode
+fÃ¼r diesen Selector zur verfÃ¼gung stellen,
+oder eine Methode fÃ¼r ``anything'', also jeden beliebigen Selector, anbieten.
 
 Messages die ohne Selector sofort mit einem Zahlenwert beginnen, werden automatisch
 entweder als numerischer Wert (nur ein Atom) oder als Liste (mehrere Atome) erkannt.
@@ -1208,7 +1208,7 @@ Ebenfalls ident sind auch die Listen-Messages
 
 \section{Pd-Typen}
 Da Pd auf mehreren Plattformen benutzt wird,
-werden viele gewöhnliche Variablentypen, wie \verb|int|, neu definiert.
+werden viele gewÃ¶hnliche Variablentypen, wie \verb|int|, neu definiert.
 Um portablen Code zu schreiben ist es daher angebracht, die von Pd bereitgestellten
 Typen zu verwenden.
 
@@ -1266,42 +1266,42 @@ und setzt den Zeiger-Wert dieses Atoms auf \verb+pt+.
 t_float atom_getfloat(t_atom *a);
 \end{verbatim}
 Wenn der Typ des Atoms \verb+a+ \verb+A_FLOAT+ ist, wird dessen numerischer Wert,
-ansonsten ``0.0'' zurückgegeben.
+ansonsten ``0.0'' zurÃ¼ckgegeben.
 
 \subsubsection{atom\_getfloatarg}
 \begin{verbatim}
 t_float atom_getfloatarg(int which, int argc, t_atom *argv)
 \end{verbatim}
 Wenn das Atom,
-das in der Atomliste \verb+argv+ mit der Länge \verb+argc+ an der Stelle \verb+which+
+das in der Atomliste \verb+argv+ mit der LÃ¤nge \verb+argc+ an der Stelle \verb+which+
 zu finden ist,
 vom Typ \verb+A_FLOAT+ ist, wird dessen numerischer Wert,
-ansonsten ``0.0'' zurückgegeben.
+ansonsten ``0.0'' zurÃ¼ckgegeben.
 
 \subsubsection{atom\_getint}
 \begin{verbatim}
 t_int atom_getint(t_atom *a);
 \end{verbatim}
 Wenn der Typ des Atoms \verb+a+ \verb+A_FLOAT+ ist, wird dessen numerischer
-Wert als Ganzzahlwert, ansonsten ``0'' zurückgegeben.
+Wert als Ganzzahlwert, ansonsten ``0'' zurÃ¼ckgegeben.
 
 \subsubsection{atom\_getsymbol}
 \begin{verbatim}
 t_symbol atom_getsymbol(t_atom *a);
 \end{verbatim}
 Wenn der Typ des Atoms \verb+a+ \verb+A_SYMBOL+ ist, wird ein Zeiger
-auf dessen Symbol ansonsten auf das Symbol ``float'' zurückgegeben.
+auf dessen Symbol ansonsten auf das Symbol ``float'' zurÃ¼ckgegeben.
 
 \subsubsection{atom\_gensym}
 \begin{verbatim}
 t_symbol *atom_gensym(t_atom *a);
 \end{verbatim}
 Wenn der Typ des Atoms \verb+a+ \verb+A_SYMBOL+ ist, wird ein Zeiger
-auf dessen Symbol zurückgegeben.
+auf dessen Symbol zurÃ¼ckgegeben.
 
 Atome anderen Typs werden zuerst ``sinnvoll'' in Strings umgewandelt.
-Diese Strings werden, falls nötig, in die Symbol-Tabelle eingetragen.
-Die Zeiger auf das Symbol wird zurückgegeben.
+Diese Strings werden, falls nÃ¶tig, in die Symbol-Tabelle eingetragen.
+Die Zeiger auf das Symbol wird zurÃ¼ckgegeben.
 
 
 \subsubsection{atom\_string}
@@ -1309,16 +1309,16 @@ Die Zeiger auf das Symbol wird zurückgegeben.
 void atom_string(t_atom *a, char *buf, unsigned int bufsize);
 \end{verbatim}
 Konvertiert ein Atom \verb+a+ in einen {\tt C}-String \verb+buf+.
-Der char-Buffer muss selbst reserviert und seine Länge in \verb+bufsize+ angegeben werden.
+Der char-Buffer muss selbst reserviert und seine LÃ¤nge in \verb+bufsize+ angegeben werden.
 
 \subsubsection{gensym}
 \begin{verbatim}
 t_symbol *gensym(char *s);
 \end{verbatim}
-Prüft, ob für den C-String \verb+*s+ bereits ein Eintrag in der Symbol-lookup-Tabelle
+PrÃ¼ft, ob fÃ¼r den C-String \verb+*s+ bereits ein Eintrag in der Symbol-lookup-Tabelle
 vorhanden ist.
 Ist noch kein Eintrag vorhanden, so wird einer angelegt.
-Ein Zeiger auf das Symbol in der Tabelle wird zurückgegeben.
+Ein Zeiger auf das Symbol in der Tabelle wird zurÃ¼ckgegeben.
 
 
 \subsection{Funktionen: Klassen}
@@ -1332,18 +1332,18 @@ t_class *class_new(t_symbol *name,
 Generiert eine neue Klasse mit dem symbolischen Namen \verb+name+.
 
 \verb+newmethod+ ist eine Konstruktorfunktion,
-die eine Instanz der Klasse konstruiert und einen Zeiger auf diese Instanz zurückgibt.
+die eine Instanz der Klasse konstruiert und einen Zeiger auf diese Instanz zurÃ¼ckgibt.
 
 Wird manuell dynamischer Speicher reserviert,
-so muss dieser bei Zerstörung eines Objektes
-mit der Destruktormethode \verb+freemethod+ (kein Rückgabeargument)
+so muss dieser bei ZerstÃ¶rung eines Objektes
+mit der Destruktormethode \verb+freemethod+ (kein RÃ¼ckgabeargument)
 wieder freigegeben werden.
 
-\verb+size+ ist statische die Größe des Klassendatenraumes,
+\verb+size+ ist statische die GrÃ¶ÃŸe des Klassendatenraumes,
 die mit der Funktion \verb+sizeof(t_mydata)+ berechnet werden kann.
 
 \verb+flags+ bestimmen das Aussehen des graphischen Objektes.
-Eine beliebige Kombination folgender Flags ist möglich:
+Eine beliebige Kombination folgender Flags ist mÃ¶glich:
 
 \begin{tabular}{l|l}
 Flag&Bedeutung\\
@@ -1352,60 +1352,60 @@ Flag&Bedeutung\\
 \verb+CLASS_PD+ & \em Objekte ohne Graphikdarstellung\\
 \verb+CLASS_GOBJ+ & \em reine Graphikobjekte (wie Arrays, Graphen,...)\\
 \verb+CLASS_PATCHABLE+ & \em normales Objekt (mit einem Inlet) \\
-\verb+CLASS_NOINLET+ & Der standardmäßige Inlet wird unterdrückt \\
+\verb+CLASS_NOINLET+ & Der standardmÃ¤ÃŸige Inlet wird unterdrÃ¼ckt \\
 \end{tabular}
 
 Flags, deren Bedeutung {\em kursiv} gedruckt ist,
 haben geringe Bedeutung beim Schreiben von Externals.
 
 Die restlichen Argumente \verb+arg1,...+ definieren
-die Typen die Übergabeargumente bei der Objektkreation.
-Höchstens sechs typgeprüfte Argumente können einem Objekt übergeben werden.
+die Typen die Ãœbergabeargumente bei der Objektkreation.
+HÃ¶chstens sechs typgeprÃ¼fte Argumente kÃ¶nnen einem Objekt Ã¼bergeben werden.
 Die Argumententypeliste wird ``0'' terminiert.
 
-Mögliche Argumententypen sind:
+MÃ¶gliche Argumententypen sind:
 
 \begin{tabular}{l|l}
 \verb+A_DEFFLOAT+ & ein numerischer Wert \\
 \verb+A_DEFSYMBOL+ & ein symbolischer Wert \\
-\verb+A_GIMME+ & eine Atomliste beliebiger Länge und Typen \\
+\verb+A_GIMME+ & eine Atomliste beliebiger LÃ¤nge und Typen \\
 \end{tabular}
 
-Sollten mehr als sechs Argumente übergeben werden, muss man
-\verb+A_GIMME+ verwenden und eine händische Typprüfung durchführen.
+Sollten mehr als sechs Argumente Ã¼bergeben werden, muss man
+\verb+A_GIMME+ verwenden und eine hÃ¤ndische TypprÃ¼fung durchfÃ¼hren.
 
 \subsubsection{class\_addmethod}
 \begin{verbatim}
 void class_addmethod(t_class *c, t_method fn, t_symbol *sel,
     t_atomtype arg1, ...);
 \end{verbatim}
-Fügt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ für
+FÃ¼gt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ fÃ¼r
 eine Message mit dem Selector \verb+sel+ hinzu.
 
 Die restlichen Argumente \verb+arg1,...+ definieren
 die Typen der Atomliste die dem Selector folgt.
-Höchstens sechs typgeprüfte Argumente angegeben werden.
-Sollten mehr als sechs Argumente übergeben werden, muss man
-\verb+A_GIMME+ verwenden und eine händische Typprüfung durchführen.
+HÃ¶chstens sechs typgeprÃ¼fte Argumente angegeben werden.
+Sollten mehr als sechs Argumente Ã¼bergeben werden, muss man
+\verb+A_GIMME+ verwenden und eine hÃ¤ndische TypprÃ¼fung durchfÃ¼hren.
 
 Die Argumententypeliste wird ``0'' terminiert.
 
-Mögliche Argumententypen sind:
+MÃ¶gliche Argumententypen sind:
 
 \begin{tabular}{l|l}
 \verb+A_DEFFLOAT+ & ein numerischer Wert \\
 \verb+A_DEFSYMBOL+ & ein symbolischer Wert \\
 \verb+A_POINTER+ & eine Zeiger \\
-\verb+A_GIMME+ & eine Atomliste beliebiger Länge und Typen \\
+\verb+A_GIMME+ & eine Atomliste beliebiger LÃ¤nge und Typen \\
 \end{tabular}
 
 \subsubsection{class\_addbang}
 \begin{verbatim}
 void class_addbang(t_class *c, t_method fn);
 \end{verbatim}
-Fügt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
-für eine ``bang''-Message hinzu.
-Die ``bang''-Methode hat als Übergabeargument einen Zeiger auf den Klassendatenraum:
+FÃ¼gt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
+fÃ¼r eine ``bang''-Message hinzu.
+Die ``bang''-Methode hat als Ãœbergabeargument einen Zeiger auf den Klassendatenraum:
 
 \verb+void my_bang_method(t_mydata *x);+
 
@@ -1413,9 +1413,9 @@ Die ``bang''-Methode hat als Übergabeargument einen Zeiger auf den Klassendatenr
 \begin{verbatim}
 void class_addfloat(t_class *c, t_method fn);
 \end{verbatim}
-Fügt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
-für eine ``float''-Message hinzu.
-Die ``float''-Methode hat als Übergabeargument einen Zeiger auf den Klassendatenraum und
+FÃ¼gt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
+fÃ¼r eine ``float''-Message hinzu.
+Die ``float''-Methode hat als Ãœbergabeargument einen Zeiger auf den Klassendatenraum und
 ein Gleitkommaargument:
 
 \verb+void my_float_method(t_mydata *x, t_floatarg f);+
@@ -1424,10 +1424,10 @@ ein Gleitkommaargument:
 \begin{verbatim}
 void class_addsymbol(t_class *c, t_method fn);
 \end{verbatim}
-Fügt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
-für eine ``symbol''-Message hinzu.
-Die ``symbol''-Methode hat als Übergabeargument einen Zeiger auf den Klassendatenraum und
-einen Zeiger auf das übergebene Symbol:
+FÃ¼gt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
+fÃ¼r eine ``symbol''-Message hinzu.
+Die ``symbol''-Methode hat als Ãœbergabeargument einen Zeiger auf den Klassendatenraum und
+einen Zeiger auf das Ã¼bergebene Symbol:
 
 \verb+void my_symbol_method(t_mydata *x, t_symbol *s);+
 
@@ -1435,9 +1435,9 @@ einen Zeiger auf das übergebene Symbol:
 \begin{verbatim}
 void class_addpointer(t_class *c, t_method fn);
 \end{verbatim}
-Fügt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
-für eine ``pointer''-Message hinzu.
-Die ``pointer''-Methode hat als Übergabeargument einen Zeiger
+FÃ¼gt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
+fÃ¼r eine ``pointer''-Message hinzu.
+Die ``pointer''-Methode hat als Ãœbergabeargument einen Zeiger
 auf den Klassendatenraum und einen Zeiger auf einen Pointer:
 
 \verb+void my_pointer_method(t_mydata *x, t_gpointer *pt);+
@@ -1446,9 +1446,9 @@ auf den Klassendatenraum und einen Zeiger auf einen Pointer:
 \begin{verbatim}
 void class_addlist(t_class *c, t_method fn);
 \end{verbatim}
-Fügt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
-für eine ``list''-Message hinzu.
-Die ``list''-Methode hat als Übergabeargument neben einem Zeiger
+FÃ¼gt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
+fÃ¼r eine ``list''-Message hinzu.
+Die ``list''-Methode hat als Ãœbergabeargument neben einem Zeiger
 auf den Klassendatenraum einen Zeiger auf das Selectorsymbol
 (immer \verb+&s_list+), 
 die Anzahl der Atome in der Liste sowie einen Zeiger auf die Atomliste:
@@ -1469,9 +1469,9 @@ die Anzahl der Atome in der Liste sowie einen Zeiger auf die Atomliste:
 \begin{verbatim}
 void class_addanything(t_class *c, t_method fn);
 \end{verbatim}
-Fügt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
-für eine beliebige Message hinzu.
-Die anything-Methode hat als Übergabeargument neben einem Zeiger
+FÃ¼gt der Klasse, auf die \verb+c+ zeigt, die Methode \verb+fn+ 
+fÃ¼r eine beliebige Message hinzu.
+Die anything-Methode hat als Ãœbergabeargument neben einem Zeiger
 auf den Klassendatenraum einen Zeiger auf das Selectorsymbol, 
 die Anzahl der Atome in der Liste sowie einen Zeiger auf die Atomliste:
 
@@ -1491,10 +1491,10 @@ die Anzahl der Atome in der Liste sowie einen Zeiger auf die Atomliste:
  void class_addcreator(t_newmethod newmethod, t_symbol *s, 
     t_atomtype type1, ...);
 \end{verbatim}
-Fügt zu einem Konstruktor \verb+newmethod+ ein zum Klassennamen alternatives
+FÃ¼gt zu einem Konstruktor \verb+newmethod+ ein zum Klassennamen alternatives
 Kreatorsymbol \verb+s+ hinzu.
-Dadurch können Objekte mit dem richtigen Klassennamen und einem Aliasnamen
-(zum Beispiel eine Abkürzung, wie das Internal ``float'' bzw. ``f'') kreiert werden.
+Dadurch kÃ¶nnen Objekte mit dem richtigen Klassennamen und einem Aliasnamen
+(zum Beispiel eine AbkÃ¼rzung, wie das Internal ``float'' bzw. ``f'') kreiert werden.
 
 Die ``0''-terminierte Typenliste entspricht der von \verb+class_new+.
 
@@ -1504,14 +1504,14 @@ void class_sethelpsymbol(t_class *c, t_symbol *s);
 \end{verbatim}
 
 Clickt man mit der rechten Maustaste auf ein Pd-Objekt,
-so kann man sich einen Hilfe-Patch für die zugehörige Objektklasse anzeigen lasse.
-Standardmäßig wird ist dies ein Patch mit dem symbolischen Klassennamen
+so kann man sich einen Hilfe-Patch fÃ¼r die zugehÃ¶rige Objektklasse anzeigen lasse.
+StandardmÃ¤ÃŸig wird ist dies ein Patch mit dem symbolischen Klassennamen
 im Verzeichnis ``{\em doc/5.reference/}'' gesucht.
 
-Für die Klasse, auf die \verb+c+ zeigt, wird der Name des Hilfepatches auf den
-symbolischen Wert \verb+s+ geändert.
+FÃ¼r die Klasse, auf die \verb+c+ zeigt, wird der Name des Hilfepatches auf den
+symbolischen Wert \verb+s+ geÃ¤ndert.
 
-Dadurch können sich mehrere verwandte Klassen einen Hilfepatch teilen.
+Dadurch kÃ¶nnen sich mehrere verwandte Klassen einen Hilfepatch teilen.
 
 Pfadangaben erfolgen relativ zum Standardhilfepfad {\em doc/5.reference/}.
 
@@ -1520,27 +1520,27 @@ Pfadangaben erfolgen relativ zum Standardhilfepfad {\em doc/5.reference/}.
 t_pd *pd_new(t_class *cls);
 \end{verbatim}
 Generiert eine neue Instanz der Klasse \verb+cls+ und gibt einen Zeiger auf diese
-Instanz zurück.
+Instanz zurÃ¼ck.
 
 \subsection{Funktionen: In- und Outlets}
-Alle Inlet- und Outletroutinen benötigen eine Referenz auf die Objektinterna
+Alle Inlet- und Outletroutinen benÃ¶tigen eine Referenz auf die Objektinterna
 der Klasseninstanz.
 Die notwendige Variable vom Typ \verb+t_object+ im Datenraum wird bei der
 Objektinstanziierung initialisiert.
-Diese Variable muß als \verb+owner+-Objekt den Inlet- und Outletroutinen übergeben werden.
+Diese Variable muÃŸ als \verb+owner+-Objekt den Inlet- und Outletroutinen Ã¼bergeben werden.
 
 \subsubsection{inlet\_new}
 \begin{verbatim}
 t_inlet *inlet_new(t_object *owner, t_pd *dest,
       t_symbol *s1, t_symbol *s2);
 \end{verbatim}
-Generiert einen zusätzlichen ``aktiven'' Inlet des Objektes, auf das \verb+owner+ zeigt.
+Generiert einen zusÃ¤tzlichen ``aktiven'' Inlet des Objektes, auf das \verb+owner+ zeigt.
 \verb+dest+ zeigt im Allgemeinen auf ``\verb+owner.ob_pd+''.
 
 Der Selector \verb+s1+ am neuen Inlet, wird durch den Selector \verb+s2+ substituiert.
 
 Tritt also eine Message mit dem Selector \verb+s1+ am neuen Inlet auf,
-wird die Klassenmethode für den Selector \verb+s2+ ausgeführt.
+wird die Klassenmethode fÃ¼r den Selector \verb+s2+ ausgefÃ¼hrt.
 
 Dies bedeutet
 \begin{itemize}
@@ -1549,41 +1549,41 @@ Dies bedeutet
 indem man dem ersten Eingang eine Message mit dem Selector dieses Eingangs schickt.
 
 Verwendet man ein leeres Symbol (\verb+gensym("")+) als Selector,
-so erreicht man, dass der rechte Eingang nicht über den ersten angesprochen werden kann.
-\item Es ist nicht möglich, einem rechten Eingang Methoden für mehr als einen Selector
-zuzuweisen. Insbesondere ist es nicht möglich, ihm eine allgemeine Methode
-für einen beliebigen Selector zuzuweisen.
+so erreicht man, dass der rechte Eingang nicht Ã¼ber den ersten angesprochen werden kann.
+\item Es ist nicht mÃ¶glich, einem rechten Eingang Methoden fÃ¼r mehr als einen Selector
+zuzuweisen. Insbesondere ist es nicht mÃ¶glich, ihm eine allgemeine Methode
+fÃ¼r einen beliebigen Selector zuzuweisen.
 \end{itemize}
 
 \subsubsection{floatinlet\_new}
 \begin{verbatim}
 t_inlet *floatinlet_new(t_object *owner, t_float *fp);
 \end{verbatim}
-Schafft einen neuen ``passiven'' Eingang für das Objekt, auf das \verb+owner+ zeigt,
-der es erlaubt, einen numerischen Wert von außen direkt auf einen 
+Schafft einen neuen ``passiven'' Eingang fÃ¼r das Objekt, auf das \verb+owner+ zeigt,
+der es erlaubt, einen numerischen Wert von auÃŸen direkt auf einen 
 Speicherplatz \verb+fp+ zu schreiben, ohne eine eigene Methode aufzurufen.
 
 \subsubsection{symbolinlet\_new}
 \begin{verbatim}
 t_inlet *symbolinlet_new(t_object *owner, t_symbol **sp);
 \end{verbatim}
-Schafft einen neuen ``passiven'' Eingang für das Objekt, auf das \verb+owner+ zeigt,
-der es erlaubt, einen symbolischen Wert von außen direkt auf einen 
+Schafft einen neuen ``passiven'' Eingang fÃ¼r das Objekt, auf das \verb+owner+ zeigt,
+der es erlaubt, einen symbolischen Wert von auÃŸen direkt auf einen 
 Speicherplatz \verb+sp+ zu schreiben, ohne eine eigene Methode aufzurufen.
 
 \subsubsection{pointerinlet\_new}
 \begin{verbatim}
 t_inlet *pointerinlet_new(t_object *owner, t_gpointer *gp);
 \end{verbatim}
-Schafft einen neuen ``passiven'' Eingang für das Objekt, auf das \verb+owner+ zeigt,
-der es erlaubt, einen Zeigerwert von außen direkt auf einen 
+Schafft einen neuen ``passiven'' Eingang fÃ¼r das Objekt, auf das \verb+owner+ zeigt,
+der es erlaubt, einen Zeigerwert von auÃŸen direkt auf einen 
 Speicherplatz \verb+gp+ zu schreiben, ohne eine eigene Methode aufzurufen.
 
 \subsubsection{outlet\_new}
 \begin{verbatim}
 t_outlet *outlet_new(t_object *owner, t_symbol *s);
 \end{verbatim}
-Generiert einen neuen Ausgang für das Objekt, auf das \verb+owner+ zeigt.
+Generiert einen neuen Ausgang fÃ¼r das Objekt, auf das \verb+owner+ zeigt.
 Das Symbol, auf das \verb+s+ zeigt, zeigt den Typ des Ausgangs an.
 
 \begin{tabular}{c|l||l}
@@ -1602,15 +1602,15 @@ Symbolwert & Symboladresse & Outlet-Typus \\
 Zwischen den verschiedenen Message-Outlet-Typen gibt es keinen Unterschied.
 Allerdings macht es den Code leichter lesbar,
 wenn schon bei der Outlet-Generierung angezeigt wird, wozu der Ausgang verwendet wird.
-Für allgemeine Message-Outlets verwendet man einen ``0''-Pointer.
+FÃ¼r allgemeine Message-Outlets verwendet man einen ``0''-Pointer.
 
-Variablen vom Typ \verb+t_object+ stellen einen Zeiger auf einen Outlet zur Verfügung.
+Variablen vom Typ \verb+t_object+ stellen einen Zeiger auf einen Outlet zur VerfÃ¼gung.
 Bei der Generierung eines neuen Outlets,
 wird seine Addresse in der Objektvariablen \verb+(*owner).ob_outlet+ gespeichert.
 
-Werden mehrere Message-Ausgänge benötigt, müssen die Outletzeiger,
-die von \verb+outlet_new+ zurückgegeben werden, manuell im Datenraum gespeichert werden,
-um die jeweiligen Ausgänge ansprechen zu können.
+Werden mehrere Message-AusgÃ¤nge benÃ¶tigt, mÃ¼ssen die Outletzeiger,
+die von \verb+outlet_new+ zurÃ¼ckgegeben werden, manuell im Datenraum gespeichert werden,
+um die jeweiligen AusgÃ¤nge ansprechen zu kÃ¶nnen.
 
 \subsubsection{outlet\_bang}
 \begin{verbatim}
@@ -1648,10 +1648,10 @@ Gibt am Outlet, auf den \verb+x+ zeigt, eine ``list''-Message mit
 \verb+argc+ Atomen aus.
 \verb+argv+ zeigt auf das erste Atom der Liste.
 
-Unabhängig davon, auf welches Symbol \verb+s+ zeigt, wird der Selector
+UnabhÃ¤ngig davon, auf welches Symbol \verb+s+ zeigt, wird der Selector
 ``list'' der Liste vorangestellt.
 
-Aus Lesbarkeitsgründen sollte man aber trotzdem einen Zeiger auf das
+Aus LesbarkeitsgrÃ¼nden sollte man aber trotzdem einen Zeiger auf das
 Symbol ``list'' (\verb+gensym("list")+ oder \verb+&s_list+) angeben.
 
 \subsubsection{outlet\_anything}
@@ -1666,11 +1666,11 @@ Dem Selector folgen \verb+argc+ Atome.
 
 
 \subsection{Funktionen: DSP}
-Soll eine Klasse Methoden zur digitalen Signalsverarbeitung zur Verfügung stellen,
-so muss ihr eine Methode für den Selector ``dsp'' hinzugefügt werden.
+Soll eine Klasse Methoden zur digitalen Signalsverarbeitung zur VerfÃ¼gung stellen,
+so muss ihr eine Methode fÃ¼r den Selector ``dsp'' hinzugefÃ¼gt werden.
 
 Wird die Audio-Engine gestartet, so werden alle Objekte, die eine ``dsp''-Methode
-zur Verfügung stellen, als Instanzen von Signalklassen identifiziert.
+zur VerfÃ¼gung stellen, als Instanzen von Signalklassen identifiziert.
 
 \paragraph{DSP-Methode}
 
@@ -1679,9 +1679,9 @@ void my_dsp_method(t_mydata *x, t_signal **sp)
 \end{verbatim}
 
 In der ``dsp''-Methode wird mit der Funktion \verb+dsp_add+ die
-Klassenroutine für Signalverarbeitung in den DSP-Baum eingebunden.
+Klassenroutine fÃ¼r Signalverarbeitung in den DSP-Baum eingebunden.
 
-Neben dem eigenen Datenraum \verb+x+, wird auch ein Array von Signalen übergeben.
+Neben dem eigenen Datenraum \verb+x+, wird auch ein Array von Signalen Ã¼bergeben.
 Die Signale im Array sind so angeordnet, dass sie am graphischen Objekt
 im Uhrzeigersinn gelesen werden.
 
@@ -1696,12 +1696,12 @@ sp[2] & rechtes Ausgangssignal \\
 sp[3] & linkes Ausgangssignal \\
 \end{tabular}
 
-Die Signalstruktur enthält unter anderem:
+Die Signalstruktur enthÃ¤lt unter anderem:
 
 \begin{tabular}{c|l}
 Strukturelement & Bedeutung \\
 \hline
-\verb+s_n+ & Länge des Signalvektors \\
+\verb+s_n+ & LÃ¤nge des Signalvektors \\
 \verb+s_vec+ & Zeiger auf den Signalvektor \\
 \end{tabular}
 
@@ -1712,15 +1712,15 @@ Der Signalvektor ist ein Array auf Samples vom Typ \verb+t_sample+.
 t_int *my_perform_routine(t_int *w)
 \end{verbatim}
 
-Der Perform-Routine die mit \verb+class_add+ in den DSP-Baum eingefügt wurde,
-wird ein Zeiger \verb+w+ auf ein (Integer-)Array übergeben.
-In diesem Array sind die Zeiger gespeichert, die mit \verb+dsp_add+ übergeben wurden.
-Sie müssen auf ihren ursprünglichen Typ zurückgecastet werden.
+Der Perform-Routine die mit \verb+class_add+ in den DSP-Baum eingefÃ¼gt wurde,
+wird ein Zeiger \verb+w+ auf ein (Integer-)Array Ã¼bergeben.
+In diesem Array sind die Zeiger gespeichert, die mit \verb+dsp_add+ Ã¼bergeben wurden.
+Sie mÃ¼ssen auf ihren ursprÃ¼nglichen Typ zurÃ¼ckgecastet werden.
 Der erste Zeiger ist an der Stelle \verb+w[1]+ gespeichert !!!
 
-Die perform-Routine muß einen Zeiger auf Integer zurückgeben, der hinter den
+Die perform-Routine muÃŸ einen Zeiger auf Integer zurÃ¼ckgeben, der hinter den
 Speicherplatz zeigt, in dem die eigenen Zeiger gespeichert sind.
-Dies bedeutet, dass das Rückgabeargument gleich dem Übergabeargument plus der
+Dies bedeutet, dass das RÃ¼ckgabeargument gleich dem Ãœbergabeargument plus der
 Anzahl der eigenen Zeigervariablen (wie sie als zweites Argument in
 \verb+dsp_add+ angegeben wurde) plus eins.
 
@@ -1738,44 +1738,44 @@ Das erste Argument des Makros ist ein Zeiger auf die Signalklasse.
 Das zweite Argument ist der Typ des Datenraums der Klasse.
 Das dritte Argument ist eine (Dummy-)Gleitkomma-Variable aus dem Datenraum,
 die gebraucht wird, um bei nicht vorhandenen Signalen am Signalinlet,
-``float''-Messages wie Signale behandeln zu können.
+``float''-Messages wie Signale behandeln zu kÃ¶nnen.
 
-An so kreierten Signaleingängen können daher keine zusätzlichen ``float''-Messages
+An so kreierten SignaleingÃ¤ngen kÃ¶nnen daher keine zusÃ¤tzlichen ``float''-Messages
 geschickt werden.
 
 \subsubsection{dsp\_add}
 \begin{verbatim}
 void dsp_add(t_perfroutine f, int n, ...);
 \end{verbatim}
-Fügt dem DSP-Baum eine Perform-Routine \verb+f+ hinzu,
+FÃ¼gt dem DSP-Baum eine Perform-Routine \verb+f+ hinzu,
 die jeden DSP-Zyklus neu aufgerufen wird.
 
 Das zweite Argument \verb+n+ legt die Anzahl der nachfolgenden Zeigerargumente fest.
 
-Welche Zeiger auf welche Variablen übergeben werden, unterliegt keiner Beschränkung.
+Welche Zeiger auf welche Variablen Ã¼bergeben werden, unterliegt keiner BeschrÃ¤nkung.
 Sinnvoll sind im Allgemeinen Zeiger auf den Datenraum und auf die Signalvektoren.
-Auch die Länge der Signalvektoren sollte übergeben werden,
-um effektiv Signale manipulieren zu können.
+Auch die LÃ¤nge der Signalvektoren sollte Ã¼bergeben werden,
+um effektiv Signale manipulieren zu kÃ¶nnen.
 
 \subsubsection{sys\_getsr}
 \begin{verbatim}
 float sys_getsr(void);
 \end{verbatim}
-Gibt die Abtastrate des Systems zurück.
+Gibt die Abtastrate des Systems zurÃ¼ck.
 
 \subsection{Funktion: Memory}
 \subsubsection{getbytes}
 \begin{verbatim}
 void *getbytes(size_t nbytes);
 \end{verbatim}
-Reserviert \verb+nbytes+ Bytes und gibt einen Zeiger auf den reservierten Speicher zurück.
+Reserviert \verb+nbytes+ Bytes und gibt einen Zeiger auf den reservierten Speicher zurÃ¼ck.
 
 \subsubsection{copybytes}
 \begin{verbatim}
 void *copybytes(void *src, size_t nbytes);
 \end{verbatim}
 Kopiert  \verb+nbytes+ Bytes von \verb+*src+ in einen neu alloziierten Speicher.
-Die Addresse dieses Speichers wird zurückgegeben.
+Die Addresse dieses Speichers wird zurÃ¼ckgegeben.
 
 \subsubsection{freebytes}
 \begin{verbatim}
@@ -1798,7 +1798,7 @@ void error(char *fmt, ...);
 
 Schreibt einen {\tt C}-String als Fehlermeldung auf den Standarderror (Shell).
 Das Objekt, das die Fehlermeldung ausgegeben hat, wird markiert und
-ist über das Pd-Menü {\em Find->Find last error} identifizierbar.
+ist Ã¼ber das Pd-MenÃ¼ {\em Find->Find last error} identifizierbar.
 
 \end{appendix}
 
