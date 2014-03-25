@@ -9,8 +9,10 @@ HTMLDIR_DE=HOWTO-de
 LATEX=latex
 DVIPS=dvips
 PDFLATEX=pdflatex
-LATEX2HTML=latex2html
-LATEX2HTML_OPTIONS=-html_version 4.0,latin1,unicode -split 4
+HTLATEX=htlatex
+HTLATEX_OPTIONS2=html,2,next,fn-in
+HTLATEX_OPTIONS3=
+## htlatex HOWTO-externals-en "html,2,next" "" -dHOWTO/
 
 default: en_pdf
 
@@ -22,20 +24,21 @@ TARGETS: default \
 .PHONY: $(TARGETS)
 
 en_ps: $(HOWTO_EN).ps
-
-en_pdf: $(HOWTO_EN).pdf
-
-en_html: $(HOWTO_EN).tex
-	mkdir -p ${HTMLDIR_EN}
-	$(LATEX2HTML) $(LATEX2HTML_OPTIONS) -dir $(HTMLDIR_EN) $<
-
 de_ps: $(HOWTO_DE).ps
 
+en_pdf: $(HOWTO_EN).pdf
 de_pdf: $(HOWTO_DE).pdf
 
-de_html: $(HOWTO_DE).tex
-	mkdir -p ${HTMLDIR_DE}
-	$(LATEX2HTML) $(LATEX2HTML_OPTIONS) -dir $(HTMLDIR_DE) $<
+en_html: $(HOWTO_EN).tex $(HOWTO_EN).pdf
+	mkdir -p $(HTMLDIR_EN)
+	$(HTLATEX) $< "$(HTLATEX_OPTIONS2)" "$(HTLATEX_OPTIONS3)" "-d$(HTMLDIR_EN)/"
+	cp "$(HOWTO_EN).pdf" "$(HTMLDIR_EN)/pd-externals-HOWTO.pdf"
+
+#de_html: $(HOWTO_DE).tex
+#	mkdir -p $(HTMLDIR_DE)
+#	$(HTLATEX) $< "$(HTLATEX_OPTIONS2)" "$(HTLATEX_OPTIONS3)" "-d$(HTMLDIR_DE)/"
+de_html::
+	@echo "ignoring target '$@'"
 
 ps: en_ps de_ps
 
@@ -44,7 +47,10 @@ pdf: en_pdf de_pdf
 html: en_html de_html
 
 clean:
-	-rm -f *.aux *.log *.toc *.out *.dvi *~
+	-rm -f *.aux *.log *.toc *.out *.dvi
+	-rm -f *.idv *.lg *.tmp *.xref *.4ct *.4tc
+	-rm -f *.css *.html
+	-rm -f *~
 
 cleaner: clean
 	-rm -f *.ps *.pdf
@@ -62,7 +68,7 @@ distclean: cleaner
 	$(DVIPS) $*.dvi
 
 
-%.pdf:
+%.pdf: %.tex
 	$(PDFLATEX) $*.tex
 	$(PDFLATEX) $*.tex
 
@@ -71,3 +77,6 @@ examples: $(HOWTO_EXAMPLES)
 
 $(HOWTO_EXAMPLES):
 	$(MAKE) -C $@
+
+
+
