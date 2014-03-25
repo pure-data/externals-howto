@@ -1,4 +1,4 @@
-HOWTO=HOWTO-externals-en
+HOWTO=pd-externals-HOWTO
 
 HOWTO_EXAMPLES=example1  example2  example3  example4
 
@@ -27,7 +27,7 @@ pdf: $(HOWTO).pdf
 html: $(HOWTO).tex $(HOWTO).pdf
 	mkdir -p $(HTMLDIR)
 	$(HTLATEX) $< "$(HTLATEX_OPTIONS2)" "$(HTLATEX_OPTIONS3)" "-d$(HTMLDIR)/"
-	cp $(HOWTO).pdf "$(HTMLDIR)/pd-externals-HOWTO.pdf"
+	cp $(HOWTO).pdf "$(HTMLDIR)/"
 
 clean:
 	-rm -f *.aux *.log *.toc *.out *.dvi
