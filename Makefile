@@ -1,10 +1,8 @@
-HOWTO_EN=HOWTO-externals-en
-HOWTO_DE=HOWTO-externals-de
+HOWTO=HOWTO-externals-en
 
 HOWTO_EXAMPLES=example1  example2  example3  example4
 
-HTMLDIR_EN=HOWTO
-HTMLDIR_DE=HOWTO-de
+HTMLDIR=HOWTO
 
 LATEX=latex
 DVIPS=dvips
@@ -14,37 +12,22 @@ HTLATEX_OPTIONS2=html,2,next,fn-in
 HTLATEX_OPTIONS3=
 ## htlatex HOWTO-externals-en "html,2,next" "" -dHOWTO/
 
-default: en_pdf
+default: pdf
 
 TARGETS: default \
-	en_ps en_pdf en_html de_ps de_pdf de_html ps pdf html \
+	ps pdf html \
 	clean cleaner distclean \
 	examples $(HOWTO_EXAMPLES)
 
 .PHONY: $(TARGETS)
 
-en_ps: $(HOWTO_EN).ps
-de_ps: $(HOWTO_DE).ps
+ps: $(HOWTO).ps
+pdf: $(HOWTO).pdf
 
-en_pdf: $(HOWTO_EN).pdf
-de_pdf: $(HOWTO_DE).pdf
-
-en_html: $(HOWTO_EN).tex $(HOWTO_EN).pdf
-	mkdir -p $(HTMLDIR_EN)
-	$(HTLATEX) $< "$(HTLATEX_OPTIONS2)" "$(HTLATEX_OPTIONS3)" "-d$(HTMLDIR_EN)/"
-	cp "$(HOWTO_EN).pdf" "$(HTMLDIR_EN)/pd-externals-HOWTO.pdf"
-
-#de_html: $(HOWTO_DE).tex
-#	mkdir -p $(HTMLDIR_DE)
-#	$(HTLATEX) $< "$(HTLATEX_OPTIONS2)" "$(HTLATEX_OPTIONS3)" "-d$(HTMLDIR_DE)/"
-de_html::
-	@echo "ignoring target '$@'"
-
-ps: en_ps de_ps
-
-pdf: en_pdf de_pdf
-
-html: en_html de_html
+html: $(HOWTO).tex $(HOWTO).pdf
+	mkdir -p $(HTMLDIR)
+	$(HTLATEX) $< "$(HTLATEX_OPTIONS2)" "$(HTLATEX_OPTIONS3)" "-d$(HTMLDIR)/"
+	cp $(HOWTO).pdf "$(HTMLDIR)/pd-externals-HOWTO.pdf"
 
 clean:
 	-rm -f *.aux *.log *.toc *.out *.dvi
@@ -59,24 +42,19 @@ cleaner: clean
 distclean: cleaner
 	@for d in ${HOWTO_EXAMPLES}; do ${MAKE} -C $$d clean; done
 
-%.dvi:
-	$(LATEX) $*.tex
-	$(LATEX) $*.tex
-
+%.dvi: $.tex
+	$(LATEX) $<
+	$(LATEX) $<
 
 %.ps: %.dvi
-	$(DVIPS) $*.dvi
-
+	$(DVIPS) $<
 
 %.pdf: %.tex
-	$(PDFLATEX) $*.tex
-	$(PDFLATEX) $*.tex
+	$(PDFLATEX) $<
+	$(PDFLATEX) $<
 
 examples: $(HOWTO_EXAMPLES)
 	echo made examples
 
 $(HOWTO_EXAMPLES):
 	$(MAKE) -C $@
-
-
-
