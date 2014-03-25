@@ -23,6 +23,14 @@
 % add landscape support (for rotating text through 90deg)
 \usepackage{lscape}
 
+\makeatletter
+\@ifpackageloaded{tex4ht}
+  {\let\iftexforht\@firstoftwo}
+  {\let\iftexforht\@secondoftwo}
+\makeatother
+
+\iftexforht{\newcommand\pdtilde{\textasciitilde}}{\newcommand\pdtilde{$\sim$}}
+
 \title{
 HOWTO \\
 write an External \\
@@ -41,7 +49,7 @@ IOhannes m zmölnig \\
 \maketitle
 
 \begin{abstract}
-Pd is a graphical real-time computer-music system that follows the tradition of
+Pd is a graphical real-time computer-music  system that follows the tradition of
 IRCAMs {\em ISPW-max}.
 
 Although plenty of functions are built into Pd,
@@ -53,6 +61,9 @@ that are written in complex programming-languages, like {\tt C/C++}.
 
 This document aims to explain how to write such primitives in {\tt C},
 the popular language that was used to realize Pd.
+
+\iftexforht{You can download this HOWTO as \href{pd-externals-HOWTO.pdf}{pdf (English)}.}{}
+
 \end{abstract}
 
 
@@ -94,7 +105,7 @@ To avoid confusion of ideas, the expressions {\em internal}, {\em external} and
 
 \paragraph{Internal}
 An {\em internal} is a class that is built into Pd.
-Plenty of primitives, such as ``+'', ``pack'' or ``sig\~\/'' are {\em internals}.
+Plenty of primitives, such as ``+'', ``pack'' or ``sig\pdtilde'' are {\em internals}.
 
 \paragraph{External}
 An {\em external} is a class that is not built into Pd but is loaded at runtime.
@@ -861,16 +872,16 @@ void counter_setup(void) {
 \end{verbatim}
 
 
-\section{a signal-external: {\tt pan\~\/}}
+\section{a signal-external: {\tt pan\pdtilde}}
 Signal classes are normal Pd-classes, that offer additional methods for signals.
 
 
 All methods and concepts that can be realized with normal object classes can
 therefore be realized with signal classes too.
 
-Per agreement, the symbolic names of signal classes end with a tilde \~\/.
+Per agreement, the symbolic names of signal classes end with a tilde \pdtilde.
 
-The class ``pan\~\/'' shall demonstrate, how signal classes are written.
+The class ``pan\pdtilde'' shall demonstrate, how signal classes are written.
 
 A signal on the left inlet is mixed with a signal on the second inlet.
 The mixing-factor between 0 and 1 is defined via a \verb+t_float+-message
@@ -1085,7 +1096,7 @@ our additional iolets.
 Note that we do not need to free the default first outlet.
 As it is created automatically by Pd, it is also freed automatically.
 
-\subsection{the code: \tt pan\~\/}
+\subsection{the code: \tt pan\pdtilde}
 
 \begin{verbatim}
 #include "m_pd.h"
