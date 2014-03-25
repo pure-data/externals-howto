@@ -10,6 +10,7 @@ LATEX=latex
 DVIPS=dvips
 PDFLATEX=pdflatex
 LATEX2HTML=latex2html
+LATEX2HTML_OPTIONS=-html_version 4.0,latin1,unicode -split 4
 
 default: en_pdf
 
@@ -24,17 +25,17 @@ en_ps: $(HOWTO_EN).ps
 
 en_pdf: $(HOWTO_EN).pdf
 
-en_html: 
+en_html: $(HOWTO_EN).tex
 	mkdir -p ${HTMLDIR_EN}
-	$(LATEX2HTML) -dir $(HTMLDIR_EN) -split 4 $(HOWTO_EN).tex
+	$(LATEX2HTML) $(LATEX2HTML_OPTIONS) -dir $(HTMLDIR_EN) $<
 
 de_ps: $(HOWTO_DE).ps
 
 de_pdf: $(HOWTO_DE).pdf
 
-de_html: 
+de_html: $(HOWTO_DE).tex
 	mkdir -p ${HTMLDIR_DE}
-	$(LATEX2HTML) -dir $(HTMLDIR_DE) -split 4 $(HOWTO_DE).tex
+	$(LATEX2HTML) $(LATEX2HTML_OPTIONS) -dir $(HTMLDIR_DE) $<
 
 ps: en_ps de_ps
 
