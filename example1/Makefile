@@ -66,7 +66,7 @@ LINUXCFLAGS = -DPD -O2 -funroll-loops -fomit-frame-pointer -fPIC \
     -Wall -W -Wshadow -Wstrict-prototypes -Werror \
     -Wno-unused -Wno-parentheses -Wno-switch
 
-LINUXLDFLAGS =  -export_dynamic -shared  -lc -lm
+LINUXLDFLAGS =  -shared  -lc -lm
 
 LINUXINCLUDE =  -I$(PDSRCDIR)
 
