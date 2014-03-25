@@ -8,7 +8,7 @@ HTMLDIR_DE=HOWTO-de
 
 LATEX=latex
 DVIPS=dvips
-DVIPDF=dvipdf
+PDFLATEX=pdflatex
 LATEX2HTML=latex2html
 
 default: en_pdf
@@ -43,7 +43,7 @@ pdf: en_pdf de_pdf
 html: en_html de_html
 
 clean:
-	-rm -f *.aux *.log *.toc *.dvi *~
+	-rm -f *.aux *.log *.toc *.out *.dvi *~
 
 cleaner: clean
 	-rm -f *.ps *.pdf
@@ -61,8 +61,9 @@ distclean: cleaner
 	$(DVIPS) $*.dvi
 
 
-%.pdf: %.dvi
-	$(DVIPDF) $*.dvi
+%.pdf:
+	$(PDFLATEX) $*.tex
+	$(PDFLATEX) $*.tex
 
 examples: $(HOWTO_EXAMPLES)
 	echo made examples
