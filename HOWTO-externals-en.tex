@@ -3,7 +3,7 @@
 \documentclass[12pt, a4paper,english,titlepage]{article}  
 
 %% HOWTO write an external for Pd
-%% Copyright (c) 2001-2006 by IOhannes m zmölnig
+%% Copyright (c) 2001-2014 by IOhannes m zmölnig
 %%
 %%  Permission is granted to copy, distribute and/or modify this document
 %%  under the terms of the GNU Free Documentation License, Version 1.2
@@ -16,6 +16,13 @@
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 
+% add hypertext support (fine for latex2html)
+\usepackage{html}
+\usepackage{hyperref}
+
+% add landscape support (for rotating text through 90deg)
+\usepackage{lscape}
+
 \title{
 HOWTO \\
 write an External \\
@@ -25,7 +32,7 @@ for {\em Pure Data}
 \author{
 IOhannes m zmölnig \\
 \\
-{\em institute of electronic music and acoustics\footnote{http://iem.at}}
+\href{http://iem.at/}{institute of electronic music and acoustics}
 }
 
 \date{}
