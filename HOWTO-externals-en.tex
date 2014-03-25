@@ -879,6 +879,12 @@ typedef struct _pan_tilde {
 
   t_sample f_pan;
   t_float  f;
+
+  t_inlet *x_in2;
+  t_inlet *x_in3;
+
+  t_outlet*x_out;
+
 } t_pan_tilde;
 \end{verbatim}
 
@@ -888,13 +894,17 @@ The other variable \verb+f+ is needed whenever a signal-inlet is needed too.
 If no signal but only a float-message is present at a signal-inlet, this
 variable is used to automatically convert the float to signal.
 
+Finally, we have the members \verb+x_in2+, \verb+x_in3+ and \verb+x_out+,
+which are needed to store handles to the various extra inlets (resp. outlets) of the object.
+
 \subsection{signal-classes}
 
 \begin{verbatim}
 void pan_tilde_setup(void) {
   pan_tilde_class = class_new(gensym("pan~"),
         (t_newmethod)pan_tilde_new,
-        0, sizeof(t_pan_tilde),
+        (t_method)pan_tilde_free,
+        sizeof(t_pan_tilde),
         CLASS_DEFAULT, 
         A_DEFFLOAT, 0);
 
@@ -904,7 +914,13 @@ void pan_tilde_setup(void) {
 }
 \end{verbatim}
 
-A method for signal-processing has to be provided by each signal class.
+Something has changed with the \verb+class_new+ function: 
+the third argument specifies a ``free-method'' (aka {\em destructor}), which is called whenever an instance of the object
+is to be deleted (just like the ``new-method'' is called whenever an instance is to be created).
+In the prior examples this was set to \verb+0+ (meaning: we don't care),
+but in this example we have to clean up some ressources when we don't need them any more.
+
+More interestingly, a method for signal-processing has to be provided by each signal class.
 
 Whenever Pd's audio engine is started, a message with the selector ``dsp''
 is sent to each object.
@@ -933,11 +949,11 @@ void *pan_tilde_new(t_floatarg f)
   t_pan_tilde *x = (t_pan_tilde *)pd_new(pan_tilde_class);
 
   x->f_pan = f;
-  
-  inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-  floatinlet_new (&x->x_obj, &x->f_pan);
 
-  outlet_new(&x->x_obj, &s_signal);
+  x->x_in2 = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
+  x->x_in3 = floatinlet_new (&x->x_obj, &x->f_pan);
+
+  x->x_out = outlet_new(&x->x_obj, &s_signal);
 
   return (void *)x;
 }
@@ -949,6 +965,18 @@ in the lookup-table.
 
 Signal-outlets are also created like normal (message-)outlets,
 by setting the outlet-selector to ``signal''.
+
+The newly created inlets/outlets are ``user-allocated'' data.
+Pd will keep track of all the ressources it automatically creates (like the default inlet),
+and will eventually free these ressources once they are no longer needed.
+However, if we request an ``extra'' ressource (like the additional inlets/outlets in this example;
+or - more commonly - memory that is allocated via \verb+malloc+ or similar),
+we have to make sure ourselves, that these ressources are freed when no longer needed.
+If we fail to do so, we will invariably create a dreaded {\em memory leak}.
+
+Therefore, we store the ``handles'' to the newly created inlets/outlets as returned by the \verb+..._new+ routines
+for later use.
+
 
 \subsection{DSP-methods}
 Whenever Pd's audio engine is turned on,
@@ -1028,6 +1056,28 @@ at the same address in the memory.
 In this case, the programmer has to be careful not to write into the out-signal
 before having read the in-signal to avoid overwriting data that is not yet saved.
 
+\subsection{destructor}
+
+\begin{verbatim}
+void pan_tilde_free(t_pan_tilde *x)
+{
+  inlet_free(x->x_in2);
+  inlet_free(x->x_in3);
+  outlet_free(x->x_out);
+}
+\end{verbatim}
+
+The object has some dynamically allocated ressources,
+namely the additional inlets and outlets we created in the constructor.
+
+Since Pd doesn't track dynamically allocated ressources for us,
+we have to free them manually in the ``free-method'' (aka: destructor).
+We do so by calling \verb+inlet_free+ (resp. \verb+outlet_free+) on the handles to
+our additional iolets.
+
+Note that we do not need to free the default first outlet.
+As it is created automatically by Pd, it is also freed automatically.
+
 \subsection{the code: \tt pan\~\/}
 
 \begin{verbatim}
@@ -1039,6 +1089,10 @@ typedef struct _pan_tilde {
   t_object  x_obj;
   t_sample f_pan;
   t_sample f;
+
+  t_inlet *x_in2;
+  t_inlet *x_in3;
+  t_outlet*x_out;
 } t_pan_tilde;
 
 t_int *pan_tilde_perform(t_int *w)
@@ -1061,15 +1115,22 @@ void pan_tilde_dsp(t_pan_tilde *x, t_signal **sp)
           sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
 }
 
+void pan_tilde_free(t_pan_tilde *x)
+{
+  inlet_free(x->x_in2);
+  inlet_free(x->x_in3);
+  outlet_free(x->x_out);
+}
+
 void *pan_tilde_new(t_floatarg f)
 {
   t_pan_tilde *x = (t_pan_tilde *)pd_new(pan_tilde_class);
 
   x->f_pan = f;
   
-  inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-  floatinlet_new (&x->x_obj, &x->f_pan);
-  outlet_new(&x->x_obj, &s_signal);
+  x->x_in2=inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
+  x->x_in3=floatinlet_new (&x->x_obj, &x->f_pan);
+  x->x_out=outlet_new(&x->x_obj, &s_signal);
 
   return (void *)x;
 }
