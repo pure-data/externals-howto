@@ -33,6 +33,10 @@ typedef struct _pan_tilde {
   t_object  x_obj;
   t_sample f_pan;
   t_sample f;
+
+  t_inlet *x_in2;
+  t_inlet *x_in3;
+  t_outlet*x_out;
 } t_pan_tilde;
 
 
@@ -98,10 +102,23 @@ void pan_tilde_dsp(t_pan_tilde *x, t_signal **sp)
           sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
 }
 
+/**
+ * this is the "destructor" of the class;
+ * it allows us to free dynamically allocated ressources
+ */
+void pan_tilde_free(t_pan_tilde *x)
+{
+  /* free any ressources associated with the given inlet */
+  inlet_free(x->x_in2);
+  inlet_free(x->x_in3);
+
+  /* free any ressources associated with the given outlet */
+  outlet_free(x->x_out);
+}
 
 /**
  * this is the "constructor" of the class
- * the argument is the initial mixing-factir
+ * the argument is the initial mixing-factor
  */
 void *pan_tilde_new(t_floatarg f)
 {
@@ -111,13 +128,13 @@ void *pan_tilde_new(t_floatarg f)
   x->f_pan = f;
   
   /* create a new signal-inlet */
-  inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
+  x->x_in2 = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
 
   /* create a new passive inlet for the mixing-factor */
-  floatinlet_new (&x->x_obj, &x->f_pan);
+  x->x_in3 = floatinlet_new (&x->x_obj, &x->f_pan);
 
   /* create a new signal-outlet */
-  outlet_new(&x->x_obj, &s_signal);
+  x->x_out = outlet_new(&x->x_obj, &s_signal);
 
   return (void *)x;
 }
@@ -130,7 +147,8 @@ void *pan_tilde_new(t_floatarg f)
 void pan_tilde_setup(void) {
   pan_tilde_class = class_new(gensym("pan~"),
         (t_newmethod)pan_tilde_new,
-        0, sizeof(t_pan_tilde),
+        (t_method)pan_tilde_free,
+	sizeof(t_pan_tilde),
         CLASS_DEFAULT, 
         A_DEFFLOAT, 0);
 
