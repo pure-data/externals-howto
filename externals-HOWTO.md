@@ -971,7 +971,7 @@ If the type of the atom – that is found at in the atom-list `argv` with the le
 
 ### atom\_getint
 
-    int atom_getint(t_atom *a);
+    t_int atom_getint(t_atom *a);
 
 If the type of the atom `a` is `A_FLOAT`, its numerical value is returned as integer else “0” is returned.
 
