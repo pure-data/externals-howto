@@ -394,7 +394,7 @@ State-variables that belong to class instances belong to the data space.
 \begin{verbatim}
 typedef struct _counter {
   t_object  x_obj;
-  t_int i_count;
+  int i_count;
 } t_counter;
 \end{verbatim}
 
@@ -499,7 +499,7 @@ static t_class *counter_class;
 
 typedef struct _counter {
   t_object  x_obj;
-  t_int i_count;
+  int i_count;
 } t_counter;
 
 void counter_bang(t_counter *x)
@@ -544,9 +544,9 @@ the initial value.
 \begin{verbatim}
 typedef struct _counter {
   t_object  x_obj;
-  t_int i_count;
+  int i_count;
   t_float step;
-  t_int i_down, i_up;
+  int i_down, i_up;
   t_outlet *f_out, *b_out;
 } t_counter;
 \end{verbatim}
@@ -727,7 +727,7 @@ The method for the ``bang''-message has to full fill the more complex tasks.
 void counter_bang(t_counter *x)
 {
   t_float f=x->i_count;
-  t_int step = x->step;
+  int step = x->step;
   x->i_count+=step;
   if (x->i_down-x->i_up) {
     if ((step>0) && (x->i_count > x->i_up)) {
@@ -774,16 +774,16 @@ static t_class *counter_class;
 
 typedef struct _counter {
   t_object  x_obj;
-  t_int i_count;
+  int i_count;
   t_float step;
-  t_int i_down, i_up;
+  int i_down, i_up;
   t_outlet *f_out, *b_out;
 } t_counter;
 
 void counter_bang(t_counter *x)
 {
   t_float f=x->i_count;
-  t_int step = x->step;
+  int step = x->step;
   x->i_count+=step;
 
   if (x->i_down-x->i_up) {
@@ -1255,7 +1255,7 @@ Pd-type & description \\
 \verb+t_symbol+ & symbol \\
 \verb+t_gpointer+ & pointer (to graphical objects) \\
 \hline
-\verb+t_int+ & integer value \\
+\verb+t_int+ & pointer-sized integer value (only used for perform routines) \\
 \verb+t_signal+ & structure of a signal \\
 \verb+t_sample+ & audio signal-value (floating point)\\
 \verb+t_outlet+ & outlet of an object \\
@@ -1310,7 +1310,7 @@ is \verb+A_FLOAT+, the numerical value of this atom else ``0.0'' is returned.
 
 \subsubsection{atom\_getint}
 \begin{verbatim}
-t_int atom_getint(t_atom *a);
+int atom_getint(t_atom *a);
 \end{verbatim}
 If the type of the atom \verb+a+ is \verb+A_FLOAT+,
 its numerical value is returned as integer else ``0'' is returned.

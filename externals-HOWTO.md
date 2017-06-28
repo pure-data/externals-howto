@@ -232,7 +232,7 @@ State-variables that belong to class instances belong to the data space.
 
     typedef struct _counter {
       t_object  x_obj;
-      t_int i_count;
+      int i_count;
     } t_counter;
 
 The integer variable `i_count` stores the counter-value.
@@ -308,7 +308,7 @@ the code: counter
 
     typedef struct _counter {
       t_object  x_obj;
-      t_int i_count;
+      int i_count;
     } t_counter;
 
     void counter_bang(t_counter *x)
@@ -348,9 +348,9 @@ extended data space
 
     typedef struct _counter {
       t_object  x_obj;
-      t_int i_count;
+      int i_count;
       t_float step;
-      t_int i_down, i_up;
+      int i_down, i_up;
       t_outlet *f_out, *b_out;
     } t_counter;
 
@@ -483,7 +483,7 @@ The method for the “bang”-message has to full fill the more complex tasks.
     void counter_bang(t_counter *x)
     {
       t_float f=x->i_count;
-      t_int step = x->step;
+      int step = x->step;
       x->i_count+=step;
       if (x->i_down-x->i_up) {
         if ((step>0) && (x->i_count > x->i_up)) {
@@ -526,16 +526,16 @@ the code: counter
 
     typedef struct _counter {
       t_object  x_obj;
-      t_int i_count;
+      int i_count;
       t_float step;
-      t_int i_down, i_up;
+      int i_down, i_up;
       t_outlet *f_out, *b_out;
     } t_counter;
 
     void counter_bang(t_counter *x)
     {
       t_float f=x->i_count;
-      t_int step = x->step;
+      int step = x->step;
       x->i_count+=step;
 
       if (x->i_down-x->i_up) {
@@ -923,7 +923,6 @@ Generally, Pd-types start with `t_`.
 |   `t_float`   | floating point value                   |
 |   `t_symbol`  | symbol                                 |
 |  `t_gpointer` | pointer (to graphical objects)         |
-|    `t_int`    | integer value                          |
 |   `t_signal`  | structure of a signal                  |
 |   `t_sample`  | audio signal-value (floating point)    |
 |   `t_outlet`  | outlet of an object                    |
@@ -931,6 +930,7 @@ Generally, Pd-types start with `t_`.
 |   `t_object`  | object-interna                         |
 |   `t_class`   | a Pd-class                             |
 |   `t_method`  | class-method                           |
+| `t_int`       | pointer-sized integer value            |
 | `t_newmethod` | pointer to a constructor (new-routine) |
 
 important functions in “m\_pd.h”
@@ -971,7 +971,7 @@ If the type of the atom – that is found at in the atom-list `argv` with the le
 
 ### atom\_getint
 
-    t_int atom_getint(t_atom *a);
+    int atom_getint(t_atom *a);
 
 If the type of the atom `a` is `A_FLOAT`, its numerical value is returned as integer else “0” is returned.
 
