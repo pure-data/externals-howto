@@ -919,18 +919,18 @@ Generally, Pd-types start with `t_`.
 
 |    Pd-type    | description                            |
 |:-------------:|:---------------------------------------|
-|    `t_atom`   | atom                                   |
-|   `t_float`   | floating point value                   |
-|   `t_symbol`  | symbol                                 |
-|  `t_gpointer` | pointer (to graphical objects)         |
-|   `t_signal`  | structure of a signal                  |
-|   `t_sample`  | audio signal-value (floating point)    |
-|   `t_outlet`  | outlet of an object                    |
-|   `t_inlet`   | inlet of an object                     |
-|   `t_object`  | object-interna                         |
-|   `t_class`   | a Pd-class                             |
-|   `t_method`  | class-method                           |
+| `t_atom`      | atom                                   |
+| `t_float`     | floating point value                   |
+| `t_symbol`    | symbol                                 |
+| `t_gpointer`  | pointer (to graphical objects)         |
 | `t_int`       | pointer-sized integer value            |
+| `t_signal`    | structure of a signal                  |
+| `t_sample`    | audio signal-value (floating point)    |
+| `t_outlet`    | outlet of an object                    |
+| `t_inlet`     | inlet of an object                     |
+| `t_object`    | object-interna                         |
+| `t_class`     | a Pd-class                             |
+| `t_method`    | class-method                           |
 | `t_newmethod` | pointer to a constructor (new-routine) |
 
 important functions in “m\_pd.h”
