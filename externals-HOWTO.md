@@ -777,11 +777,15 @@ destructor
       outlet_free(x->x_out);
     }
 
-The object has some dynamically allocated ressources, namely the additional inlets and outlets we created in the constructor.
 
-Since Pd doesn’t track dynamically allocated ressources for us, we have to free them manually in the “free-method” (aka: destructor). We do so by calling `inlet_free` (resp. `outlet_free`) on the handles to our additional iolets.
+If our object has some dynamically allocated ressources (usually this is dynamically allocated memory),
+we must free them manually in the  “free-method” (aka: destructor).
 
-Note that we do not need to free the default first outlet. As it is created automatically by Pd, it is also freed automatically.
+In the example abouve, we do so by calling `inlet_free` (resp. `outlet_free`) on the handles to our additional iolets.
+
+NOTE: we do not really need to free inlets and outlet.
+As Pd will automatically free them for us (unless we are doing higher-order magic, like displaying one objects iolet as
+another object's. but let's not get into that for now...)
 
 the code: pan
 -------------
