@@ -720,8 +720,7 @@ DSP-methods
 Whenever Pd’s audio engine is turned on, all signal-objects declare their perform-routines that are to be added to the DSP-tree.
 
 The “dsp”-method has two arguments, the pointer to the class-data space, and a pointer to an array of signals.
-
-The signals are arranged in the array in such way, that they are ordered in a clockwise way in the graphical representation of the object.[4]
+The signal array consists of the input signals (from left to right) and then the output signals (from left to right).
 
     void pan_tilde_dsp(t_pan_tilde *x, t_signal **sp)
     {
@@ -1294,7 +1293,8 @@ Whenever Pd’s audio engine is started, all objects that provide a “dsp”-me
 
 In the “dsp”-method a class method for signal-processing is added to the DSP-tree by the function `dsp_add`.
 
-Apart from the data space `x` of the object, an array of signals is passed. The signals in the array are arranged in such a way, that they can be read in the graphical representation of the object clockwisely.
+Apart from the data space `x` of the object, an array of signals is passed.
+The signals in the array are arranged from left to right, first the inlets, then the outlets..
 
 In case there are both two in- and out-signals, this means:
 
@@ -1302,8 +1302,8 @@ In case there are both two in- and out-signals, this means:
 |:-------:|-----------------:|
 | sp\[0\] |    left in-signal|
 | sp\[1\] |   right in-signal|
-| sp\[2\] |  right out-signal|
-| sp\[3\] |   left out-signal|
+| sp\[2\] |   left out-signal|
+| sp\[3\] |  right out-signal|
 
 The signal structure contains apart from other things:
 
@@ -1395,5 +1395,3 @@ The object that has output the error-message is marked and can be identified via
 [2] or another system-dependent filename-extensions (s.a.)
 
 [3] That’s why the <span>step</span>-width of the classdata space is realized as <span>t\_float</span>.
-
-[4] If both left and right in- and out-signals exist, this means: First is the leftmost in-signal followed by the right in-signals; after the right out-signals, finally there comes the leftmost out-signal.
