@@ -1350,7 +1350,7 @@ Which pointers to which data are passes is not limited. Generally, pointers to t
 
     float sys_getsr(void);
 
-Returns the sampler ate of the system.
+Returns the sample-rate of the system.
 
 functions: memory
 -----------------
