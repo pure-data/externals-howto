@@ -675,7 +675,7 @@ signal-classes
       CLASS_MAINSIGNALIN(pan_tilde_class, t_pan_tilde, f);
     }
 
-Something has changed with the `class_new` function: the third argument specifies a “free-method” (aka <span>*destructor*</span>), which is called whenever an instance of the object is to be deleted (just like the “new-method” is called whenever an instance is to be created). In the prior examples this was set to `0` (meaning: we don’t care), but in this example we have to clean up some ressources when we don’t need them any more.
+Something has changed with the `class_new` function: the third argument specifies a “free-method” (aka <span>*destructor*</span>), which is called whenever an instance of the object is to be deleted (just like the “new-method” is called whenever an instance is to be created). In the prior examples this was set to `0` (meaning: we don’t care), but in this example we have to clean up some resources when we don’t need them any more.
 
 More interestingly, a method for signal-processing has to be provided by each signal class.
 
@@ -710,7 +710,7 @@ Additional signal-inlets are added like other inlets with the routine `inlet_new
 
 Signal-outlets are also created like normal (message-)outlets, by setting the outlet-selector to “signal”.
 
-The newly created inlets/outlets are “user-allocated” data. Pd will keep track of all the ressources it automatically creates (like the default inlet), and will eventually free these ressources once they are no longer needed. However, if we request an “extra” ressource (like the additional inlets/outlets in this example; or - more commonly - memory that is allocated via `malloc` or similar), we have to make sure ourselves, that these ressources are freed when no longer needed. If we fail to do so, we will invariably create a dreaded <span>*memory leak*</span>.
+The newly created inlets/outlets are “user-allocated” data. Pd will keep track of all the resources it automatically creates (like the default inlet), and will eventually free these resources once they are no longer needed. However, if we request an “extra” ressource (like the additional inlets/outlets in this example; or - more commonly - memory that is allocated via `malloc` or similar), we have to make sure ourselves, that these resources are freed when no longer needed. If we fail to do so, we will invariably create a dreaded <span>*memory leak*</span>.
 
 Therefore, we store the “handles” to the newly created inlets/outlets as returned by the `..._new` routines for later use.
 
@@ -779,7 +779,7 @@ destructor
     }
 
 
-If our object has some dynamically allocated ressources (usually this is dynamically allocated memory),
+If our object has some dynamically allocated resources (usually this is dynamically allocated memory),
 we must free them manually in the  “free-method” (aka: destructor).
 
 In the example abouve, we do so by calling `inlet_free` (resp. `outlet_free`) on the handles to our additional iolets.
