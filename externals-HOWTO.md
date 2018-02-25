@@ -1344,9 +1344,21 @@ No “float”-methods can be used for signal-inlets, that are created this way.
 
 Adds the perform-routine `f` to the DSP-tree. The perform-routine is called at each DSP-cycle.
 
-The second argument`n` defines the number of following pointer-arguments
+The second argument `n` defines the number of following pointer-arguments
 
-Which pointers to which data are passes is not limited. Generally, pointers to the data space of the object and to the signal-vectors are reasonable. The length of the signal-vectors should also be passed to manipulate signals effectively.
+Which pointers to which data are passed is not limited. Generally, pointers to the data space of the object and to the signal-vectors are reasonable. The length of the signal-vectors should also be passed to manipulate signals effectively.
+
+### dsp\_addv
+
+    void dsp_addv(t_perfroutine f, int n, t_int *vec);
+
+Adds the perform-routine `f` to the DSP-tree. The perform-routine is called at each DSP-cycle.
+
+The second argument, `n`, defines the number of arguments passed in the third argument `vec`.
+
+The third argument, `vec`, holds the pointers to the data to be passed to the perform routine `f`.
+
+This method performs the same operation as *dsp_add* but is more flexible because its array can be manipulated at run-time based on attributes of the object. This is how you would create an object with a variable amount of inputs and/or outputs.
 
 ### sys\_getsr
 
