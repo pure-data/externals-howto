@@ -738,6 +738,8 @@ The structure `t_signal` contains a pointer to the its signal-vector `().s_vec` 
 
 Since all signal vectors of a patch (not including it’s sub-patches) are of the same length, it is sufficient to get the length of one of these vectors.
 
+Since an object doesn't know its *perform*-routine's signal-vector length until the "dsp"-method, this would be the place to allocate temporary buffers to store intermediate dsp computations. See: *getbytes*.
+
 perform-routine
 ---------------
 
