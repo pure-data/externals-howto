@@ -1352,6 +1352,15 @@ Which pointers to which data are passes is not limited. Generally, pointers to t
 
 Returns the sample-rate of the system.
 
+### sys_getblksize
+
+    int sys_getblksize(void);
+
+Returns the system top level dsp block size.
+
+*Note*: this isn't necessarily the same as the length of the signal-vector that a signal object is expected to execute on.  A switch~ or block~ object might change that. An object's "dsp"-method has access to the signal-vectors and the *s_n* entry of any of the t_signal's passed in give the length of the signal-vector the dsp *perform*-routine will execute on.
+
+
 functions: memory
 -----------------
 
