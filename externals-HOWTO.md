@@ -5,7 +5,7 @@ Pd refers to the graphical real-time computer-music environment <span>*Pure Data
 
 To fully understand this document, it is necessary to be acquainted with Pd and to have a general understanding of programming techniques especially in <span>C</span>.
 
-To write externals yourself, a <span>C</span>-compiler that supports the <span>ANSI-C</span>-Standard, like the <span>*Gnu C-compiler*</span> (gcc) on linux-systems or <span>*Visual-C++*</span> on windos-plattforms, will be necessary.
+To write externals yourself, a <span>C</span>-compiler that supports the <span>ANSI-C</span>-Standard, like the <span>*Gnu C-compiler*</span> (gcc) on linux-systems or <span>*Visual-C++*</span> on windows-platforms, will be necessary.
 
 classes, instances, objects
 ---------------------------
@@ -16,7 +16,7 @@ In this document, the expression <span>*class*</span> refers to the realisation 
 
 Concrete <span>*instances of a class*</span> are called <span>*objects*</span>.
 
-internals, externals und libraries
+internals, externals and libraries
 ----------------------------------
 
 To avoid confusion of ideas, the expressions <span>*internal*</span>, <span>*external*</span> and <span>*library*</span> should be explained here.
@@ -710,7 +710,7 @@ Additional signal-inlets are added like other inlets with the routine `inlet_new
 
 Signal-outlets are also created like normal (message-)outlets, by setting the outlet-selector to “signal”.
 
-The newly created inlets/outlets are “user-allocated” data. Pd will keep track of all the resources it automatically creates (like the default inlet), and will eventually free these resources once they are no longer needed. However, if we request an “extra” ressource (like the additional inlets/outlets in this example; or - more commonly - memory that is allocated via `malloc` or similar), we have to make sure ourselves, that these resources are freed when no longer needed. If we fail to do so, we will invariably create a dreaded <span>*memory leak*</span>.
+The newly created inlets/outlets are “user-allocated” data. Pd will keep track of all the resources it automatically creates (like the default inlet), and will eventually free these resources once they are no longer needed. However, if we request an “extra” resource (like the additional inlets/outlets in this example; or - more commonly - memory that is allocated via `malloc` or similar), we have to make sure ourselves, that these resources are freed when no longer needed. If we fail to do so, we will invariably create a dreaded <span>*memory leak*</span>.
 
 Therefore, we store the “handles” to the newly created inlets/outlets as returned by the `..._new` routines for later use.
 
@@ -745,7 +745,7 @@ perform-routine
 
 The perform-routine is the DSP-heart of each signal class.
 
-A pointer to an integer-array is passed to it. This array contains the pointers, that were passed via `dsp_add`, which must be casted back to their real type.
+A pointer to an integer-array is passed to it. This array contains the pointers, that were passed via `dsp_add`, which must be cast back to their real type.
 
 The perform-routine has to return a pointer to integer, that points to the address behind the stored pointers of the routine. This means, that the return argument equals the argument of the perform-routine plus the number of pointer variables (as declared as the second argument of `dsp_add`) plus one.
 
@@ -907,7 +907,7 @@ Since the symbols for these selectors are used quite often, their address in the
 | list       | `gensym("list")`    | `&s_list`      |
 | — (signal) | `gensym("signal")`  | `&s_symbol`    |
 
-Other selectors can be used as well. The receiving class has to provide a method for a specifique selector or for “anything”, which is any arbitrary selector.
+Other selectors can be used as well. The receiving class has to provide a method for a specific selector or for “anything”, which is any arbitrary selector.
 
 Messages that have no explicit selector and start with a numerical value, are recognised automatically either as “float”-message (only one atom) or as “list”-message (several atoms).
 
@@ -1322,7 +1322,7 @@ The signal vector is an array of samples of type `t_sample`.
 
 A pointer `w` to an array (of integer) is passed to the perform-routine that is inserted into the DSP-tree by `class_add`.
 
-In this array the pointers that are passed via `dsp_add` are stored. These pointers have to be casted back to their original type.
+In this array the pointers that are passed via `dsp_add` are stored. These pointers have to be cast back to their original type.
 
 The first pointer is stored at `w[1]` !!!
 
