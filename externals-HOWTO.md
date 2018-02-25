@@ -782,7 +782,7 @@ destructor
 If our object has some dynamically allocated resources (usually this is dynamically allocated memory),
 we must free them manually in the  “free-method” (aka: destructor).
 
-In the example abouve, we do so by calling `inlet_free` (resp. `outlet_free`) on the handles to our additional iolets.
+In the example above, we do so by calling `inlet_free` (resp. `outlet_free`) on the handles to our additional iolets.
 
 NOTE: we do not really need to free inlets and outlet.
 As Pd will automatically free them for us (unless we are doing higher-order magic, like displaying one objects iolet as
