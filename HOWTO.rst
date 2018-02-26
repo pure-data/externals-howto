@@ -1293,8 +1293,8 @@ Generally, Pd-types start with ``t_``.
 | ``t_newmethod``   | pointer to a constructor (new-routine)   |
 +-------------------+------------------------------------------+
 
-important functions in “m\_pd.h”
-================================
+API reference
+=============
 
 functions: atoms
 ----------------
