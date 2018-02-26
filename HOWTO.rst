@@ -93,14 +93,22 @@ preferably used for *libraries* that contain several *externals*.
 
 The other method should be used for *libraries* that contain exactly one
 *external* bearing the same name. Pd checks first, whether a class named
-“my\_lib” is already loaded. If this is not the case[1], all paths are
-searched for a file called “my\_lib.pd\_linux”[2]. If such file is
+“my\_lib” is already loaded. If this is not the case [#]_, all paths are
+searched for a file called “my\_lib.pd\_linux” [#]_. If such file is
 found, all included *externals* are loaded into memory by calling a
 routine ``my_lib_setup()``. After loading, a class “my\_lib” is (again)
 looked for as a (newly loaded) *external*. If so, an instance of this
 class is created, else the instantiation fails and an error is printed.
 Anyhow, all *external*-classes declared in the *library* are loaded by
 now.
+
+.. [#] If a class “my\_lib” is already existent, an object “my\_lib” will
+be instantiated and the procedure is done. Thus, no *library* has been
+loaded. Therefore no *library* that is named like an already used
+class-name like, say, “abs”, can be loaded.
+
+.. [#] or another system-dependent filename-extensions (s.a.)
+
 
 Writing externals
 *****************
@@ -690,7 +698,11 @@ object. The second argument is the address in the data space-memory,
 where other objects can write too.
 
 “Passive” inlets can be created for pointers, symbolic or numerical
-(floating point[3]) values.
+(floating point [#]_) values.
+
+[#] That’s why the step-width of the classdata space is realized as
+t\_float.
+
 
 ::
 
@@ -2129,12 +2141,5 @@ Writes a C-string as an error-message to the standard error (shell).
 The object that has output the error-message is marked and can be
 identified via the Pd-menu *Find->Find last error*.
 
-[1] If a class “my\_lib” is already existent, an object “my\_lib” will
-be instantiated and the procedure is done. Thus, no *library* has been
-loaded. Therefore no *library* that is named like an already used
-class-name like, say, “abs”, can be loaded.
 
-[2] or another system-dependent filename-extensions (s.a.)
 
-[3] That’s why the step-width of the classdata space is realized as
-t\_float.
