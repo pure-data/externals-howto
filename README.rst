@@ -102,10 +102,7 @@ class is created, else the instantiation fails and an error is printed.
 Anyhow, all *external*-classes declared in the *library* are loaded by
 now.
 
-.. [#] If a class “my\_lib” is already existent, an object “my\_lib” will
-be instantiated and the procedure is done. Thus, no *library* has been
-loaded. Therefore no *library* that is named like an already used
-class-name like, say, “abs”, can be loaded.
+.. [#] If a class “my\_lib” is already existent, an object “my\_lib” will be instantiated and the procedure is done. Thus, no *library* has been loaded. Therefore no *library* that is named like an already used class-name like, say, “abs”, can be loaded.
 
 .. [#] or another system-dependent filename-extensions (s.a.)
 
@@ -698,10 +695,7 @@ object. The second argument is the address in the data space-memory,
 where other objects can write too.
 
 “Passive” inlets can be created for pointers, symbolic or numerical
-(floating point [#]_) values.
-
-[#] That’s why the step-width of the classdata space is realized as
-t\_float.
+(floating point [#]_ ) values.
 
 
 ::
@@ -715,6 +709,8 @@ classdata space to be used later by the outlet-routines.
 The order of the generation of inlets and outlets is important, since it
 corresponds to the order of inlets and outlets in the graphical
 representation of the object.
+
+.. [#] That’s why the step-width of the classdata space is realized as t\_float.
 
 extended method space
 ---------------------
