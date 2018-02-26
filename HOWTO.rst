@@ -11,12 +11,12 @@ Therefore, Pd can be extended with self made primitives (“objects”) that are
 This document aims to explain how to write such primitives in C, the popular language that was used to realize Pd. 
 
 Table of Contents
-=================
+*****************
 
 .. contents::
 
 definitions and prerequisites
-=============================
+*****************************
 
 Pd refers to the graphical real-time computer-music environment *Pure
 Data* by Miller S. Puckette.
@@ -30,7 +30,7 @@ ANSI-C-Standard, like the *Gnu C-compiler* (gcc) on linux-systems or
 *Visual-C++* on windows-platforms, will be necessary.
 
 classes, instances, objects
----------------------------
+===========================
 
 Pd is written in the programming-language C. Due to its graphical
 nature, Pd is a *object-oriented* system. Unfortunately C does not
@@ -43,26 +43,26 @@ concept combining data and manipulators on this data.
 Concrete *instances of a class* are called *objects*.
 
 internals, externals and libraries
-----------------------------------
+==================================
 
 To avoid confusion of ideas, the expressions *internal*, *external* and
 *library* should be explained here.
 
 Internal
-^^^^^^^^
+--------
 
 An *internal* is a class that is built into Pd. Plenty of primitives,
 such as “+”, “pack” or “sig” are *internals*.
 
 External
-^^^^^^^^
+--------
 
 An *external* is a class that is not built into Pd but is loaded at
 runtime. Once loaded into Pd’s memory, *externals* cannot be
 distinguished from *internals* any more.
 
 Library
-^^^^^^^
+-------
 
 A *library* is a collection of *externals* that are compiled into a
 single binary-file.
@@ -101,6 +101,9 @@ looked for as a (newly loaded) *external*. If so, an instance of this
 class is created, else the instantiation fails and an error is printed.
 Anyhow, all *external*-classes declared in the *library* are loaded by
 now.
+
+Writing externals
+*****************
 
 my first external: helloworld
 =============================
@@ -1169,13 +1172,13 @@ the code: pan
     }
 
 Pd’s message-system
-===================
+*******************
 
 Non-audio-data are distributed via a message-system. Each message
 consists of a “selector” and a list of atoms.
 
 atoms
------
+=====
 
 There are three kinds of atoms:
 
@@ -1200,7 +1203,7 @@ The type of an atom ``a`` is stored in the structure-element
 ``a.a_type``.
 
 selectors
----------
+=========
 
 The selector is a symbol that defines the type of a message. There are
 five predefined selectors:
@@ -1251,6 +1254,11 @@ For example, messages “\ ``12.429``\ ” and “\ ``float 12.429``\ ” are
 identical. Likewise, the messages “\ ``list 1 for you``\ ” is identical
 to “\ ``1 for you``\ ”.
 
+
+API reference
+*************
+
+
 Pd-types
 ========
 
@@ -1293,8 +1301,8 @@ Generally, Pd-types start with ``t_``.
 | ``t_newmethod``   | pointer to a constructor (new-routine)   |
 +-------------------+------------------------------------------+
 
-API reference
-=============
+Pd-functions
+============
 
 functions: atoms
 ----------------
