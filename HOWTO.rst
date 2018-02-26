@@ -1299,8 +1299,10 @@ important functions in “m\_pd.h”
 functions: atoms
 ----------------
 
+functions dealing with ``atom`` s.
+
 SETFLOAT
-~~~~~~~~
+^^^^^^^^
 
 ::
 
@@ -1310,7 +1312,7 @@ This macro sets the type of ``atom`` to ``A_FLOAT`` and stores the
 numerical value ``f`` in this atom.
 
 SETSYMBOL
-~~~~~~~~~
+^^^^^^^^^
 
 ::
 
@@ -1320,7 +1322,7 @@ This macro sets the type of ``atom`` to ``A_SYMBOL`` and stores the
 symbolic pointer ``s`` in this atom.
 
 SETPOINTER
-~~~~~~~~~~
+^^^^^^^^^^
 
 ::
 
@@ -1330,7 +1332,7 @@ This macro sets the type of ``atom`` to ``A_POINTER`` and stores the
 pointer ``pt`` in this atom.
 
 atom\_getfloat
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 ::
 
@@ -1340,7 +1342,7 @@ If the type of the atom ``a`` is ``A_FLOAT``, the numerical value of
 this atom else “0.0” is returned.
 
 atom\_getfloatarg
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1351,7 +1353,7 @@ with the length ``argc`` at the place ``which`` – is ``A_FLOAT``, the
 numerical value of this atom else “0.0” is returned.
 
 atom\_getint
-~~~~~~~~~~~~
+^^^^^^^^^^^^
 
 ::
 
@@ -1361,7 +1363,7 @@ If the type of the atom ``a`` is ``A_FLOAT``, its numerical value is
 returned as integer else “0” is returned.
 
 atom\_getsymbol
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 ::
 
@@ -1371,7 +1373,7 @@ If the type of the atom ``a`` is ``A_SYMBOL``, a pointer to this symbol
 is returned, else a null-pointer “0” is returned.
 
 atom\_gensym
-~~~~~~~~~~~~
+^^^^^^^^^^^^
 
 ::
 
@@ -1385,7 +1387,7 @@ This string is – on demand – inserted into the symbol-table. A pointer
 to this symbol is returned.
 
 atom\_string
-~~~~~~~~~~~~
+^^^^^^^^^^^^
 
 ::
 
@@ -1396,7 +1398,7 @@ char-Buffer has to be reserved manually and its length has to be
 declared in ``bufsize``.
 
 gensym
-~~~~~~
+^^^^^^
 
 ::
 
@@ -1410,7 +1412,7 @@ functions: classes
 ------------------
 
 class\_new
-~~~~~~~~~~
+^^^^^^^^^^
 
 ::
 
@@ -1565,7 +1567,7 @@ If more than six arguments are to be passed, ``A_GIMME`` has to be used
 and a manual type-check has to be made.
 
 class\_addmethod
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1594,7 +1596,7 @@ Possible types of arguments are:
 +-------------------+-------------------------------------------------+
 
 class\_addbang
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 ::
 
@@ -1607,7 +1609,7 @@ The argument of the “bang”-method is a pointer to the class-data space:
 ``void my_bang_method(t_mydata *x);``
 
 class\_addfloat
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 ::
 
@@ -1621,7 +1623,7 @@ and a floating point-argument:
 ``void my_float_method(t_mydata *x, t_floatarg f);``
 
 class\_addsymbol
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1635,7 +1637,7 @@ space and a pointer to the passed symbol:
 ``void my_symbol_method(t_mydata *x, t_symbol *s);``
 
 class\_addpointer
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1649,7 +1651,7 @@ space and a pointer to a pointer:
 ``void my_pointer_method(t_mydata *x, t_gpointer *pt);``
 
 class\_addlist
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 ::
 
@@ -1666,7 +1668,7 @@ class-data space – a pointer to the selector-symbol (always
 ``t_symbol *s, int argc, t_atom *argv);``
 
 class\_addanything
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1683,7 +1685,7 @@ and a pointer to the list of atoms:
 ``t_symbol *s, int argc, t_atom *argv);``
 
 class\_addcreator
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1698,7 +1700,7 @@ internal “float” resp. “f”).
 The “0”-terminated list of types corresponds to that of ``class_new``.
 
 class\_sethelpsymbol
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1717,7 +1719,7 @@ Path-information is relative to the default help path
 *doc/5.reference/*.
 
 pd\_new
-~~~~~~~
+^^^^^^^
 
 ::
 
@@ -1736,7 +1738,7 @@ initialised. This variable has to be passed as the ``owner``-object to
 the various inlet- and outlet-routines.
 
 inlet\_new
-~~~~~~~~~~
+^^^^^^^^^^
 
 ::
 
@@ -1768,7 +1770,7 @@ This means
    method for arbitrary selectors to a right inlet.
 
 floatinlet\_new
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 ::
 
@@ -1779,7 +1781,7 @@ Generates a new “passive” inlet for the object that is pointed at by
 into the memory ``fp``, without calling a dedicated method.
 
 symbolinlet\_new
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1790,7 +1792,7 @@ Generates a new “passive” inlet for the object that is pointed at by
 into the memory ``*sp``, without calling a dedicated method.
 
 pointerinlet\_new
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1801,7 +1803,7 @@ Generates a new “passive” inlet for the object that is pointed at by
 memory ``gp``, without calling a dedicated method.
 
 outlet\_new
-~~~~~~~~~~~
+^^^^^^^^^^^
 
 ::
 
@@ -1842,7 +1844,7 @@ returned by ``outlet_new`` have to be stored manually in the data space
 to address the given outlets.
 
 outlet\_bang
-~~~~~~~~~~~~
+^^^^^^^^^^^^
 
 ::
 
@@ -1851,7 +1853,7 @@ outlet\_bang
 Outputs a “bang”-message at the outlet specified by ``x``.
 
 outlet\_float
-~~~~~~~~~~~~~
+^^^^^^^^^^^^^
 
 ::
 
@@ -1861,7 +1863,7 @@ Outputs a “float”-message with the numeric value ``f`` at the outlet
 specified by ``x``.
 
 outlet\_symbol
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 ::
 
@@ -1871,7 +1873,7 @@ Outputs a “symbol”-message with the symbolic value ``s`` at the outlet
 specified by ``x``.
 
 outlet\_pointer
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 ::
 
@@ -1881,7 +1883,7 @@ Outputs a “pointer”-message with the pointer ``gp`` at the outlet
 specified by ``x``.
 
 outlet\_list
-~~~~~~~~~~~~
+^^^^^^^^^^^^
 
 ::
 
@@ -1899,7 +1901,7 @@ To make the code more readable, ``s`` should point to the symbol list
 (either via ``gensym("list")`` or via ``&s_list``)
 
 outlet\_anything
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 ::
 
@@ -1983,7 +1985,7 @@ the number of used pointers (as defined in the second argument of
 ``dsp_add``) plus one.
 
 CLASS\_MAINSIGNALIN
-~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -2002,7 +2004,7 @@ No “float”-methods can be used for signal-inlets, that are created this
 way.
 
 dsp\_add
-~~~~~~~~
+^^^^^^^^
 
 ::
 
@@ -2020,7 +2022,7 @@ reasonable. The length of the signal-vectors should also be passed to
 manipulate signals effectively.
 
 dsp\_addv
-~~~~~~~~~
+^^^^^^^^^
 
 ::
 
@@ -2041,7 +2043,7 @@ attributes of the object. This is how you would create an object with a
 variable amount of inputs and/or outputs.
 
 sys\_getsr
-~~~~~~~~~~
+^^^^^^^^^^
 
 ::
 
@@ -2050,7 +2052,7 @@ sys\_getsr
 Returns the sample-rate of the system.
 
 sys\_getblksize
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 ::
 
@@ -2069,7 +2071,7 @@ functions: memory
 -----------------
 
 getbytes
-~~~~~~~~
+^^^^^^^^
 
 ::
 
@@ -2078,7 +2080,7 @@ getbytes
 Reserves ``nbytes`` bytes and returns a pointer to the allocated memory.
 
 copybytes
-~~~~~~~~~
+^^^^^^^^^
 
 ::
 
@@ -2088,7 +2090,7 @@ Copies ``nbytes`` bytes from ``*src`` into a newly allocated memory. The
 address of this memory is returned.
 
 freebytes
-~~~~~~~~~
+^^^^^^^^^
 
 ::
 
@@ -2100,7 +2102,7 @@ functions: output
 -----------------
 
 post
-~~~~
+^^^^
 
 ::
 
@@ -2109,7 +2111,7 @@ post
 Writes a C-string to the standard error (shell).
 
 error
-~~~~~
+^^^^^
 
 ::
 
