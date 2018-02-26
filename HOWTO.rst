@@ -1283,6 +1283,7 @@ Generally, Pd-types start with ``t_``.
 | ``t_gpointer``    | pointer (to graphical objects)           |
 +-------------------+------------------------------------------+
 | ``t_int``         | pointer-sized integer value              |
+|                   | (do **not** use this for integers)       |
 +-------------------+------------------------------------------+
 | ``t_signal``      | structure of a signal                    |
 +-------------------+------------------------------------------+
