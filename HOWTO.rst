@@ -859,8 +859,8 @@ the code: counter
       class_sethelpsymbol(counter_class, gensym("help-counter"));
     }
 
-a signal-external: pan
-======================
+a signal-external: pan~
+=======================
 
 Signal classes are normal Pd-classes, that offer additional methods for
 signals.
@@ -1100,8 +1100,8 @@ automatically free them for us (unless we are doing higher-order magic,
 like displaying one objects iolet as another object's. but let's not get
 into that for now...)
 
-the code: pan
--------------
+the code: pan~
+--------------
 
 ::
 
