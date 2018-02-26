@@ -10,6 +10,11 @@ Therefore, Pd can be extended with self made primitives (“objects”) that are
 
 This document aims to explain how to write such primitives in C, the popular language that was used to realize Pd. 
 
+Table of Contents
+=================
+
+.. contents::
+
 definitions and prerequisites
 =============================
 
