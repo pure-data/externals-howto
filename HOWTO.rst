@@ -1299,8 +1299,6 @@ important functions in “m\_pd.h”
 functions: atoms
 ----------------
 
-functions dealing with ``atom`` s.
-
 SETFLOAT
 ^^^^^^^^
 
