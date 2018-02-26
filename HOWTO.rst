@@ -1,3 +1,15 @@
+#####################################
+HOWTO write an External for Pure Data
+#####################################
+
+Pure Data (aka Pd) is a graphical real-time computer-music system that follows the tradition of IRCAMs ISPW-max.
+
+Although plenty of functions are built into Pd, it is sometimes a pain or simply impossible to create a patch with a certain functionality out of the given primitives and combinations of these.
+
+Therefore, Pd can be extended with self made primitives (“objects”) that are written in complex programming-languages, like C/C++.
+
+This document aims to explain how to write such primitives in C, the popular language that was used to realize Pd. 
+
 definitions and prerequisites
 =============================
 
