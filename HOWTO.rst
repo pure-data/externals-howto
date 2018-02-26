@@ -2127,7 +2127,7 @@ post
 
     void post(char *fmt, ...);
 
-Writes a C-string to the standard error (shell).
+Writes a C-string to the Pd-console.
 
 error
 ^^^^^
@@ -2136,7 +2136,7 @@ error
 
     void error(char *fmt, ...);
 
-Writes a C-string as an error-message to the standard error (shell).
+Writes a C-string as an error-message to the Pd-console.
 
 The object that has output the error-message is marked and can be
 identified via the Pd-menu *Find->Find last error*.
