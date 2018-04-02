@@ -1028,7 +1028,7 @@ The second argument is the number of the following pointers to diverse
 variables. Which pointers to which variables are passed is not limited.
 
 Here, sp[0] is the first in-signal, sp[1] represents the second
-in-signal and sp[3] points to the out-signal.
+in-signal and sp[2] points to the out-signal.
 
 The structure ``t_signal`` contains a pointer to the its signal-vector
 ``().s_vec`` (an array of samples of type ``t_sample``), and the length
