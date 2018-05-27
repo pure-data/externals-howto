@@ -1603,16 +1603,22 @@ The list of arguments is terminated by “0”.
 
 Possible types of arguments are:
 
-+-------------------+-------------------------------------------------+
-| ``A_DEFFLOAT``    | a numerical value                               |
-+-------------------+-------------------------------------------------+
-| ``A_DEFSYMBOL``   | a symbolical value                              |
-+-------------------+-------------------------------------------------+
-| ``A_POINTER``     | a pointer                                       |
-| ``A_GIMME``       | a list of atoms of arbitrary length and types   |
-| ``A_CANT``        | no possible atoms (used for internal messages   |
-|                   | which would crash Pd when called by the user    |
-+-------------------+-------------------------------------------------+
++-------------------+--------------------------------------------------+
+| ``A_DEFFLOAT``    | a numerical value (default to '0')               |
++-------------------+--------------------------------------------------+
+| ``A_FLOAT``       | an obligatory numerical value (no default value) |
++-------------------+--------------------------------------------------+
+| ``A_DEFSYMBOL``   | a symbolic value (default to '')                 |
++-------------------+--------------------------------------------------+
+| ``A_SYMBOL``      | an obligatory symbol value                       |
++-------------------+--------------------------------------------------+
+| ``A_POINTER``     | a pointer                                        |
++-------------------+--------------------------------------------------+
+| ``A_GIMME``       | a list of atoms of arbitrary length and types    |
++-------------------+--------------------------------------------------+
+| ``A_CANT``        | no possible atoms (used for internal messages    |
+|                   | which would crash Pd when called by the user     |
++-------------------+--------------------------------------------------+
 
 class\_addbang
 ^^^^^^^^^^^^^^
