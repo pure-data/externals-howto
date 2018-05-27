@@ -1609,8 +1609,9 @@ Possible types of arguments are:
 | ``A_DEFSYMBOL``   | a symbolical value                              |
 +-------------------+-------------------------------------------------+
 | ``A_POINTER``     | a pointer                                       |
-+-------------------+-------------------------------------------------+
 | ``A_GIMME``       | a list of atoms of arbitrary length and types   |
+| ``A_CANT``        | no possible atoms (used for internal messages   |
+|                   | which would crash Pd when called by the user    |
 +-------------------+-------------------------------------------------+
 
 class\_addbang
