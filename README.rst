@@ -930,7 +930,7 @@ signal-classes
             A_DEFFLOAT, 0);
 
       class_addmethod(pan_tilde_class,
-            (t_method)pan_tilde_dsp, gensym("dsp"), 0);
+            (t_method)pan_tilde_dsp, gensym("dsp"), A_CANT, 0);
       CLASS_MAINSIGNALIN(pan_tilde_class, t_pan_tilde, f);
     }
 
@@ -1175,7 +1175,7 @@ the code: pan~
             A_DEFFLOAT, 0);
 
       class_addmethod(pan_tilde_class,
-            (t_method)pan_tilde_dsp, gensym("dsp"), 0);
+            (t_method)pan_tilde_dsp, gensym("dsp"), A_CANT, 0);
       CLASS_MAINSIGNALIN(pan_tilde_class, t_pan_tilde, f);
     }
 
