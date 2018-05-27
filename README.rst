@@ -948,6 +948,9 @@ each signal class.
 Whenever Pd’s audio engine is started, a message with the selector “dsp”
 is sent to each object. Each class that has a method for the
 “dsp”-message is recognised as signal class.
+*Always* mark the arguments following the “dsp” selector as ``A_CANT``,
+as this will make it impossible to manually send an *illegal* ``dsp``
+message to the object, triggering a crash.
 
 Signal classes that want to provide signal-inlets have to declare this
 via the ``CLASS_MAINSIGNALIN``-macro. This enables signals at the first
