@@ -1453,6 +1453,8 @@ object is destroyed.
 ``flags`` define the presentation of the graphical object. A (more or
 less arbitrary) combination of following objects is possible:
 
+
+
 .. raw:: html
 
    <table>
@@ -1543,9 +1545,91 @@ CLASS\_PD
 
    <td align="left">
 
-object (without graphical presentation) CLASS\_GOBJ & pure graphical
-object (like arrays, graphs,...) CLASS\_PATCHABLE & a normal object
-(with one inlet) CLASS\_NOINLET & the default inlet is suppressed
+object (without graphical presentation) 
+
+.. raw:: html
+
+   </td>
+
+.. raw:: html
+
+   </tr>
+
+.. raw:: html
+
+   <tr class="even">
+
+.. raw:: html
+
+   <td align="left">
+
+CLASS\_GOBJ 
+
+.. raw:: html
+
+   </td>
+
+.. raw:: html
+
+   <td align="left">
+
+pure graphical object (like arrays, graphs,...) 
+
+.. raw:: html
+
+   </td>
+
+.. raw:: html
+
+   </tr>
+
+.. raw:: html
+
+   <tr class="even">
+
+.. raw:: html
+
+   <td align="left">
+
+CLASS\_PATCHABLE
+
+.. raw:: html
+
+   </td>
+
+.. raw:: html
+
+   <td align="left">
+
+a normal object (with one inlet) 
+
+.. raw:: html
+
+   </td>
+
+.. raw:: html
+
+   </tr>
+
+.. raw:: html
+
+   <tr class="even">
+
+.. raw:: html
+
+   <td align="left">
+
+CLASS\_NOINLET 
+
+.. raw:: html
+
+   </td>
+
+.. raw:: html
+
+   <td align="left">
+
+the default inlet is suppressed
 
 .. raw:: html
 
@@ -1562,6 +1646,7 @@ object (like arrays, graphs,...) CLASS\_PATCHABLE & a normal object
 .. raw:: html
 
    </table>
+
 
 Flags the description of which is printed in *italic* are of small
 importance for writing externals.
