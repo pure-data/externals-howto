@@ -3,16 +3,36 @@ pd-lib-builder cheatsheet
 
 # Creating special builds
 
-## cross-compiling W32 binaries from linux
+## building for non-native platform
 
-I'm using the following to cross-compile W32 binaries on my Debian/64bit system,
-using `mingw-w64`.
+Using pd-lib-builder >=0.6.0 we can define variable `PLATFORM` to specify a
+target triplet for cross-compilation. Assuming a W32 package for Pd is unzipped
+into path `${PDWIN32}`, to build for Windows 32 bit:
 
-Assuming you have unzipped a W32 package for Pd into `${WINPDPATH}`, run:
+    make PLATFORM=i686-w64-mingw32 PDDIR="${PDWIN32}"
 
-    make system=Windows pdbinpath="${WINPDPATH}/bin/" pdincludepath="${WINPDPATH}/src/" CC=i686-w64-mingw32-gcc
+#### older pd-lib-builder versions
 
-(if the project uses C++, you might also need to set `CXX=i686-w64-mingw32-g++`)
+Using pd-lib-builder < 0.6.0, in the absence of variable `PLATFORM`, you would
+instead override variables `system`, `target.arch`, `CC` and / or `CXX`,
+`STRIP`. Example:
+
+    make system=Windows target.arch=i686 CC=i686-w64-mingw32-gcc STRIP=i686-w64-mingw32-strip PDDIR="${PDWIN32}"
+
+#### toolchains
+
+To build for non-native OS and/or architecture you need a cross toolchain. On
+Linux such toolchains are relatively easy to get. For example Debian Buster
+amd64 provides them for the following platforms (install g++ with dependencies
+for a given platform to get the whole toolchain):
+
+- `arm-linux-gnueabihf`
+- `aarch64-linux-gnu`
+- `i686-linux-gnu`
+- `i686-w64-mingw32` and `x86_64-w64-mingw32` (install `mingw-w64`)
+
+Cross toolchains for OSX/MacOS are not generally distributed. Project
+`osxcross` from Thomas Poechtraeger can create them for Linux.
 
 ## building double-precision externals
 
