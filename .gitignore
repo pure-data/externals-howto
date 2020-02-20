@@ -1,0 +1,13 @@
+# object files
+*.o
+
+# macOS
+*.pd_darwin
+
+# GNU/Linux
+*.pd_linux
+
+# Windows
+*.lib
+*.dll
+
