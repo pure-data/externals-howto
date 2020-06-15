@@ -117,13 +117,13 @@ Usually the first attempt at learning a programming language is a “hello
 world” application.
 
 In our case, an object class should be created, that prints the line
-“hello world!!” to the standard error every time it is triggered with a
+“Hello world !!” to the standard error every time it is triggered with a
 “bang” message.
 
 the interface to Pd
 -------------------
 
-To write a Pd external a well defined interface is needed. This is
+To write a Pd external, a well defined interface is needed. This is
 provided in the header file “m\_pd.h”.
 
 ::
@@ -154,7 +154,7 @@ type ``t_object``, which is used to store internal object properties
 like the graphical presentation of the object or data about inlets and
 outlets.
 
-``t_object`` has to be the first entry in the structure !
+``t_object`` has to be the first entry in the structure!
 
 Because a simple “hello world” application needs no variables, the
 structure is empty apart from the ``t_object``.
