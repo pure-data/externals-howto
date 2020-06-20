@@ -26,7 +26,7 @@ Pd and to have a general understanding of programming techniques
 especially in C.
 
 To write externals yourself, a C compiler that supports the
-ANSI C standard, like the *Gnu C compiler* (gcc) on Linux systems or
+ANSI C standard, like the *GNU C compiler* (gcc) on Linux systems or
 *Visual C++* on Windows platforms, will be necessary.
 
 classes, instances, objects
