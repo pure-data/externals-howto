@@ -116,7 +116,7 @@ my first external: helloworld
 Usually the first attempt at learning a programming language is a “hello
 world” application.
 
-In our case, an object class should be created, that prints the line
+In our case, we will create an object class that prints the line
 “Hello world !!” to the standard error every time it is triggered with a
 “bang” message.
 
@@ -124,7 +124,7 @@ the interface to Pd
 -------------------
 
 To write a Pd external, a well-defined interface is needed. This is
-provided in header file “m\_pd.h”.
+provided by header file “m\_pd.h”.
 
 ::
 
@@ -133,8 +133,8 @@ provided in header file “m\_pd.h”.
 a class and its data space
 --------------------------
 
-First a new class has to be prepared and the data space for this class
-has to be defined.
+First a new class must be prepared and the data space for this class
+must be defined.
 
 ::
 
@@ -154,7 +154,7 @@ type ``t_object``, which is used to store internal object properties
 like the graphical presentation of the object or data about inlets and
 outlets.
 
-``t_object`` has to be the first entry in the structure!
+``t_object`` must be the first entry in the structure!
 
 Because a simple “hello world” application needs no variables, the
 structure is empty apart from the ``t_object``.
@@ -232,11 +232,11 @@ or by deleting the object from the patch) the destructor frees the
 dynamically reserved memory. The allocated memory for the static data
 space is automatically reserved and freed.
 
-Therefore we do not have to provide a destructor in this example, the
+Therefore we need not provide a destructor in this example, the
 argument is set to “0”.
 
 To enable Pd to reserve and free enough memory for the static data
-space, the size of the data structure has to be passed as the fourth
+space, the size of the data structure must be passed as the fourth
 argument.
 
 The fifth argument has influence on the graphical representation of the
@@ -255,7 +255,7 @@ have no object arguments at all for the class.
 class\_addbang
 ^^^^^^^^^^^^^^
 
-We still have to add a method space to the class.
+We still need to add a method space to the class.
 
 ``class_addbang`` adds a method for a “bang” message to the class that
 is defined in the first argument. The added method is defined in the
@@ -268,7 +268,7 @@ Each time, an object is created in a Pd patch, the constructor that is
 defined with the ``class_new`` function, generates a new instance of the
 class.
 
-The constructor has to be of type ``void *``.
+The constructor must be of type ``void *``.
 
 ::
 
@@ -304,7 +304,7 @@ The type cast to the data space is necessary.
 Normally, the constructor would initialise the object variables.
 However, since we have none, this is not necessary.
 
-The constructor has to return a pointer to the instantiated data space.
+The constructor must return a pointer to the instantiated data space.
 
 the code: helloworld
 --------------------
@@ -394,7 +394,7 @@ constructor
 -----------
 
 The constructor has some new tasks. On the one hand, a variable value
-has to be initialised, on the other hand, an outlet for the object has
+must be initialised, on the other hand, an outlet for the object has
 to be created.
 
 ::
@@ -423,7 +423,7 @@ out counter should output numeric values it is of type “float”.
 ``outlet_new`` returns a pointer to the new outlet and saves this very
 pointer in the ``t_object`` variable ``x_obj.ob_outlet``. If only one
 outlet is used, the pointer need not additionally be stored in the data
-space. If more than one outlets are used, the pointers have to be stored
+space. If more than one outlets are used, the pointers must be stored
 in the data space, because the ``t_object`` variable can only hold one
 outlet pointer.
 
@@ -534,7 +534,7 @@ extension of the class
 ----------------------
 
 The new class objects should have methods for different messages, like
-“set” and “reset”. Therefore the method space has to be extended too.
+“set” and “reset”. Therefore the method space must be extended too.
 
 ::
 
@@ -667,7 +667,7 @@ leftmost inlet.
 
 This means:
 
--  The substituting selector has to be declared by ``class_addmethod``
+-  The substituting selector must be declared by ``class_addmethod``
    in the setup function.
 
 -  It is possible to simulate a certain right inlet, by sending a
@@ -703,7 +703,7 @@ where other objects can write too.
       x->f_out = outlet_new(&x->x_obj, &s_float);
       x->b_out = outlet_new(&x->x_obj, &s_bang);
 
-The pointers returned by ``outlet_new`` have to be saved in the
+The pointers returned by ``outlet_new`` must be saved in the
 class data space to be used later by the outlet functions.
 
 The order of the generation of inlets and outlets is important, since it
@@ -715,7 +715,7 @@ representation of the object.
 extended method space
 ---------------------
 
-The method for the “bang” message has to fulfill the more complex
+The method for the “bang” message must fulfill the more complex
 tasks.
 
 ::
@@ -740,7 +740,7 @@ tasks.
 Each outlet is identified by the ``outlet_...`` functions via the
 pointer to this outlets.
 
-The remaining methods still have to be implemented:
+The remaining methods still need to be implemented:
 
 ::
 
@@ -939,10 +939,10 @@ argument specifies a “free method” (aka *destructor*), which is called
 whenever an instance of the object is to be deleted (just like the
 “new method” is called whenever an instance is to be created). In the
 prior examples this was set to ``0`` (meaning: we don’t care), but in
-this example we have to clean up some resources when we don’t need them
+this example we want to clean up some resources when we don’t need them
 any more.
 
-More interestingly, a method for signal processing has to be provided by
+More interestingly, a method for signal processing must be provided by
 each signal class.
 
 Whenever Pd’s audio engine is started, a message with the selector “dsp”
@@ -952,9 +952,9 @@ is sent to each object. Each class that has a method for the
 as this will make it impossible to manually send an *illegal* ``dsp``
 message to the object, triggering a crash.
 
-Signal classes that want to provide signal inlets have to declare this
+Signal classes that want to provide signal inlets must declare this
 via the ``CLASS_MAINSIGNALIN`` macro. This enables signals at the first
-(default) inlet. If more than one signal inlet is needed, they have to
+(default) inlet. If more than one signal inlet is needed, they must
 be created explicitly in the constructor method.
 
 Inlets that are declared as signal inlets cannot provide methods for
@@ -996,11 +996,11 @@ setting the outlet selector to “signal”.
 The newly created inlets/outlets are “user-allocated” data. Pd will keep
 track of all the resources it automatically creates (like the default
 inlet), and will eventually free these resources once they are no longer
-needed. However, if we request an “extra” resource (like the additional
+needed. However, if we request “extra” resources (like the additional
 inlets/outlets in this example; or - more commonly - memory that is
-allocated via ``malloc`` or similar), we have to make sure ourselves,
+allocated via ``malloc`` or similar), we ourselves must make sure
 that these resources are freed when no longer needed. If we fail to do
-so, we will invariably create a dreaded *memory leak*.
+so, we will invariably cause a dreaded *memory leak*.
 
 Therefore, we store the “handles” to the newly created inlets/outlets as
 returned by the ``..._new`` functions for later use.
@@ -1083,7 +1083,7 @@ Each sample of the signal vectors is read and manipulated in the
 
 Optimisation of the DSP tree tries to avoid unnecessary copy operations.
 Therefore it is possible, that in and out signals are located at the
-same address in the memory. In this case, the programmer has to be
+same address in the memory. In this case, the programmer must be
 careful not to write into the out signal before having read the
 in signal to avoid overwriting data that is not yet saved.
 
@@ -1252,7 +1252,7 @@ use ``gensym``:
 | — (signal)   | ``gensym("signal")``    | ``&s_symbol``    |
 +--------------+-------------------------+------------------+
 
-Other selectors can be used as well. The receiving class has to provide
+Other selectors can be used as well. The receiving class must provide
 a method for a specific selector or for “anything”, which is any
 arbitrary selector.
 
@@ -1411,7 +1411,7 @@ atom\_string
     void atom_string(t_atom *a, char *buf, unsigned int bufsize);
 
 Converts atom ``a`` into C string ``buf``. The memory to this
-char buffer has to be reserved manually and its length must be
+char buffer needs to be reserved manually and its length must be
 declared in ``bufsize``.
 
 gensym
@@ -1842,7 +1842,7 @@ functions: inlets and outlets
 All functions for inlets and outlets need a reference to the
 object internals of the class instance. When instantiating a new object,
 the necessary data space variable of the ``t_object`` type is
-initialised. This variable has to be passed as the ``owner`` object to
+initialised. This variable must be passed as the ``owner`` object to
 the various inlet and outlet functions.
 
 inlet\_new
@@ -1863,7 +1863,7 @@ class method for selector ``s2`` is called.
 
 This means
 
--  The substituting selector has to be declared by ``class_addmethod``
+-  The substituting selector must be declared by ``class_addmethod``
    in the setup function.
 
 -  It is possible to simulate a certain right inlet, by sending a
