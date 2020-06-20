@@ -95,8 +95,8 @@ The other method should be used for *libraries* that contain exactly one
 *external* bearing the same name. Pd checks first, whether a class named
 “my\_lib” is already loaded. If this is not the case [#]_, all paths are
 searched for a file called “my\_lib.pd\_linux” [#]_. If such file is
-found, all included *externals* are loaded into memory by calling a
-routine ``my_lib_setup()``. After loading, a class “my\_lib” is (again)
+found, all included *externals* are loaded into memory by calling the
+``my_lib_setup()`` function. After loading, a class “my\_lib” is (again)
 looked for as a (newly loaded) *external*. If so, an instance of this
 class is created, else the instantiation fails and an error is printed.
 Anyhow, all *external* classes declared in the *library* are loaded by
@@ -410,7 +410,7 @@ to be created.
     }
 
 The constructor method has one argument of type ``t_floatarg`` as
-declared in the setup routine by ``class_new``. This argument is used to
+declared in the setup function by ``class_new``. This argument is used to
 initialise the counter.
 
 A new outlet is created with the function ``outlet_new``. The first
@@ -668,7 +668,7 @@ leftmost inlet.
 This means:
 
 -  The substituting selector has to be declared by ``class_addmethod``
-   in the setup routine.
+   in the setup function.
 
 -  It is possible to simulate a certain right inlet, by sending a
    message with this inlet’s selector to the leftmost inlet.
@@ -704,7 +704,7 @@ where other objects can write too.
       x->b_out = outlet_new(&x->x_obj, &s_bang);
 
 The pointers returned by ``outlet_new`` have to be saved in the
-class data space to be used later by the outlet routines.
+class data space to be used later by the outlet functions.
 
 The order of the generation of inlets and outlets is important, since it
 corresponds to the order of inlets and outlets in the graphical
@@ -986,9 +986,9 @@ construction of signal inlets and outlets
       return (void *)x;
     }
 
-Additional signal inlets are added like other inlets with the routine
-``inlet_new``. The last two arguments are references to the symbolic
-selector “signal” in the lookup table.
+Additional signal inlets are added like other inlets with the
+``inlet_new`` function. The last two arguments are references to the
+“signal” symbolic selector in the lookup table.
 
 Signal outlets are also created like normal (message) outlets, by
 setting the outlet selector to “signal”.
@@ -1003,13 +1003,13 @@ that these resources are freed when no longer needed. If we fail to do
 so, we will invariably create a dreaded *memory leak*.
 
 Therefore, we store the “handles” to the newly created inlets/outlets as
-returned by the ``..._new`` routines for later use.
+returned by the ``..._new`` functions for later use.
 
 DSP methods
 -----------
 
 Whenever Pd’s audio engine is turned on, all signal objects declare
-their perform routines that are to be added to the DSP tree.
+their perform functions that are to be added to the DSP tree.
 
 The “dsp” method has two arguments, the pointer to the class data space,
 and a pointer to an array of signals. The signal array consists of the
@@ -1024,7 +1024,7 @@ left to right).
               sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
     }
 
-``dsp_add`` adds a *perform* routine (as declared in the first argument)
+``dsp_add`` adds a *perform* function (as declared in the first argument)
 to the DSP tree.
 
 The second argument is the number of the following pointers to diverse
@@ -1041,23 +1041,23 @@ Since all signal vectors of a patch (not including its subpatches) are
 of the same length, it is sufficient to get the length of one of these
 vectors.
 
-Since an object doesn't know its *perform* routine's signal vector
+Since an object doesn't know its *perform* function's signal vector
 length until the "dsp" method, this would be the place to allocate
 temporary buffers to store intermediate dsp computations. See:
 *getbytes*.
 
-perform routine
----------------
+perform function
+----------------
 
-The perform routine is the DSP heart of each signal class.
+The perform function is the DSP heart of each signal class.
 
 A pointer to an integer array is passed to it. This array contains the
 pointers, that were passed via ``dsp_add``, which must be cast back to
 their real type.
 
-The perform routine has to return a pointer to integer, that points to
-the address behind the stored pointers of the routine. This means, that
-the return argument equals the argument of the perform routine plus the
+The perform function has to return a pointer to integer, that points to
+the address behind the stored pointers of the function. This means, that
+the return argument equals the argument of the perform function plus the
 number of pointer variables (as declared as the second argument of
 ``dsp_add``) plus one.
 
@@ -1238,7 +1238,7 @@ address in the lookup table can be queried directly, without having to
 use ``gensym``:
 
 +--------------+-------------------------+------------------+
-| selector     | lookup routine          | lookup address   |
+| selector     | lookup function call    | lookup address   |
 +==============+=========================+==================+
 | bang         | ``gensym("bang")``      | ``&s_bang``      |
 +--------------+-------------------------+------------------+
@@ -1310,7 +1310,7 @@ Generally, Pd types start with ``t_``.
 +-------------------+------------------------------------------+
 | ``t_method``      | class method                             |
 +-------------------+------------------------------------------+
-| ``t_newmethod``   | pointer to a constructor (new routine)   |
+| ``t_newmethod``   | pointer to a constructor (new function)  |
 +-------------------+------------------------------------------+
 
 Pd functions
@@ -1841,11 +1841,11 @@ this instance.
 functions: inlets and outlets
 -----------------------------
 
-All routines for inlets and outlets need a reference to the
+All functions for inlets and outlets need a reference to the
 object internal of the class instance. When instantiating a new object,
 the necessary data space variable of the ``t_object`` type is
 initialised. This variable has to be passed as the ``owner`` object to
-the various inlet and outlet routines.
+the various inlet and outlet functions.
 
 inlet\_new
 ^^^^^^^^^^
@@ -1867,7 +1867,7 @@ class method for the selector ``s2`` is called.
 This means
 
 -  The substituting selector has to be declared by ``class_addmethod``
-   in the setup routine.
+   in the setup function.
 
 -  It is possible to simulate a certain right inlet, by sending a
    message with this inlet’s selector to the leftmost inlet.
@@ -2073,24 +2073,24 @@ The signal structure contains apart from other things:
 
 The signal vector is an array of samples of type ``t_sample``.
 
-perform routine
-^^^^^^^^^^^^^^^
+perform function
+^^^^^^^^^^^^^^^^
 
 ::
 
     t_int *my_perform_routine(t_int *w)
 
 A pointer ``w`` to an array (of integer) is passed to the
-perform routine that is inserted into the DSP tree by ``class_add``.
+perform function that is inserted into the DSP tree by ``class_add``.
 
 In this array the pointers that are passed via ``dsp_add`` are stored.
 These pointers have to be cast back to their original type.
 
 The first pointer is stored at ``w[1]`` !!!
 
-The perform routine has to return a pointer to integer, that points
+The perform function must return a pointer to integer, that points
 directly behind the memory, where the object’s pointers are stored. This
-means, that the return argument equals the routine’s argument ``w`` plus
+means, that the return argument equals the function’s argument ``w`` plus
 the number of used pointers (as defined in the second argument of
 ``dsp_add``) plus one.
 
@@ -2120,7 +2120,7 @@ dsp\_add
 
     void dsp_add(t_perfroutine f, int n, ...);
 
-Adds the perform routine ``f`` to the DSP tree. The perform routine is
+Adds the perform function ``f`` to the DSP tree. The perform function is
 called at each DSP cycle.
 
 The second argument ``n`` defines the number of following
@@ -2138,14 +2138,14 @@ dsp\_addv
 
     void dsp_addv(t_perfroutine f, int n, t_int *vec);
 
-Adds the perform routine ``f`` to the DSP tree. The perform routine is
+Adds the perform function ``f`` to the DSP tree. The perform function is
 called at each DSP cycle.
 
 The second argument, ``n``, defines the number of arguments passed in
 the third argument ``vec``.
 
 The third argument, ``vec``, holds the pointers to the data to be passed
-to the perform routine ``f``.
+to the perform function ``f``.
 
 This method performs the same operation as *dsp\_add* but is more
 flexible because its array can be manipulated at run-time based on
@@ -2174,7 +2174,7 @@ Returns the system top level dsp block size.
 signal vector that a signal object is expected to execute on. A switch~
 or block~ object might change that. An object's "dsp"-method has access
 to the signal vectors and the *s\_n* entry of any of the t\_signal's
-passed in give the length of the signal vector the dsp *perform* routine
+passed in give the length of the signal vector the dsp *perform* function
 will execute on.
 
 functions: memory
