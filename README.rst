@@ -183,7 +183,7 @@ enable us to manipulate the data space.
 Since we only want to output “Hello world !!” (and, by the way, our data
 space is quite sparse), we renounce a manipulation.
 
-The command ``post(char *c,...)`` sends a string to the standard error.
+The function ``post(char *c,...)`` sends a string to the standard error.
 A carriage return is added automatically. Apart from this, the
 ``post`` function works like the C function ``printf()``.
 
@@ -265,7 +265,7 @@ constructor: instantiation of an object
 ---------------------------------------
 
 Each time, an object is created in a Pd patch, the constructor that is
-defined with the ``class_new`` command, generates a new instance of the
+defined with the ``class_new`` function, generates a new instance of the
 class.
 
 The constructor has to be of type ``void *``.
@@ -1203,7 +1203,7 @@ Numerical values are always floating point values (``t_float``), even if
 they could be displayed as integer values.
 
 Each symbol is stored in a lookup table for reasons of performance. The
-command ``gensym`` looks up a string in the lookup table and returns the
+``gensym`` function looks up a string in the lookup table and returns the
 address of the symbol. If the string is not yet to be found in the
 table, a new symbol is added.
 
