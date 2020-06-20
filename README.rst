@@ -162,12 +162,12 @@ structure is empty apart from the ``t_object``.
 method space
 ------------
 
-Apart from the data space, a class needs a set of manipulators (methods)
-to manipulate the data with.
+In addition to the data space, a class needs a set of manipulators
+(methods) to manipulate the data with.
 
 If a message is sent to an instance of our class, a method is called.
-These methods are the interfaces to the message system of Pd. On
-principle they have no return argument and are therefore of type
+These methods are the interfaces to Pd's message system. On
+principle, they have no return argument and are therefore of type
 ``void``.
 
 ::
@@ -177,11 +177,11 @@ principle they have no return argument and are therefore of type
       post("Hello world !!");
     }
 
-This method has an argument of type ``t_helloworld``, which would
+This method takes an argument of type ``t_helloworld``, which would
 enable us to manipulate the data space.
 
-Since we only want to output “Hello world !!” (and, by the way, our data
-space is quite sparse), we renounce a manipulation.
+But since we only want to output “Hello world !!” (and, by the way, our data
+space is quite sparse), we simply ignore the argument.
 
 The ``post(char *c,...)`` function sends a string to the standard error.
 A carriage return is added automatically. Apart from this, the
