@@ -67,7 +67,7 @@ Library
 A *library* is a collection of *externals* that are compiled into a
 single binary file.
 
-*Library* files have to follow a system dependent naming convention:
+*Library* files must follow a system-dependent naming convention:
 
 +-----------+---------------------+--------------------+---------------+
 | library   | linux               | irix               | Win32         |
@@ -124,7 +124,7 @@ the interface to Pd
 -------------------
 
 To write a Pd external, a well-defined interface is needed. This is
-provided in the header file “m\_pd.h”.
+provided in header file “m\_pd.h”.
 
 ::
 
@@ -146,10 +146,10 @@ has to be defined.
 
 ``helloworld_class`` is going to be a pointer to the new class.
 
-The ``t_helloworld`` structure (of the type ``_helloworld``) is the data
+Structure ``t_helloworld`` (of type ``_helloworld``) is the data
 space of the class.
 
-An absolutely necessary element of the data space is a variable of the
+An absolutely necessary element of the data space is a variable of
 type ``t_object``, which is used to store internal object properties
 like the graphical presentation of the object or data about inlets and
 outlets.
@@ -167,7 +167,7 @@ to manipulate the data with.
 
 If a message is sent to an instance of our class, a method is called.
 These methods are the interfaces to the message system of Pd. On
-principle they have no return argument and are therefore of the type
+principle they have no return argument and are therefore of type
 ``void``.
 
 ::
@@ -177,7 +177,7 @@ principle they have no return argument and are therefore of the type
       post("Hello world !!");
     }
 
-This method has an argument of the type ``t_helloworld``, which would
+This method has an argument of type ``t_helloworld``, which would
 enable us to manipulate the data space.
 
 Since we only want to output “Hello world !!” (and, by the way, our data
@@ -191,9 +191,9 @@ generation of a new class
 -------------------------
 
 To generate a new class, information on the data space and the method
-space of this class has to be passed to Pd when a library is loaded.
+space of this class must be passed to Pd when a library is loaded.
 
-On loading a new library “my\_lib”, Pd tries to call a “my\_lib\_setup()”
+On loading a new library named “my\_lib”, Pd tries to call a “my\_lib\_setup()”
 function. This function (or functions called by it) declares
 the new classes and their properties. It is only called once, when the
 library is loaded. If the function call fails (e.g., because no function
@@ -215,7 +215,7 @@ loaded.
 class\_new
 ^^^^^^^^^^
 
-The ``class_new`` function creates a new class and returns a pointer to
+Function ``class_new`` creates a new class and returns a pointer to
 this prototype.
 
 The first argument is the symbolic name of the class.
@@ -370,7 +370,7 @@ Integer variable ``i_count`` stores the counter value.
 object arguments
 ----------------
 
-It is quite useful for a counter, if a initial value can be defined by
+It is quite useful for a counter, if an initial value can be defined by
 the user. Therefore this initial value should be passed to the object at
 creation time.
 
@@ -386,8 +386,8 @@ creation time.
       class_addbang(counter_class, counter_bang);
     }
 
-So we have an additional argument in the ``class_new`` function:
-``A_DEFFLOAT`` tells Pd, that the object needs one argument of the type
+So we have an additional argument in function ``class_new``:
+``A_DEFFLOAT`` tells Pd that the object needs one argument of the type
 ``t_floatarg``. If no argument is passed, this will default to “0”.
 
 constructor
@@ -414,7 +414,7 @@ declared in the setup function by ``class_new``. This argument is used to
 initialise the counter.
 
 A new outlet is created with function ``outlet_new``. The first
-argument is a pointer to the internal of the object the new outlet is
+argument is a pointer to the internals of the object the new outlet is
 created for.
 
 The second argument is a symbolic description of the outlet type. Since
@@ -443,19 +443,19 @@ afterwards be incremented by 1.
     }
 
 Function ``outlet_float`` sends a floating point value (second
-argument) to the outlet that is specified by the first argument.
+argument) to the outlet specified by the first argument.
 
 We first store the counter in a floating point buffer. Afterwards the
 counter is incremented and not before that the buffer variable is sent
 to the outlet.
 
-What appears to be unnecessary on the first glance, makes sense after
+What appears to be unnecessary at first glance, makes sense after
 further inspection: the buffer variable has been declared as a
 ``t_float``, since ``outlet_float`` expects a floating point value and a
 typecast is inevitable.
 
 If the counter value was sent to the outlet before being incremented,
-this could result in an unwanted (though well defined) behaviour: If the
+this could result in unwanted (though well defined) behaviour: if the
 counter outlet directly triggered its own inlet, the counter method
 would be called although the counter value was not yet incremented.
 Normally this is not what we want.
@@ -599,13 +599,13 @@ user.
 
     void *counter_new(t_symbol *s, int argc, t_atom *argv)
 
-Because of the declaration of arguments in the ``class_new`` function
-with ``A_GIMME``, the constructor has following arguments:
+Because of the declaration of arguments in function ``class_new``
+with ``A_GIMME``, the constructor has the following arguments:
 
 +--------------------+------------------------------------------------+
-| ``t_symbol *s``    | the symbolic name,                             |
+| ``t_symbol *s``    | the symbolic name                              |
 +--------------------+------------------------------------------------+
-|                    | that was used for object creation              |
+|                    | used for object creation                       |
 +--------------------+------------------------------------------------+
 | ``int argc``       | the number of arguments passed to the object   |
 +--------------------+------------------------------------------------+
@@ -654,7 +654,7 @@ inlet.
 Due to the software architecture, the first inlet is always “active”.
 
 The first two arguments of the ``inlet_new`` function are pointers to
-the internal of the object and to the graphical presentation of the
+the internals of the object and to the graphical presentation of the
 object.
 
 The symbolic selector that is specified by the third argument is to be
@@ -986,8 +986,8 @@ construction of signal inlets and outlets
       return (void *)x;
     }
 
-Additional signal inlets are added like other inlets with the
-``inlet_new`` function. The last two arguments are references to the
+Additional signal inlets are added like other inlets, using
+function ``inlet_new``. The last two arguments are references to the
 “signal” symbolic selector in the lookup table.
 
 Signal outlets are also created like normal (message) outlets, by
@@ -1033,11 +1033,11 @@ variables. Which pointers to which variables are passed is not limited.
 Here, sp[0] is the first inlet signal, sp[1] represents the second
 inlet signal and sp[2] points to the outlet signal.
 
-The structure ``t_signal`` contains a pointer to the its signal vector
+Structure ``t_signal`` contains a pointer to its signal vector
 ``().s_vec`` (an array of samples of type ``t_sample``), and the length
 of this signal vector ``().s_n``.
 
-Since all signal vectors of a patch (not including its subpatches) are
+Since all the signal vectors in a patch (not including its subpatches) are
 of the same length, it is sufficient to get the length of one of these
 vectors.
 
@@ -1052,10 +1052,10 @@ perform function
 The perform function is the DSP heart of each signal class.
 
 A pointer to an integer array is passed to it. This array contains the
-pointers, that were passed via ``dsp_add``, which must be cast back to
+pointers that were passed via ``dsp_add``, which must be cast back to
 their real type.
 
-The perform function has to return a pointer to integer, that points to
+The perform function must return a pointer to an integer, that points to
 the address behind the stored pointers of the function. This means that
 the return argument equals the argument of the perform function plus the
 number of pointer variables (as declared as the second argument of
@@ -1202,16 +1202,15 @@ There are three kinds of atoms:
 Numerical values are always floating point values (``t_float``), even if
 they could be displayed as integer values.
 
-Each symbol is stored in a lookup table for reasons of performance. The
-``gensym`` function looks up a string in the lookup table and returns the
+Each symbol is stored in a lookup table for performance reasons.
+Function ``gensym`` looks up a string in the lookup table and returns the
 address of the symbol. If the string is not yet to be found in the
 table, a new symbol is added.
 
 Atoms of type *A\_POINTER* are not very important (for simple
 externals).
 
-The type of an atom ``a`` is stored in the structure element
-``a.a_type``.
+The type of an atom ``a`` is stored in structure element ``a.a_type``.
 
 selectors
 =========
@@ -1304,7 +1303,7 @@ Generally, Pd types start with ``t_``.
 +-------------------+------------------------------------------+
 | ``t_inlet``       | inlet of an object                       |
 +-------------------+------------------------------------------+
-| ``t_object``      | object internal                          |
+| ``t_object``      | object internals                         |
 +-------------------+------------------------------------------+
 | ``t_class``       | a Pd class                               |
 +-------------------+------------------------------------------+
@@ -1412,7 +1411,7 @@ atom\_string
     void atom_string(t_atom *a, char *buf, unsigned int bufsize);
 
 Converts atom ``a`` into C string ``buf``. The memory to this
-char buffer has to be reserved manually and its length has to be
+char buffer has to be reserved manually and its length must be
 declared in ``bufsize``.
 
 gensym
@@ -1825,8 +1824,7 @@ changed to symbol ``s``.
 
 Therefore, several similar classes can share a single help patch.
 
-Path information is relative to the default help path
-*doc/5.reference/*.
+The path is relative to the default help directory *doc/5.reference/*.
 
 pd\_new
 ^^^^^^^
@@ -2029,11 +2027,11 @@ functions: DSP
 --------------
 
 If a class is to provide methods for digital signal processing, a
-method for the selector “dsp” (followed by no atoms) must be added to
+method for selector “dsp” (followed by no atoms) must be added to
 the class.
 
 Whenever Pd’s audio engine is started, all the objects providing a
-“dsp”-method are identified as instances of signal classes.
+“dsp” method are identified as instances of signal classes.
 
 DSP method
 ^^^^^^^^^^
@@ -2174,7 +2172,7 @@ Returns the system's top level dsp block size.
 
 *Note*: this isn't necessarily the same as the length of the
 signal vector that a signal object is expected to execute on. A switch~
-or block~ object might change that. An object's "dsp"-method has access
+or block~ object might change that. An object's "dsp" method has access
 to the signal vectors and the *s\_n* entry of any of the t\_signal's
 passed in give the length of the signal vector the dsp *perform* function
 will execute on.
