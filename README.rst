@@ -84,7 +84,7 @@ operations. After a *library* has been imported, all included
 
 Pd supports two modes to import *libraries*:
 
--  via the command line option “-lib my\_lib”
+-  via the command-line option “-lib my\_lib”
 
 -  by creating a “my\_lib” object
 
@@ -99,7 +99,7 @@ found, all included *externals* are loaded into memory by calling a
 routine ``my_lib_setup()``. After loading, a class “my\_lib” is (again)
 looked for as a (newly loaded) *external*. If so, an instance of this
 class is created, else the instantiation fails and an error is printed.
-Anyhow, all *external*-classes declared in the *library* are loaded by
+Anyhow, all *external* classes declared in the *library* are loaded by
 now.
 
 .. [#] If a class “my\_lib” is already existent, an object “my\_lib” will be instantiated and the procedure is done. Thus, no *library* has been loaded. Therefore no *library* that is named like an already used class name like, say, “abs”, can be loaded.
