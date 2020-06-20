@@ -95,8 +95,8 @@ The other method should be used for *libraries* that contain exactly one
 *external* bearing the same name. Pd checks first, whether a class named
 “my\_lib” is already loaded. If this is not the case [#]_, all paths are
 searched for a file called “my\_lib.pd\_linux” [#]_. If such file is
-found, all included *externals* are loaded into memory by calling the
-``my_lib_setup()`` function. After loading, a class “my\_lib” is (again)
+found, all included *externals* are loaded into memory by calling a
+``my_lib_setup()`` function. After loading, a “my\_lib” class is (again)
 looked for as a (newly loaded) *external*. If so, an instance of this
 class is created, else the instantiation fails and an error is printed.
 Anyhow, all *external* classes declared in the *library* are loaded by
