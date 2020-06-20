@@ -8,7 +8,7 @@ Although plenty of functions are built into Pd, it is sometimes a pain or simply
 
 Therefore, Pd can be extended with self made primitives (“objects”) that are written in complex programming languages, like C/C++.
 
-This document aims to explain how to write such primitives in C, the popular language that was used to realize Pd. 
+This document aims to explain how to write such primitives in C, the popular language that was used to implement Pd. 
 
 Table of Contents
 *****************
