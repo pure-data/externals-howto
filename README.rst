@@ -1056,7 +1056,7 @@ pointers, that were passed via ``dsp_add``, which must be cast back to
 their real type.
 
 The perform function has to return a pointer to integer, that points to
-the address behind the stored pointers of the function. This means, that
+the address behind the stored pointers of the function. This means that
 the return argument equals the argument of the perform function plus the
 number of pointer variables (as declared as the second argument of
 ``dsp_add``) plus one.
@@ -1108,7 +1108,7 @@ In the example above, we do so by calling ``inlet_free`` (resp.
 
 NOTE: we do not really need to free inlets and outlet. As Pd will
 automatically free them for us (unless we are doing higher-order magic,
-like displaying one objects iolet as another object's. but let's not get
+like displaying one object's iolet as another object's. but let's not get
 into that for now...)
 
 the code: pan~
@@ -1274,10 +1274,10 @@ Pd types
 ========
 
 Since Pd is used on several platforms, many ordinary types of variables,
-like ``int``, are redefined. To write portable code, it is reasonable
+like ``int``, are redefined. To write portable code, it is advisable
 to use types provided by Pd.
 
-Apart from this there are many predefined types, that should make the
+Apart from this, there are many predefined types, which should make the
 life of the programmer simpler.
 
 Generally, Pd types start with ``t_``.
