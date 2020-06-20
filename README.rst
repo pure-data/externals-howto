@@ -123,7 +123,7 @@ In our case, an object class should be created, that prints the line
 the interface to Pd
 -------------------
 
-To write a Pd external, a well defined interface is needed. This is
+To write a Pd external, a well-defined interface is needed. This is
 provided in the header file “m\_pd.h”.
 
 ::
@@ -146,7 +146,7 @@ has to be defined.
 
 ``helloworld_class`` is going to be a pointer to the new class.
 
-The structure ``t_helloworld`` (of the type ``_helloworld``) is the data
+The ``t_helloworld`` structure (of the type ``_helloworld``) is the data
 space of the class.
 
 An absolutely necessary element of the data space is a variable of the
@@ -183,9 +183,9 @@ enable us to manipulate the data space.
 Since we only want to output “Hello world !!” (and, by the way, our data
 space is quite sparse), we renounce a manipulation.
 
-The function ``post(char *c,...)`` sends a string to the standard error.
+The ``post(char *c,...)`` function sends a string to the standard error.
 A carriage return is added automatically. Apart from this, the
-``post`` function works like the C function ``printf()``.
+``post`` function works like the C ``printf()`` function.
 
 generation of a new class
 -------------------------
@@ -193,8 +193,8 @@ generation of a new class
 To generate a new class, information on the data space and the method
 space of this class has to be passed to Pd when a library is loaded.
 
-On loading a new library “my\_lib”, Pd tries to call a function
-“my\_lib\_setup()”. This function (or functions called by it) declares
+On loading a new library “my\_lib”, Pd tries to call a “my\_lib\_setup()”
+function. This function (or functions called by it) declares
 the new classes and their properties. It is only called once, when the
 library is loaded. If the function call fails (e.g., because no function
 of the specified name is present) no external of the library will be
@@ -215,7 +215,7 @@ loaded.
 class\_new
 ^^^^^^^^^^
 
-The function ``class_new`` creates a new class and returns a pointer to
+The ``class_new`` function creates a new class and returns a pointer to
 this prototype.
 
 The first argument is the symbolic name of the class.
@@ -223,7 +223,7 @@ The first argument is the symbolic name of the class.
 The next two arguments define the constructor and destructor of the
 class.
 
-Whenever a class object is created in a Pd patch, the class constructor
+Whenever a class object is created in a Pd patch, class constructor
 ``(t_newmethod)helloworld_new`` instantiates the object and initialises
 the data space.
 
@@ -295,7 +295,7 @@ defined with ``class_new``.
 Because there are no object arguments for our “hello world” class, the
 constructor has none too.
 
-The function ``pd_new`` reserves memory for the data space, initialises
+Function ``pd_new`` reserves memory for the data space, initialises
 the variables that are internal to the object and returns a pointer to
 the data space.
 
@@ -347,7 +347,7 @@ outputs the counter value on the outlet and afterwards increases the
 counter value by 1.
 
 This class is similar to the previous one, but the data space is
-extended by a variable “counter” and the result is written as a message
+extended by variable “counter” and the result is written as a message
 to an outlet instead of a string to the standard error.
 
 object variables
@@ -365,7 +365,7 @@ State variables that belong to class instances belong to the data space.
       int i_count;
     } t_counter;
 
-The integer variable ``i_count`` stores the counter value.
+Integer variable ``i_count`` stores the counter value.
 
 object arguments
 ----------------
@@ -386,7 +386,7 @@ creation time.
       class_addbang(counter_class, counter_bang);
     }
 
-So we have an additional argument in the function ``class_new``:
+So we have an additional argument in the ``class_new`` function:
 ``A_DEFFLOAT`` tells Pd, that the object needs one argument of the type
 ``t_floatarg``. If no argument is passed, this will default to “0”.
 
@@ -413,8 +413,8 @@ The constructor method has one argument of type ``t_floatarg`` as
 declared in the setup function by ``class_new``. This argument is used to
 initialise the counter.
 
-A new outlet is created with the function ``outlet_new``. The first
-argument is a pointer to the interna of the object the new outlet is
+A new outlet is created with function ``outlet_new``. The first
+argument is a pointer to the internal of the object the new outlet is
 created for.
 
 The second argument is a symbolic description of the outlet type. Since
@@ -430,7 +430,7 @@ outlet pointer.
 the counter method
 ------------------
 
-When triggered, the counter value should be sent to the outlet and
+When triggered, the counter's value should be sent to the outlet and
 afterwards be incremented by 1.
 
 ::
@@ -442,7 +442,7 @@ afterwards be incremented by 1.
       outlet_float(x->x_obj.ob_outlet, f);
     }
 
-The function ``outlet_float`` sends a floating point value (second
+Function ``outlet_float`` sends a floating point value (second
 argument) to the outlet that is specified by the first argument.
 
 We first store the counter in a floating point buffer. Afterwards the
@@ -450,7 +450,7 @@ counter is incremented and not before that the buffer variable is sent
 to the outlet.
 
 What appears to be unnecessary on the first glance, makes sense after
-further inspection: The buffer variable has been realized as
+further inspection: the buffer variable has been declared as a
 ``t_float``, since ``outlet_float`` expects a floating point value and a
 typecast is inevitable.
 
@@ -544,9 +544,9 @@ The new class objects should have methods for different messages, like
             CLASS_DEFAULT, 
             A_GIMME, 0);
 
-The class generator ``class_new`` has been extended by the argument
+Class generator ``class_new`` has been extended by the argument
 ``A_GIMME``. This enables a dynamic number of arguments to be passed at
-the instantiation of the object.
+object instantiation.
 
 ::
 
@@ -582,12 +582,12 @@ method for the selector “bound” followed by two numerical values.
       class_sethelpsymbol(counter_class, gensym("help-counter"));
 
 If a Pd object is right-clicked, a help patch describing the
-object's class can be opened. By default, this patch is located in the
+object's class can be opened. By default, this patch is located in
 directory “\ *doc/5.reference/*\ ” and is named like the symbolic class
 name.
 
-An alternative help patch can be defined with the
-``class_sethelpsymbol`` function.
+An alternative help patch can be defined using function 
+``class_sethelpsymbol``.
 
 construction of in- and outlets
 -------------------------------
@@ -647,7 +647,7 @@ counter with step width of “1”.
       inlet_new(&x->x_obj, &x->x_obj.ob_pd,
             gensym("list"), gensym("bound"));
 
-The function ``inlet_new`` creates a new “active” inlet. “Active” means,
+Function ``inlet_new`` creates a new “active” inlet. “Active” means,
 that a class method is called each time a message is sent to an “active”
 inlet.
 
@@ -710,7 +710,7 @@ The order of the generation of inlets and outlets is important, since it
 corresponds to the order of inlets and outlets in the graphical
 representation of the object.
 
-.. [#] That’s why the step width of the classdata space is realized as t\_float.
+.. [#] That’s why the step width of the classdata space is declared as t\_float.
 
 extended method space
 ---------------------
@@ -878,11 +878,11 @@ can therefore be realized with signal classes too.
 
 Per agreement, the symbolic names of signal classes end with a tilde .
 
-The class “pan” shall demonstrate, how signal classes are written.
+Class “pan” shall demonstrate how signal classes are written.
 
 A signal on the left inlet is mixed with a signal on the second inlet.
 The mixing factor between 0 and 1 is defined via a ``t_float`` message
-on a third inlet.
+to the third inlet.
 
 variables of a signal class
 ---------------------------
@@ -908,11 +908,11 @@ principal differences between the data spaces.
 Only one variable ``f_pan`` for the *mixing factor* of the
 panning function is needed.
 
-The other variable ``f`` is needed whenever a signal inlet is needed
+The other variable, ``f``, is needed whenever a signal inlet is needed
 too. If no signal but only a float message is present at a signal inlet,
 this variable is used to automatically convert the float to signal.
 
-Finally, we have the members ``x_in2``, ``x_in3`` and ``x_out``, which
+Finally, we have members ``x_in2``, ``x_in3`` and ``x_out``, which
 are needed to store handles to the various extra inlets (resp. outlets)
 of the object.
 
