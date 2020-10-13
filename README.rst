@@ -144,7 +144,7 @@ has to be defined.
       t_object  x_obj;
     } t_helloworld;
 
-``hello_worldclass`` is going to be a pointer to the new class.
+``helloworld_class`` is going to be a pointer to the new class.
 
 The structure ``t_helloworld`` (of the type ``_helloworld``) is the data
 space of the class.
