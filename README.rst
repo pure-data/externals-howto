@@ -1250,7 +1250,7 @@ use ``gensym``:
 +--------------+-------------------------+------------------+
 | list         | ``gensym("list")``      | ``&s_list``      |
 +--------------+-------------------------+------------------+
-| — (signal)   | ``gensym("signal")``    | ``&s_symbol``    |
+| — (signal)   | ``gensym("signal")``    | ``&s_signal``    |
 +--------------+-------------------------+------------------+
 
 Other selectors can be used as well. The receiving class has to provide
