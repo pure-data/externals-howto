@@ -2229,6 +2229,20 @@ error
 
 Writes a C-string as an error-message to the Pd-console.
 
+verbose
+^^^^^^^
+
+::
+
+   void verbose(int level, const char *fmt, ...);
+
+Writes a C-string as a verbose message to the Pd-console.
+If ``level==0``, these messages are only output if Pd was
+started in *verbose* mode (``-v`` startup flag).
+If ``level==1``, these messages are only output if Pd was
+started in *more verbose* mode (``-v -v`` startup flags), and so on.
+
+
 pd_error
 ^^^^^^^^
 
@@ -2243,3 +2257,31 @@ so you can <kbd>Control</kbd>-Click the error message to highlight the object
 
 The ``object`` must point to your object instance (or be ``NULL``).
 
+logpost
+^^^^^^^
+
+::
+
+    void logpost(void object*, const int level, const char *fmt, ...);
+
+Writes a C-string as an message to the Pd-console at a given verbosity.
+The message is associated with the object that emitted it,
+so you can <kbd>Control</kbd>-Click the error message to highlight the object.
+
+The ``object`` must point to your object instance (or be ``NULL``).
+
+The verbosity ``level`` can have the following values:
+
++-------+---------------+
+| level | severity      |
++=======+===============+
+| 0     | fatal         |
++-------+---------------+
+| 1     | error         |
++-------+---------------+
+| 2     | normal        |
++-------+---------------+
+| 3     | verbose       |
++-------+---------------+
+| 4     | more verbose  |
++-------+---------------+
