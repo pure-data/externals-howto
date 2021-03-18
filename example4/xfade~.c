@@ -148,7 +148,7 @@ void xfade_tilde_setup(void) {
   xfade_tilde_class = class_new(gensym("xfade~"),
         (t_newmethod)xfade_tilde_new,
         (t_method)xfade_tilde_free,
-	sizeof(t_xfade_tilde),
+        sizeof(t_xfade_tilde),
         CLASS_DEFAULT,
         A_DEFFLOAT, 0);
 

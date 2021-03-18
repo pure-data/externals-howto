@@ -79,11 +79,11 @@ void *helloworld_new(void)
 void helloworld_setup(void) {
   /* create a new class */
   helloworld_class = class_new(gensym("helloworld"),        /* the object's name is "helloworld" */
-			       (t_newmethod)helloworld_new, /* the object's constructor is "helloworld_new()" */
-			       0,                           /* no special destructor */
-			       sizeof(t_helloworld),        /* the size of the data-space */
-			       CLASS_DEFAULT,               /* a normal pd object */
-			       0);                          /* no creation arguments */
+                               (t_newmethod)helloworld_new, /* the object's constructor is "helloworld_new()" */
+                               0,                           /* no special destructor */
+                               sizeof(t_helloworld),        /* the size of the data-space */
+                               CLASS_DEFAULT,               /* a normal pd object */
+                               0);                          /* no creation arguments */
 
   /* attach functions to messages */
   /* here we bind the "helloworld_bang()" function to the class "helloworld_class" -

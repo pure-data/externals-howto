@@ -75,11 +75,11 @@ void *counter_new(t_floatarg f)
  */
 void counter_setup(void) {
   counter_class = class_new(gensym("counter"),
-			    (t_newmethod)counter_new,
-			    0,
-			    sizeof(t_counter),
-			    CLASS_DEFAULT,
-			    A_DEFFLOAT, 0); /* the object takes one argument which is a floating-point and defaults to 0 */
+      (t_newmethod)counter_new,
+      0,
+      sizeof(t_counter),
+      CLASS_DEFAULT,
+      A_DEFFLOAT, 0); /* the object takes one argument which is a floating-point and defaults to 0 */
 
   /* call a function when object gets banged */
   class_addbang(counter_class, counter_bang);
