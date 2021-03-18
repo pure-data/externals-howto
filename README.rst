@@ -633,7 +633,6 @@ with ``A_GIMME``, the constructor has following arguments:
 
 +--------------------+------------------------------------------------+
 | ``t_symbol *s``    | the symbolic name,                             |
-+--------------------+------------------------------------------------+
 |                    | that was used for object creation              |
 +--------------------+------------------------------------------------+
 | ``int argc``       | the number of arguments passed to the object   |
