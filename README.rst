@@ -2216,7 +2216,7 @@ post
 
 ::
 
-    void post(char *fmt, ...);
+    void post(const char *fmt, ...);
 
 Writes a C-string to the Pd-console.
 
@@ -2225,7 +2225,7 @@ error
 
 ::
 
-    void error(char *fmt, ...);
+    void error(const char *fmt, ...);
 
 Writes a C-string as an error-message to the Pd-console.
 
@@ -2234,7 +2234,7 @@ pd_error
 
 ::
 
-    void pd_error(void object*, char *fmt, ...);
+    void pd_error(void object*, const char *fmt, ...);
 
 Writes a C-string as an error-message to the Pd-console.
 The error message is associated with the object that emitted it,
