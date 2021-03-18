@@ -82,9 +82,11 @@ Unlike *externals*, *libraries* can be imported by Pd with special
 operations. After a *library* has been imported, all included
 *externals* have been loaded into memory and are available as objects.
 
-Pd supports two modes to import *libraries*:
+Pd supports a few ways to import *libraries*:
 
 -  via the command line-option “-lib my\_lib”
+
+-  by creating an object "declare -lib my\_lib"
 
 -  by creating an object “my\_lib”
 
