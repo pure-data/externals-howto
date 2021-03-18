@@ -156,7 +156,7 @@ void xfade_tilde_setup(void) {
    * function will get called
    */
   class_addmethod(xfade_tilde_class,
-        (t_method)xfade_tilde_dsp, gensym("dsp"), 0);
+      (t_method)xfade_tilde_dsp, gensym("dsp"), A_CANT, 0);
   /* if no signal is connected to the first inlet, we can as well 
    * connect a number box to it and use it as "signal"
    */
