@@ -2241,4 +2241,5 @@ The error message is associated with the object that emitted it,
 so you can <kbd>Control</kbd>-Click the error message to highlight the object
 (or find it via the Pd-menu *Find->Find last error*)
 
-The `object` must point to your instance.
+The ``object`` must point to your object instance (or be ``NULL``).
+
