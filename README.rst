@@ -1456,199 +1456,21 @@ object is destroyed.
 less arbitrary) combination of following objects is possible:
 
 
-
-.. raw:: html
-
-   <table>
-
-.. raw:: html
-
-   <thead>
-
-.. raw:: html
-
-   <tr class="header">
-
-.. raw:: html
-
-   <th align="left">
-
-flag
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   <th align="left">
-
-description
-
-.. raw:: html
-
-   </th>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   </thead>
-
-.. raw:: html
-
-   <tbody>
-
-.. raw:: html
-
-   <tr class="odd">
-
-.. raw:: html
-
-   <td align="left">
-
-CLASS\_DEFAULT
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-a normal object with one inlet
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr class="even">
-
-.. raw:: html
-
-   <td align="left">
-
-CLASS\_PD
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-object (without graphical presentation) 
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr class="even">
-
-.. raw:: html
-
-   <td align="left">
-
-CLASS\_GOBJ 
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-pure graphical object (like arrays, graphs,...) 
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr class="even">
-
-.. raw:: html
-
-   <td align="left">
-
-CLASS\_PATCHABLE
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-a normal object (with one inlet) 
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   <tr class="even">
-
-.. raw:: html
-
-   <td align="left">
-
-CLASS\_NOINLET 
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   <td align="left">
-
-the default inlet is suppressed
-
-.. raw:: html
-
-   </td>
-
-.. raw:: html
-
-   </tr>
-
-.. raw:: html
-
-   </tbody>
-
-.. raw:: html
-
-   </table>
-
++---------------------+------------------------------------+
+| flag                | description                        |
++=====================+====================================+
+| ``CLASS_DEFAULT``   | a normal object with one inlet     |
++---------------------+------------------------------------+
+| ``CLASS_PD``        | *object*                           |
+|                     | *(without graphical presentation)* |
++---------------------+------------------------------------+
+| ``CLASS_GOBJ``      | *pure graphical object*            |
+|                     | *(like arrays, graphs,...)*        |
++---------------------+------------------------------------+
+| ``CLASS_PATCHABLE`` | *a normal object (with one inlet)* |
++---------------------+------------------------------------+
+| ``CLASS_NOINLET``   | the default inlet is suppressed    |
++---------------------+------------------------------------+
 
 Flags the description of which is printed in *italic* are of small
 importance for writing externals.
