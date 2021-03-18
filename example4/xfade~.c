@@ -60,12 +60,12 @@ t_int *xfade_tilde_perform(t_int *w)
   /* the first element is a pointer to the dataspace of this object */
   t_xfade_tilde *x = (t_xfade_tilde *)(w[1]);
   /* here is a pointer to the t_sample arrays that hold the 2 input signals */
-  t_sample  *in1 =    (t_sample *)(w[2]);
-  t_sample  *in2 =    (t_sample *)(w[3]);
+  t_sample    *in1 =      (t_sample *)(w[2]);
+  t_sample    *in2 =      (t_sample *)(w[3]);
   /* here comes the signalblock that will hold the output signal */
-  t_sample  *out =    (t_sample *)(w[4]);
+  t_sample    *out =      (t_sample *)(w[4]);
   /* all signalblocks are of the same length */
-  int          n =           (int)(w[5]);
+  int            n =             (int)(w[5]);
   /* get (and clip) the mixing-factor */
   t_sample pan = (x->x_pan<0)?0.0:(x->x_pan>1)?1.0:x->x_pan;
   /* just a counter */
