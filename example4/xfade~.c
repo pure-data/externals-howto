@@ -12,13 +12,13 @@
 
 
 /**
- * include the interface to Pd 
+ * include the interface to Pd
  */
 #include "m_pd.h"
 
 
 /**
- * define a new "class" 
+ * define a new "class"
  */
 static t_class *xfade_tilde_class;
 
@@ -43,7 +43,7 @@ typedef struct _xfade_tilde {
 /**
  * this is the core of the object
  * this perform-routine is called for each signal block
- * the name of this function is arbitrary and is registered to Pd in the 
+ * the name of this function is arbitrary and is registered to Pd in the
  * xfade_tilde_dsp() function, each time the DSP is turned on
  *
  * the argument to this function is just a pointer within an array
@@ -71,7 +71,7 @@ t_int *xfade_tilde_perform(t_int *w)
   /* just a counter */
   int i;
 
-  /* this is the main routine: 
+  /* this is the main routine:
    * mix the 2 input signals into the output signal
    */
   for(i=0; i<n; i++)
@@ -126,7 +126,7 @@ void *xfade_tilde_new(t_floatarg f)
 
   /* save the mixing factor in our dataspace */
   x->x_pan = f;
-  
+
   /* create a new signal-inlet */
   x->x_in2 = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
 
@@ -149,15 +149,15 @@ void xfade_tilde_setup(void) {
         (t_newmethod)xfade_tilde_new,
         (t_method)xfade_tilde_free,
 	sizeof(t_xfade_tilde),
-        CLASS_DEFAULT, 
+        CLASS_DEFAULT,
         A_DEFFLOAT, 0);
 
-  /* whenever the audio-engine is turned on, the "xfade_tilde_dsp()" 
+  /* whenever the audio-engine is turned on, the "xfade_tilde_dsp()"
    * function will get called
    */
   class_addmethod(xfade_tilde_class,
       (t_method)xfade_tilde_dsp, gensym("dsp"), A_CANT, 0);
-  /* if no signal is connected to the first inlet, we can as well 
+  /* if no signal is connected to the first inlet, we can as well
    * connect a number box to it and use it as "signal"
    */
   CLASS_MAINSIGNALIN(xfade_tilde_class, t_xfade_tilde, f);

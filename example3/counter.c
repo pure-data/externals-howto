@@ -14,13 +14,13 @@
 
 
 /**
- * include the interface to Pd 
+ * include the interface to Pd
  */
 #include "m_pd.h"
 
 
 /**
- * define a new "class" 
+ * define a new "class"
  */
 static t_class *counter_class;
 
@@ -36,7 +36,7 @@ static t_class *counter_class;
 typedef struct _counter {
   t_object  x_obj;         /* mandatory t_object */
   t_int i_count;           /* the current counter value */
-  t_float step;            /* step size; 
+  t_float step;            /* step size;
                             * this is "float" because of the passive inlet we are using */
   t_int i_down, i_up;      /* lower and upper boundary */
   t_outlet *f_out, *b_out; /* outlets */
@@ -55,7 +55,7 @@ void counter_bang(t_counter *x)
   if (x->i_down-x->i_up) {
     if ((step>0) && (x->i_count > x->i_up)) {
       x->i_count = x->i_down;
-      /* we crossed the upper boundary, so we send a bang out of 
+      /* we crossed the upper boundary, so we send a bang out of
        * the 2nd outlet (which is x->b_out)
        */
       outlet_bang(x->b_out);
@@ -83,7 +83,7 @@ void counter_reset(t_counter *x)
 /**
  * this is called whenever a "set" message is sent to the inlet of the object
  * since the "set" message has one floating-point argument (as declared in counter_setup())
- * we get a reference to the class-dataspace and the value 
+ * we get a reference to the class-dataspace and the value
  */
 void counter_set(t_counter *x, t_floatarg f)
 {
@@ -93,7 +93,7 @@ void counter_set(t_counter *x, t_floatarg f)
 
 /**
  * this is called whenever a "bound" message is sent to the inlet of the object
- * note that in counter_new(), we rewrite a list to the 2nd inlet 
+ * note that in counter_new(), we rewrite a list to the 2nd inlet
  * to a "bound" message to the 1st inlet
  */
 void counter_bound(t_counter *x, t_floatarg f1, t_floatarg f2)
@@ -171,8 +171,8 @@ void counter_setup(void) {
   counter_class = class_new(gensym("counter"),
                             (t_newmethod)counter_new,
                             0, sizeof(t_counter),
-                            CLASS_DEFAULT, 
-                            A_GIMME, /* an arbitrary number of arguments 
+                            CLASS_DEFAULT,
+                            A_GIMME, /* an arbitrary number of arguments
                                       * which are of arbitrary type */
                             0);
 
@@ -185,7 +185,7 @@ void counter_setup(void) {
 
   /* call a function when a "set" message with one float-argument (defaults to 0)
    * appears on the first inlet */
-  class_addmethod(counter_class, 
+  class_addmethod(counter_class,
         (t_method)counter_set, gensym("set"),
         A_DEFFLOAT, 0);
 

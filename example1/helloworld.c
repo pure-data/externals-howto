@@ -3,7 +3,7 @@
  * (c) 2001-2006 IOhannes m zmölnig zmoelnig[AT]iem.at
  *
  * this is the source-code for the first example in the HOWTO
- * it creates an object that prints "Hello world!" whenever it 
+ * it creates an object that prints "Hello world!" whenever it
  * gets banged.
  *
  * for legal issues please see the file LICENSE.txt
@@ -12,12 +12,12 @@
 
 
 /**
- * include the interface to Pd 
+ * include the interface to Pd
  */
 #include "m_pd.h"
 
 /**
- * define a new "class" 
+ * define a new "class"
  */
 static t_class *helloworld_class;
 
@@ -35,7 +35,7 @@ typedef struct _helloworld {
 
 /**
  * this method is called whenever a "bang" is sent to the object
- * the name of this function is arbitrary and is registered to Pd in the 
+ * the name of this function is arbitrary and is registered to Pd in the
  * helloworld_setup() routine
  */
 void helloworld_bang(t_helloworld *x)
@@ -53,7 +53,7 @@ void helloworld_bang(t_helloworld *x)
 /**
  * this is the "constructor" of the class
  * this method is called whenever a new object of this class is created
- * the name of this function is arbitrary and is registered to Pd in the 
+ * the name of this function is arbitrary and is registered to Pd in the
  * helloworld_setup() routine
  */
 void *helloworld_new(void)
@@ -89,5 +89,5 @@ void helloworld_setup(void) {
   /* here we bind the "helloworld_bang()" function to the class "helloworld_class()" -
    * it will be called whenever a bang is received
    */
-  class_addbang(helloworld_class, helloworld_bang); 
+  class_addbang(helloworld_class, helloworld_bang);
 }

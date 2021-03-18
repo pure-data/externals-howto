@@ -12,12 +12,12 @@
 
 
 /**
- * include the interface to Pd 
+ * include the interface to Pd
  */
 #include "m_pd.h"
 
 /**
- * define a new "class" 
+ * define a new "class"
  */
 static t_class *counter_class;
 
@@ -76,7 +76,7 @@ void *counter_new(t_floatarg f)
 void counter_setup(void) {
   counter_class = class_new(gensym("counter"),
 			    (t_newmethod)counter_new,
-			    0, 
+			    0,
 			    sizeof(t_counter),
 			    CLASS_DEFAULT,
 			    A_DEFFLOAT, 0); /* the object takes one argument which is a floating-point and defaults to 0 */
