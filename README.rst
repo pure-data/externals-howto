@@ -867,8 +867,8 @@ the code: counter
       class_sethelpsymbol(counter_class, gensym("help-counter"));
     }
 
-a signal-external: pan~
-=======================
+a signal-external: xfade~
+=========================
 
 Signal classes are normal Pd-classes, that offer additional methods for
 signals.
@@ -878,9 +878,9 @@ can therefore be realized with signal classes too.
 
 Per agreement, the symbolic names of signal classes end with a tilde .
 
-The class “pan” shall demonstrate, how signal classes are written.
+The class “xfade” shall demonstrate, how signal classes are written.
 
-A signal on the left inlet is mixed with a signal on the second inlet.
+A signal on the left inlet is crossfaded with a signal on the second inlet.
 The mixing-factor between 0 and 1 is defined via a ``t_float``-message
 on a third inlet.
 
@@ -892,21 +892,21 @@ principal differences between the data spaces.
 
 ::
 
-    typedef struct _pan_tilde {
+    typedef struct _xfade_tilde {
       t_object x_obj;
 
-      t_sample f_pan;
-      t_float  f;
+      t_float x_pan;
+      t_float f;
 
       t_inlet *x_in2;
       t_inlet *x_in3;
 
       t_outlet*x_out;
 
-    } t_pan_tilde;
+    } t_xfade_tilde;
 
-Only one variable ``f_pan`` for the *mixing-factor* of the
-panning-function is needed.
+Only one variable ``x_pan`` for the *mixing-factor* of the
+crossfade-function is needed.
 
 The other variable ``f`` is needed whenever a signal-inlet is needed
 too. If no signal but only a float-message is present at a signal-inlet,
@@ -921,17 +921,17 @@ signal-classes
 
 ::
 
-    void pan_tilde_setup(void) {
-      pan_tilde_class = class_new(gensym("pan~"),
-            (t_newmethod)pan_tilde_new,
-            (t_method)pan_tilde_free,
-            sizeof(t_pan_tilde),
+    void xfade_tilde_setup(void) {
+      xfade_tilde_class = class_new(gensym("xfade~"),
+            (t_newmethod)xfade_tilde_new,
+            (t_method)xfade_tilde_free,
+            sizeof(t_xfade_tilde),
             CLASS_DEFAULT, 
             A_DEFFLOAT, 0);
 
-      class_addmethod(pan_tilde_class,
-            (t_method)pan_tilde_dsp, gensym("dsp"), A_CANT, 0);
-      CLASS_MAINSIGNALIN(pan_tilde_class, t_pan_tilde, f);
+      class_addmethod(xfade_tilde_class,
+            (t_method)xfade_tilde_dsp, gensym("dsp"), A_CANT, 0);
+      CLASS_MAINSIGNALIN(xfade_tilde_class, t_xfade_tilde, f);
     }
 
 Something has changed with the ``class_new`` function: the third
@@ -972,14 +972,14 @@ construction of signal-inlets and -outlets
 
 ::
 
-    void *pan_tilde_new(t_floatarg f)
+    void *xfade_tilde_new(t_floatarg f)
     {
-      t_pan_tilde *x = (t_pan_tilde *)pd_new(pan_tilde_class);
+      t_xfade_tilde *x = (t_xfade_tilde *)pd_new(xfade_tilde_class);
 
-      x->f_pan = f;
+      x->x_pan = f;
 
       x->x_in2 = inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-      x->x_in3 = floatinlet_new (&x->x_obj, &x->f_pan);
+      x->x_in3 = floatinlet_new (&x->x_obj, &x->x_pan);
 
       x->x_out = outlet_new(&x->x_obj, &s_signal);
 
@@ -1018,9 +1018,9 @@ left to right).
 
 ::
 
-    void pan_tilde_dsp(t_pan_tilde *x, t_signal **sp)
+    void xfade_tilde_dsp(t_xfade_tilde *x, t_signal **sp)
     {
-      dsp_add(pan_tilde_perform, 5, x,
+      dsp_add(xfade_tilde_perform, 5, x,
               sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
     }
 
@@ -1063,17 +1063,17 @@ number of pointer variables (as declared as the second argument of
 
 ::
 
-    t_int *pan_tilde_perform(t_int *w)
+    t_int *xfade_tilde_perform(t_int *w)
     {
-      t_pan_tilde *x = (t_pan_tilde *)(w[1]);
-      t_sample  *in1 =    (t_sample *)(w[2]);
-      t_sample  *in2 =    (t_sample *)(w[3]);
-      t_sample  *out =    (t_sample *)(w[4]);
-      int          n =           (int)(w[5]);
+      t_xfade_tilde *x = (t_xfade_tilde *)(w[1]);
+      t_sample    *in1 =      (t_sample *)(w[2]);
+      t_sample    *in2 =      (t_sample *)(w[3]);
+      t_sample    *out =      (t_sample *)(w[4]);
+      int            n =             (int)(w[5]);
 
-      t_sample f_pan = (x->f_pan<0)?0.0:(x->f_pan>1)?1.0:x->f_pan;
+      t_sample pan = (x->x_pan<0)?0.0:(x->x_pan>1)?1.0:x->x_pan;
 
-      while (n--) *out++ = (*in1++)*(1-f_pan)+(*in2++)*f_pan;
+      while (n--) *out++ = (*in1++)*(1-pan)+(*in2++)*pan;
 
       return (w+6);
     }
@@ -1092,7 +1092,7 @@ destructor
 
 ::
 
-    void pan_tilde_free(t_pan_tilde *x)
+    void xfade_tilde_free(t_xfade_tilde *x)
     {
       inlet_free(x->x_in2);
       inlet_free(x->x_in3);
@@ -1111,75 +1111,75 @@ automatically free them for us (unless we are doing higher-order magic,
 like displaying one objects iolet as another object's. but let's not get
 into that for now...)
 
-the code: pan~
---------------
+the code: xfade~
+----------------
 
 ::
 
     #include "m_pd.h"
 
-    static t_class *pan_tilde_class;
+    static t_class *xfade_tilde_class;
 
-    typedef struct _pan_tilde {
-      t_object  x_obj;
-      t_sample f_pan;
-      t_sample f;
+    typedef struct _xfade_tilde {
+      t_object x_obj;
+      t_float x_pan;
+      t_float f;
 
       t_inlet *x_in2;
       t_inlet *x_in3;
       t_outlet*x_out;
-    } t_pan_tilde;
+    } t_xfade_tilde;
 
-    t_int *pan_tilde_perform(t_int *w)
+    t_int *xfade_tilde_perform(t_int *w)
     {
-      t_pan_tilde *x = (t_pan_tilde *)(w[1]);
-      t_sample  *in1 =    (t_sample *)(w[2]);
-      t_sample  *in2 =    (t_sample *)(w[3]);
-      t_sample  *out =    (t_sample *)(w[4]);
-      int          n =           (int)(w[5]);
-      t_sample f_pan = (x->f_pan<0)?0.0:(x->f_pan>1)?1.0:x->f_pan;
+      t_xfade_tilde *x = (t_xfade_tilde *)(w[1]);
+      t_sample    *in1 =      (t_sample *)(w[2]);
+      t_sample    *in2 =      (t_sample *)(w[3]);
+      t_sample    *out =      (t_sample *)(w[4]);
+      int            n =             (int)(w[5]);
+      t_sample pan = (x->x_pan<0)?0.0:(x->x_pan>1)?1.0:x->x_pan;
 
-      while (n--) *out++ = (*in1++)*(1-f_pan)+(*in2++)*f_pan;
+      while (n--) *out++ = (*in1++)*(1-pan)+(*in2++)*pan;
 
       return (w+6);
     }
 
-    void pan_tilde_dsp(t_pan_tilde *x, t_signal **sp)
+    void xfade_tilde_dsp(t_xfade_tilde *x, t_signal **sp)
     {
-      dsp_add(pan_tilde_perform, 5, x,
+      dsp_add(xfade_tilde_perform, 5, x,
               sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
     }
 
-    void pan_tilde_free(t_pan_tilde *x)
+    void xfade_tilde_free(t_xfade_tilde *x)
     {
       inlet_free(x->x_in2);
       inlet_free(x->x_in3);
       outlet_free(x->x_out);
     }
 
-    void *pan_tilde_new(t_floatarg f)
+    void *xfade_tilde_new(t_floatarg f)
     {
-      t_pan_tilde *x = (t_pan_tilde *)pd_new(pan_tilde_class);
+      t_xfade_tilde *x = (t_xfade_tilde *)pd_new(xfade_tilde_class);
 
-      x->f_pan = f;
+      x->x_pan = f;
       
       x->x_in2=inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-      x->x_in3=floatinlet_new (&x->x_obj, &x->f_pan);
+      x->x_in3=floatinlet_new (&x->x_obj, &x->x_pan);
       x->x_out=outlet_new(&x->x_obj, &s_signal);
 
       return (void *)x;
     }
 
-    void pan_tilde_setup(void) {
-      pan_tilde_class = class_new(gensym("pan~"),
-            (t_newmethod)pan_tilde_new,
-            0, sizeof(t_pan_tilde),
+    void xfade_tilde_setup(void) {
+      xfade_tilde_class = class_new(gensym("xfade~"),
+            (t_newmethod)xfade_tilde_new,
+            0, sizeof(t_xfade_tilde),
             CLASS_DEFAULT, 
             A_DEFFLOAT, 0);
 
-      class_addmethod(pan_tilde_class,
-            (t_method)pan_tilde_dsp, gensym("dsp"), A_CANT, 0);
-      CLASS_MAINSIGNALIN(pan_tilde_class, t_pan_tilde, f);
+      class_addmethod(xfade_tilde_class,
+            (t_method)xfade_tilde_dsp, gensym("dsp"), A_CANT, 0);
+      CLASS_MAINSIGNALIN(xfade_tilde_class, t_xfade_tilde, f);
     }
 
 Pd’s message-system

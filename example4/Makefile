@@ -1,4 +1,4 @@
-# Makefile to build class 'pan~' for Pure Data.
+# Makefile to build class 'xfade~' for Pure Data.
 # Needs Makefile.pdlibbuilder as helper makefile for platform-dependent build
 # settings and rules.
 
@@ -6,7 +6,7 @@
 lib.name = externals.howto.example4
 
 # input source file (class name == source file basename)
-class.sources = pan~.c
+class.sources = xfade~.c
 
 # all extra files to be included in binary distribution of the library
 datafiles =
