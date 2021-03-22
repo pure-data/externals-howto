@@ -134,7 +134,7 @@ class is created, else the instantiation fails and an error is printed.
 Anyhow, all *external*-classes declared in the *library* are loaded by
 now.
 
-.. [#] If a class “my\_lib” is already existent, an object “my\_lib” will be instantiated and the procedure is done. Thus, no *library* has been loaded. Therefore no *library* that is named like an already used class-name like, say, “abs”, can be loaded.
+.. [#] If a class “my\_lib” already exists, an object “my\_lib” will be instantiated and the procedure is done. Thus, no *library* has been loaded. Therefore no *library* that is named like an already used class-name like, say, “abs”, can be loaded.
 
 .. [#] or another system-dependent filename-extensions (s.a.)
 
