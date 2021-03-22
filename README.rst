@@ -2,13 +2,19 @@
 HOWTO write an External for Pure Data
 #####################################
 
-Pure Data (aka Pd) is a graphical real-time computer-music system that follows the tradition of IRCAMs ISPW-max.
+Pure Data (aka Pd) is a graphical real-time computer-music system that
+follows the tradition of IRCAM's ISPW-Max.
 
-Although plenty of functions are built into Pd, it is sometimes a pain or simply impossible to create a patch with a certain functionality out of the given primitives and combinations of these.
+Although plenty of functions are built into Pd, it is sometimes a pain
+or simply impossible to create a patch with a certain functionality out
+of the given primitives and combinations of these.
 
-Therefore, Pd can be extended with self made primitives (“objects”) that are written in complex programming-languages, like C/C++.
+Therefore, Pd can be extended with self made primitives (“objects”) that
+are written in higher-level programming-languages, like C/C++, Python,
+lua,...
 
-This document aims to explain how to write such primitives in C, the popular language that was used to realize Pd. 
+This document aims to explain how to write such primitives in C, the
+popular programming language that was used to implement Pd.
 
 Table of Contents
 *****************
@@ -32,7 +38,7 @@ ANSI-C-Standard, like the *Gnu C-compiler* (gcc) on linux-systems or
 classes, instances, objects
 ===========================
 
-Pd is written in the programming-language C. Due to its graphical
+Pd is written in the programming language C. Due to its graphical
 nature, Pd is a *object-oriented* system. Unfortunately C does not
 support very well the use of classes. Thus the resulting source-code is
 not as elegant as C++-code would be, for instance.
@@ -134,7 +140,10 @@ class is created, else the instantiation fails and an error is printed.
 Anyhow, all *external*-classes declared in the *library* are loaded by
 now.
 
-.. [#] If a class “my\_lib” already exists, an object “my\_lib” will be instantiated and the procedure is done. Thus, no *library* has been loaded. Therefore no *library* that is named like an already used class-name like, say, “abs”, can be loaded.
+.. [#] If a class “my\_lib” already exists, an object “my\_lib” will be
+instantiated and the procedure is done. Thus, no *library* has been
+loaded. Therefore no *library* that is named like an already used
+class-name like, say, “abs”, can be loaded.
 
 .. [#] or another system-dependent filename-extensions (s.a.)
 
@@ -741,7 +750,8 @@ The order of the generation of inlets and outlets is important, since it
 corresponds to the order of inlets and outlets in the graphical
 representation of the object.
 
-.. [#] That’s why the step-width of the classdata space is realized as t\_float.
+.. [#] That’s why the step-width of the classdata space is realized as
+t\_float.
 
 extended method space
 ---------------------
@@ -2105,8 +2115,8 @@ pd_error
 
 Writes a C-string as an error-message to the Pd-console.
 The error message is associated with the object that emitted it,
-so you can <kbd>Control</kbd>-Click the error message to highlight the object
-(or find it via the Pd-menu *Find->Find last error*)
+so you can <kbd>Control</kbd>-Click the error message to highlight the
+object (or find it via the Pd-menu *Find->Find last error*).
 
 The ``object`` must point to your object instance (or be ``NULL``).
 
@@ -2119,7 +2129,8 @@ logpost
 
 Writes a C-string as an message to the Pd-console at a given verbosity.
 The message is associated with the object that emitted it,
-so you can <kbd>Control</kbd>-Click the error message to highlight the object.
+so you can <kbd>Control</kbd>-Click the error message to highlight the
+object.
 
 The ``object`` must point to your object instance (or be ``NULL``).
 
