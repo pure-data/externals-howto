@@ -116,7 +116,7 @@ Pd supports a few ways to import *libraries*:
 
 -  via the command line-option “-lib my\_lib”
 
--  by creating an object "declare -lib my\_lib"
+-  by creating an object “declare -lib my\_lib”
 
 -  by creating an object “my\_lib”
 
@@ -1073,7 +1073,7 @@ of the same length, it is sufficient to get the length of one of these
 vectors.
 
 Since an object doesn't know its *perform*-routine's signal-vector
-length until the "dsp"-method, this would be the place to allocate
+length until the “dsp”-method, this would be the place to allocate
 temporary buffers to store intermediate dsp computations. See:
 *getbytes*.
 
@@ -2025,7 +2025,7 @@ Returns the system top level dsp block size.
 
 *Note*: this isn't necessarily the same as the length of the
 signal-vector that a signal object is expected to execute on. A switch~
-or block~ object might change that. An object's "dsp"-method has access
+or block~ object might change that. An object's “dsp”-method has access
 to the signal-vectors and the *s\_n* entry of any of the t\_signal's
 passed in give the length of the signal-vector the dsp *perform*-routine
 will execute on.
