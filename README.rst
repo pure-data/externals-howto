@@ -1857,8 +1857,8 @@ verbose
    void verbose(int level, const char *fmt, ...);
 
 Writes a C-string as a verbose message to the Pd-console.
-If ``level==0``, these messages are only output if Pd was started in *verbose* mode (``-v`` startup flag).
-If ``level==1``, these messages are only output if Pd was started in *more verbose* mode (``-v -v`` startup flags), and so on.
+If ``level==0``, the message is only printed if Pd was started in *verbose* mode (``-v`` startup flag).
+If ``level==1``, the message is only printed if Pd was started in *more verbose* mode (``-v -v`` startup flags), and so on.
 
 
 pd_error
