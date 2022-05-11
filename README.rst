@@ -1840,15 +1840,6 @@ post
 
 Writes a C-string to the Pd-console.
 
-error
-^^^^^
-
-::
-
-    void error(const char *fmt, ...);
-
-Writes a C-string as an error-message to the Pd-console.
-
 verbose
 ^^^^^^^
 
@@ -1900,3 +1891,20 @@ The verbosity ``level`` can have the following values:
 +-------+---------------+
 | 4     | more verbose  |
 +-------+---------------+
+
+.. raw:: html
+
+   <s>
+
+error
+^^^^^
+
+Previous versions of Pd had an ``error`` function to emit errors,
+but this has been removed as it clashed with the function of the same name
+in my libc implementations.
+
+Use ``pd_error()`` instead (possibly with a ``NULL`` object)
+
+.. raw:: html
+
+   </s>
