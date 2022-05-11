@@ -10,6 +10,14 @@ Therefore, Pd can be extended with self made primitives (“objects”) that are
 
 This document aims to explain how to write such primitives in C, the popular programming language that was used to implement Pd.
 
+.. |kbd| raw:: html
+
+   <kbd>
+
+.. |nkbd| raw:: html
+
+   </kbd>
+
 Table of Contents
 *****************
 
@@ -1860,7 +1868,7 @@ pd_error
     void pd_error(void object*, const char *fmt, ...);
 
 Writes a C-string as an error-message to the Pd-console.
-The error message is associated with the object that emitted it, so you can `<kbd>Control</kbd>`-Click the error message to highlight the object (or find it via the Pd-menu *Find->Find last error*).
+The error message is associated with the object that emitted it, so you can |kbd| Control |nkbd| -Click the error message to highlight the object (or find it via the Pd-menu *Find->Find last error*).
 
 The ``object`` must point to your object instance (or be ``NULL``).
 
@@ -1872,7 +1880,7 @@ logpost
     void logpost(void object*, const int level, const char *fmt, ...);
 
 Writes a C-string as an message to the Pd-console at a given verbosity.
-The message is associated with the object that emitted it, so you can `<kbd>Control</kbd>`-Click the error message to highlight the object.
+The message is associated with the object that emitted it, so you can |kbd| Control |nkbd| -Click the error message to highlight the object.
 
 The ``object`` must point to your object instance (or be ``NULL``).
 
