@@ -1909,7 +1909,7 @@ error
 
 Previous versions of Pd had an ``error`` function to emit errors,
 but this has been removed as it clashed with the function of the same name
-in my libc implementations.
+in many libc implementations.
 
 Use ``pd_error()`` instead (possibly with a ``NULL`` object)
 
