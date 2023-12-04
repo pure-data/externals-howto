@@ -451,7 +451,7 @@ argument is a pointer to the internals of the object the new outlet is
 created for.
 
 The second argument is a symbolic description of the outlet type. Since
-out counter should output numeric values it is of type “float”.
+our counter should output numeric values it is of type “float”.
 
 ``outlet_new`` returns a pointer to the new outlet and saves this very
 pointer in the ``t_object`` variable ``x_obj.ob_outlet``. If only one
