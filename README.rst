@@ -1183,7 +1183,8 @@ the code: xfade~
     void xfade_tilde_setup(void) {
       xfade_tilde_class = class_new(gensym("xfade~"),
             (t_newmethod)xfade_tilde_new,
-            0, sizeof(t_xfade_tilde),
+            (t_method)xfade_tilde_free,
+            sizeof(t_xfade_tilde),
             CLASS_DEFAULT, 
             A_DEFFLOAT, 0);
 
