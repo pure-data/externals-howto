@@ -1916,12 +1916,14 @@ In this array, the pointers passed via ``dsp_add`` are stored.
 These pointers must be cast back to their original type.
 
 **N.B.**: The first pointer is stored at ``w[1]`` !!!
+(``w[0]`` stores the address of the perform-routine itself; while used internally by the DSP-graph, there's typically no use for this value in perform-routine itself.)
 
-The perform function must return a pointer to integer, that points
+The perform function must return a pointer, that points
 directly behind the memory, where the object’s pointers are stored. This
 means that the return argument equals function argument ``w``, plus
 the number of used pointers (as defined in the second argument of
 ``dsp_add``) plus one.
+
 
 CLASS\_MAINSIGNALIN
 ^^^^^^^^^^^^^^^^^^^
